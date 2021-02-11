@@ -55,7 +55,8 @@ const Entries = sequelize.define('entries', {
 
   mood: {
     type: Sequelize.STRING
-  }
+  },
+  private: Sequelize.STRING
 
 });
 const Quote = sequelize.define('quote', {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Entry from './Entry.jsx';
 import Memory from './Memory.jsx';
+import Resources from './Resouces.jsx'
 import Feed from './Feed.jsx';
 import axios from 'axios';
 import GoogleButton from 'react-google-button';
@@ -83,7 +84,10 @@ class App extends Component {
         quoteAuthor={ quoteAuthor }/>;
     } else if (view === 'entry') {
       return <Entry logout={ this.logout }/>;
-    } else if (view === 'memory') {
+    }else if (view === 'resource') {
+      return <Resources />;
+    }
+      else if (view === 'memory') {
       return (<div>
           {memory ?
               <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
@@ -168,6 +172,12 @@ class App extends Component {
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('entry') }>Write Entry</Button>
+                            </div>
+                            <div className={
+                      (view === 'resource') ? 'currentButton' : 'button' }>
+                                <Button
+                        className='Button'
+                        onClick={ () => this.changeView('resource') }>Resources</Button>
                             </div>
 
                             <div className={
