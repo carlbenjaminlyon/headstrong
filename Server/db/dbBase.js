@@ -17,7 +17,6 @@ sequelize.authenticate()
   .then(() => console.info('Connected to the Database'))
   .catch((err) => console.warn(err));
 
-
 const Entries = sequelize.define('entries', {
 
   id: {
@@ -59,7 +58,11 @@ const Entries = sequelize.define('entries', {
   }
 
 });
+const Quote = sequelize.define('quote', {
+  author: Sequelize.STRING,
+  body: Sequelize.STRING
 
+})
 const getAllJournals = (user) => {
   if (user) {
     return Entries.findAll({
@@ -114,8 +117,13 @@ const updateJournal = (body) => {
   });
 
 };
+// sequelize.sync({ force: true })
+//   .then(() => {
+//     console.log(`Database & tables created!`);
+//   }).catch((err) => {console.log(err)})
 
 module.exports = {
+  Quote,
   getAllJournals,
   addJournals,
   deleteJournal,

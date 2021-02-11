@@ -14,7 +14,7 @@ class Entry extends Component {
   constructor(props) {
     super(props);
 
-    let _isMounted = false;
+    const _isMounted = false;
 
     this.state = {
       title: '',
@@ -58,13 +58,13 @@ class Entry extends Component {
     axios.post('/api/weather', { latitude, longitude })
       .then(({ data: { data } }) => {
         this._isMounted = false;
-        const { temp, weather } = data[0];
+        const { temp, weather } = data[ 0 ];
         const { description } = weather;
         const descriptionLowerCase = description.toLowerCase();
         // change temperature to fahrenheit
-        let newTemp = Math.round(temp * (9 / 5) + 32);
+        const newTemp = Math.round(temp * (9 / 5) + 32);
         this.setState({
-          temp: `${newTemp}°F`,
+          temp: `${ newTemp }°F`,
           weatherDescription: descriptionLowerCase
         });
       })
@@ -134,64 +134,64 @@ class Entry extends Component {
     });
 
     return (
-      <div className="text wrap">
+        <div className="text wrap">
 
-        <form>
-          <div className="weather">Currently {temp} and {weatherDescription}</div>
-          <div>
-            <textarea className="form-control"
+            <form>
+                <div className="weather">Currently {temp} and {weatherDescription}</div>
+                <div>
+                    <textarea className="form-control"
               placeholder="Give your post a title"
-              value={title}
-              onChange={this.handleTitleChange}/>
-          </div>
-          <br></br>
-          <div>
-            <textarea className="form-control"
+              value={ title }
+              onChange={ this.handleTitleChange }/>
+                </div>
+                <br></br>
+                <div>
+                    <textarea className="form-control"
               placeholder="Enter your journal here..."
-              value={blog}
-              onChange={this.handlePostChange}/>
-          </div>
-          <br></br>
-          <div>
-            <textarea className="form-control"
+              value={ blog }
+              onChange={ this.handlePostChange }/>
+                </div>
+                <br></br>
+                <div>
+                    <textarea className="form-control"
               placeholder="Paste image URL here"
-              value={journalImage}
-              onChange={this.handleImageChange}/>
-          </div>
-          <button className="urlButton" onClick={() => this.handleSubmit()}>Submit</button>
-          {
-            journalImage.length ? <img style={{ height: '200px', width: '300px'}} src={ journalImage } /> : null
+              value={ journalImage }
+              onChange={ this.handleImageChange }/>
+                </div>
+                <button className="urlButton" onClick={ () => this.handleSubmit() }>Submit</button>
+                {
+            journalImage.length ? <img style={ { height: '200px', width: '300px' } } src={ journalImage } /> : null
           }
 
-        </form>
+            </form>
 
-        <div>
-          <h3><center>What's your mood like today?</center></h3>
+            <div>
+                <h3><center>What's your mood like today?</center></h3>
 
-          <div className="slider" style={{width: 300, marginLeft: 70}}>
-            <ThemeProvider theme={muiTheme}>
-              <Grid container className="grid" display="flex" align="center" justify="center" alignItems="center">
-                <Grid item>
-                  <SentimentVeryDissatisfiedIcon/>
-                </Grid>
-                <Grid item xs={10}>
-                  <Slider onChange={this.handleMoodChange} className="slider"
-                    value={mood}
-                    max={100}
-                    marks={mark}
-                    step={25}
+                <div className="slider" style={ { width: 300, marginLeft: 70 } }>
+                    <ThemeProvider theme={ muiTheme }>
+                        <Grid container className="grid" display="flex" align="center" justify="center" alignItems="center">
+                            <Grid item>
+                                <SentimentVeryDissatisfiedIcon/>
+                            </Grid>
+                            <Grid item xs={ 10 }>
+                                <Slider onChange={ this.handleMoodChange } className="slider"
+                    value={ mood }
+                    max={ 100 }
+                    marks={ mark }
+                    step={ 25 }
                     valueLabelDisplay="auto"
                   />
-                </Grid>
-                <Grid item>
-                  <SentimentSatisfiedAltIcon/>
-                </Grid>
+                            </Grid>
+                            <Grid item>
+                                <SentimentSatisfiedAltIcon/>
+                            </Grid>
 
-              </Grid>
-            </ThemeProvider>
-          </div>
+                        </Grid>
+                    </ThemeProvider>
+                </div>
+            </div>
         </div>
-      </div>
     );
   }
 }
