@@ -10,11 +10,7 @@ const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const sequelize = require('./db/dbBase.js');
-<<<<<<< HEAD
-const { GOOGLE_API_KEY } = require('../.env')
-=======
 const { Quote } = require('./db/dbBase.js')
->>>>>>> 999caad9791a5305df96ff1149763b0bb4907802
 const dotenv = require('dotenv');
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -107,8 +103,6 @@ app.put('/api/journals', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-<<<<<<< HEAD
-=======
 app.post('/quotes', (req, res) => {
 const { author, body } = req.body;
 console.log({ author, body })
@@ -123,7 +117,6 @@ app.get('/quote', (req, res) => {
   .catch(err => console.log('Error Getting Quote', err))
 })
 
->>>>>>> 999caad9791a5305df96ff1149763b0bb4907802
 app.listen(port, () => {
   console.log(`Server is listening on http://127.0.0.1:${ port }`);
 });
