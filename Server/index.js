@@ -76,24 +76,6 @@ app.delete('/logout', (req, res) => {
   res.json(false);
 });
 
-app.get('/api/resouces', function (req, res) {
-  const{ query } = req
-  console.log('this is the request', query)
-  axios.get( `https://www.googleapis.com/customsearch/v1?key=${ GOOGLE_API_KEY }&cx=56e1d5d5be25d3716
-
-  &q=${ query.q }`
-  )
-  .then(({ data }) => {
-
-   res.status(200).send(data)
-
-  })
-  .catch(err => {
-    console.log('failed api request',err)
-    res.sendStatus(404)
-  })
-
-})
 app.get('/api/journals', (req, res) => {
   return getAllJournals(req.cookies.Headstrong)
     .then((data) => res.json(data))
