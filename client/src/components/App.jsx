@@ -21,6 +21,7 @@ class App extends Component {
       view: 'feed',
       entries: [],
       memory: null,
+      quote: []
     };
 
     this.getRandomQuote = this.getRandomQuote.bind(this);
@@ -29,6 +30,7 @@ class App extends Component {
     this.getRandomMemory = this.getRandomMemory.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
+    this.getQuote = this.getQuote.bind(this);
   }
 
   //change views depending on what you click
@@ -53,6 +55,14 @@ class App extends Component {
         }
       }).catch((err) => console.error(err));
   }
+  getQuote(){
+    axios.get('/quote')
+    .then(quote => {
+      console.log('Quote', quote)
+      this.setState({ quote: quote.data })
+    }
+    ).catch(err => console.log('Error Getting Quote', err))
+  }
 
   // get random memory for memory page
   getRandomMemory() {
@@ -67,13 +77,14 @@ class App extends Component {
 
   // render view based on nav
   renderView() {
-    const { view, entries, quoteText, quoteAuthor, memory } = this.state;
+    const { view, entries, quoteText, quoteAuthor, memory, quote } = this.state;
     if (view === 'feed') {
       return <Feed entries={ entries }
         quoteText={ quoteText }
         quoteAuthor={ quoteAuthor }/>;
     } else if (view === 'entry') {
       return <Entry logout={ this.logout }/>;
+<<<<<<< HEAD
     }else if (view === 'resource') {
       return <Resources />;
     }
@@ -81,6 +92,12 @@ class App extends Component {
       return (<div>
           {memory ?
               <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory }/> : <div className='text wrap'
+=======
+    } else if (view === 'memory') {
+      return (<div>
+          {memory ?
+              <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
+>>>>>>> 999caad9791a5305df96ff1149763b0bb4907802
             style={ { display: 'flex', flexDirection: 'column', align: 'center', justify: 'center', alignItems: 'center' } }>
                   <img src="https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg"/>
                   <h1><i>Ruh roh!</i></h1>
@@ -94,6 +111,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getRandomQuote();
+    this.getQuote();
     this.getRandomMemory();
     this.renderView();
     axios.get('/isloggedin')
@@ -162,12 +180,15 @@ class App extends Component {
                         className='Button'
                         onClick={ () => this.changeView('entry') }>Write Entry</Button>
                             </div>
+<<<<<<< HEAD
                             <div className={
                       (view === 'resource') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
                             </div>
+=======
+>>>>>>> 999caad9791a5305df96ff1149763b0bb4907802
 
                             <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>

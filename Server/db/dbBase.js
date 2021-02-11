@@ -59,7 +59,11 @@ const Entries = sequelize.define('entries', {
   private: Sequelize.STRING
 
 });
+const Quote = sequelize.define('quote', {
+  author: Sequelize.STRING,
+  body: Sequelize.STRING
 
+})
 const getAllJournals = (user) => {
   if (user) {
     return Entries.findAll({
@@ -114,8 +118,13 @@ const updateJournal = (body) => {
   });
 
 };
+// sequelize.sync({ force: true })
+//   .then(() => {
+//     console.log(`Database & tables created!`);
+//   }).catch((err) => {console.log(err)})
 
 module.exports = {
+  Quote,
   getAllJournals,
   addJournals,
   deleteJournal,
