@@ -3,13 +3,13 @@ const express = require('express');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
 const { Location } = require('./api/geolocation');
-const { db, getAllJournals, addJournals, deleteJournal, updateJournal} = require('./db/dbBase.js');
+const { db, getAllJournals, addJournals, deleteJournal, updateJournal } = require('./db/dbBase.js');
 const { GoogleStrategy } = require('./passport.js');
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const sequelize = require('./db/dbBase.js');
-
+const { GOOGLE_API_KEY } = require('../.env')
 const dotenv = require('dotenv');
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -21,7 +21,7 @@ const dist = path.resolve(__dirname, '..', 'client', 'dist');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(dist));
 app.use('/api/quotes', Quotes);
 app.use('/api/weather', Weather);
@@ -49,7 +49,7 @@ passport.deserializeUser((user, done) => {
 
 // this is the google login route
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', { scope: [ 'https://www.googleapis.com/auth/plus.login' ] }));
 
 // redirect route for google login
 app.get('/auth/google/callback',
@@ -59,7 +59,6 @@ app.get('/auth/google/callback',
     res.cookie('Headstrong', req.user.displayName);
     res.redirect('/');
   });
-
 
 app.get('/isloggedin', (req, res) => {
   // check to see if the cookie key is headstrong
@@ -77,7 +76,24 @@ app.delete('/logout', (req, res) => {
   res.json(false);
 });
 
+app.get('/api/resouces', function (req, res) {
+  const{ query } = req
+  console.log('this is the request', query)
+  axios.get( `https://www.googleapis.com/customsearch/v1?key=${ GOOGLE_API_KEY }&cx=56e1d5d5be25d3716
 
+  &q=${ query.q }`
+  )
+  .then(({ data }) => {
+
+   res.status(200).send(data)
+
+  })
+  .catch(err => {
+    console.log('failed api request',err)
+    res.sendStatus(404)
+  })
+
+})
 app.get('/api/journals', (req, res) => {
   return getAllJournals(req.cookies.Headstrong)
     .then((data) => res.json(data))
@@ -104,10 +120,6 @@ app.put('/api/journals', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-
-
-
 app.listen(port, () => {
-  console.log(`Server is listening on http://127.0.0.1:${port}`);
+  console.log(`Server is listening on http://127.0.0.1:${ port }`);
 });
-

@@ -17,7 +17,6 @@ sequelize.authenticate()
   .then(() => console.info('Connected to the Database'))
   .catch((err) => console.warn(err));
 
-
 const Entries = sequelize.define('entries', {
 
   id: {
@@ -56,7 +55,8 @@ const Entries = sequelize.define('entries', {
 
   mood: {
     type: Sequelize.STRING
-  }
+  },
+  private: Sequelize.STRING
 
 });
 
