@@ -41,6 +41,7 @@ class App extends Component {
   getAllPublicJournals() {
     axios.get('/api/journals/public')
       .then(({ data }) => {
+        console.log('This is data', data);
         this.setState({
           entries: data
         });

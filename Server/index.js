@@ -88,7 +88,7 @@ app.delete('/logout', (req, res) => {
 
 app.get('/api/journals/public', (req, res) => {
   return getAllPublicJournals()
-    .then((data) => res.json(data))
+    .then((data) => res.send(data))
     .catch((err) => console.warn(err));
 });
 

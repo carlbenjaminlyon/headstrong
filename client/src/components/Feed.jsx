@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Feed = ({ quoteText, quoteAuthor, entries }) => {
-  console.log(entries);
+  console.log('ENTRIES', entries);
   return (
     <div className='text wrap'>
       <div>
