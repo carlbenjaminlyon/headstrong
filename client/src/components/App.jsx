@@ -28,6 +28,8 @@ class App extends Component {
     this.getRandomMemory = this.getRandomMemory.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
+    this.getAllUsersFeed = this.getAllUsersFeed.bind(this);
+    this.getAllPublicJournals = this.getAllPublicJournals.bind(this);
   }
 
   //change views depending on what you click
@@ -35,6 +37,24 @@ class App extends Component {
     this.setState({
       view: option,
     });
+  }
+  getAllPublicJournals() {
+    axios.get('/api/journals/public')
+      .then(({ data }) => {
+        this.setState({
+          entries: data
+        });
+      }).catch(err => console.log(err));
+  }
+
+  // get a feed of all user public entries
+  getAllUsersFeed() {
+    axios.get('/api/journals')
+      .then(({ data }) => {
+        this.setState({
+          entries: data
+        });
+      }).catch((err) => console.error(err));
   }
 
   // get random quote for home page
@@ -57,6 +77,7 @@ class App extends Component {
   getRandomMemory() {
     axios.get('/api/journals')
       .then(({ data }) => {
+        console.log(data);
         const randomIndex = Math.floor(Math.random() * data.length);
         this.setState({
           memory: data[randomIndex]
@@ -92,6 +113,8 @@ class App extends Component {
     this.getRandomQuote();
     this.getRandomMemory();
     this.renderView();
+    this.getAllUsersFeed();
+    this.getAllPublicJournals();
     axios.get('/isloggedin')
       .then(({ data }) =>
         this.setState({

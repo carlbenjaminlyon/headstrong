@@ -46,6 +46,10 @@ const Entries = sequelize.define('entries', {
     type: Sequelize.STRING(10000)
   },
 
+  imageURL: {
+    type: Sequelize.STRING(10000)
+  },
+
   temp: {
     type: Sequelize.STRING
   },
@@ -54,11 +58,14 @@ const Entries = sequelize.define('entries', {
     type: Sequelize.STRING
   },
 
-  mood: {
-    type: Sequelize.STRING
+
+  visible: {
+    type: Sequelize.BOOLEAN
   }
 
 });
+
+
 
 const getAllJournals = (user) => {
   if (user) {
@@ -72,6 +79,14 @@ const getAllJournals = (user) => {
   }
 };
 
+const getAllPublicJournals = () => {
+  return Entries.findAll({
+    where: {
+      visible: true
+    }
+  });
+};
+
 const deleteJournal = (body) => {
   const { id } = body;
   return Entries.destroy({
@@ -83,7 +98,7 @@ const deleteJournal = (body) => {
 
 const addJournals = async(body, user) => {
 
-  const { mood, title, blog, journalImage, temp, weatherDescription } = body;
+  const { mood, title, blog, journalImage, temp, weatherDescription, visible } = body;
 
   const newEntry = await Entries.create({
     username: user,
@@ -92,7 +107,8 @@ const addJournals = async(body, user) => {
     journalImage: journalImage,
     temp: temp,
     weatherDescription: weatherDescription,
-    mood: mood
+    mood: mood,
+    visible: visible
   });
 
   return newEntry.save();
@@ -114,11 +130,16 @@ const updateJournal = (body) => {
   });
 
 };
+// sequelize.sync({ force: true })
+//   .then(() => {
+//     console.log('Database & tables created!');
+//   }).catch((err) => { console.log(err); });
 
 module.exports = {
   getAllJournals,
   addJournals,
   deleteJournal,
   updateJournal,
+  getAllPublicJournals,
   Entries
 };

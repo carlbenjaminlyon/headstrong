@@ -20,11 +20,13 @@ class Entry extends Component {
       title: '',
       blog: '',
       journalImage: '',
+      imageURL: null,
       latitude: 0,
       longitude: 0,
       temp: '',
       weatherDescription: '',
-      mood: 50
+      mood: 50,
+      visible: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,6 +36,9 @@ class Entry extends Component {
     this.getWeatherByUserLocation = this.getWeatherByUserLocation.bind(this);
     this.getUserLocation = this.getUserLocation.bind(this);
     this.handleMoodChange = this.handleMoodChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+    this.handlePublicChange = this.handlePublicChange.bind(this);
   }
 
   // get user's location by ip address
@@ -84,7 +89,7 @@ class Entry extends Component {
   }
 
   handleImageChange(e) {
-    this.setState({ journalImage: e.target.value });
+    this.setState({ imageURL: e.target.value });
   }
 
   handleMoodChange(e, newValue) {
@@ -92,13 +97,21 @@ class Entry extends Component {
     this.setState({ mood: newValue });
   }
 
+  handleFileChange(e) {
+    this.setState({ imageURL: e.target.files[0] });
+  }
+
+  handlePublicChange(e) {
+    this.setState({ visible: !this.state.visible });
+  }
   handleSubmit() {
-    const { username, title, blog, journalImage, temp, weatherDescription, mood } = this.state;
+    const { username, title, blog, journalImage, temp, weatherDescription, mood, imageURL } = this.state;
     axios.post('/api/journals', {
       username: username,
       title: title,
       blog: blog,
       journalImage: journalImage,
+      imageURL: imageURL,
       temp: temp,
       weatherDescription: weatherDescription,
       mood: mood
@@ -106,10 +119,8 @@ class Entry extends Component {
       .then((data) => console.info(data))
       .catch((err) => console.warn(err));
   }
-
   render() {
-
-    const { title, blog, journalImage, temp, weatherDescription, mood } = this.state;
+    const { title, blog, journalImage, temp, weatherDescription, mood, visible, imageURL } = this.state;
     //slider values
     const mark = [
       { value: 50 },
@@ -158,6 +169,13 @@ class Entry extends Component {
               value={journalImage}
               onChange={this.handleImageChange}/>
           </div>
+          <div>
+            <input type="file" placeholder="insert picture"
+              name='picture'
+              id="imagepath"
+              onChange={this.handleFileChange}/>
+          </div>
+          <label> <input type="checkbox" value={visible}onChange={this.handlePublicChange}/>Make Public</label>
           <button className="urlButton" onClick={() => this.handleSubmit()}>Submit</button>
           {
             journalImage.length ? <img style={{ height: '200px', width: '300px'}} src={ journalImage } /> : null
