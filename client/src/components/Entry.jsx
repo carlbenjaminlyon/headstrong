@@ -15,7 +15,7 @@ class Entry extends Component {
   constructor(props) {
     super(props);
 
-    let _isMounted = false;
+    const _isMounted = false;
 
     this.state = {
       title: '',
@@ -64,13 +64,13 @@ class Entry extends Component {
     axios.post('/api/weather', { latitude, longitude })
       .then(({ data: { data } }) => {
         this._isMounted = false;
-        const { temp, weather } = data[0];
+        const { temp, weather } = data[ 0 ];
         const { description } = weather;
         const descriptionLowerCase = description.toLowerCase();
         // change temperature to fahrenheit
-        let newTemp = Math.round(temp * (9 / 5) + 32);
+        const newTemp = Math.round(temp * (9 / 5) + 32);
         this.setState({
-          temp: `${newTemp}°F`,
+          temp: `${ newTemp }°F`,
           weatherDescription: descriptionLowerCase
         });
       })
@@ -153,15 +153,15 @@ class Entry extends Component {
           <div>
             <textarea className="form-control"
               placeholder="Give your post a title"
-              value={title}
-              onChange={this.handleTitleChange}/>
+              value={ title }
+              onChange={ this.handleTitleChange }/>
           </div>
           <br></br>
           <div>
             <textarea className="form-control"
               placeholder="Enter your journal here..."
-              value={blog}
-              onChange={this.handlePostChange}/>
+              value={ blog }
+              onChange={ this.handlePostChange }/>
           </div>
           <br></br>
           <div>

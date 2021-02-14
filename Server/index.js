@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* eslint-disable no-undef */
 const path = require('path');
 const express = require('express');
 const cloudinary = require('cloudinary');
@@ -14,6 +15,7 @@ const sequelize = require('./db/dbBase.js');
 const cors = require('cors');
 const formData = require('express-form-data');
 
+const { Quote } = require('./db/dbBase.js');
 const dotenv = require('dotenv');
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -29,7 +31,7 @@ const dist = path.resolve(__dirname, '..', 'client', 'dist');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(dist));
 app.use('/api/quotes', Quotes);
 app.use('/api/weather', Weather);
@@ -58,7 +60,7 @@ passport.deserializeUser((user, done) => {
 
 // this is the google login route
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', { scope: [ 'https://www.googleapis.com/auth/plus.login' ] }));
 
 // redirect route for google login
 app.get('/auth/google/callback',
@@ -68,7 +70,6 @@ app.get('/auth/google/callback',
     res.cookie('Headstrong', req.user.displayName);
     res.redirect('/');
   });
-
 
 app.get('/isloggedin', (req, res) => {
   // check to see if the cookie key is headstrong
@@ -129,10 +130,20 @@ app.put('/api/journals', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-
-
-
-app.listen(port, () => {
-  console.log(`Server is listening on http://127.0.0.1:${port}`);
+app.post('/quotes', (req, res) => {
+  const { author, body } = req.body;
+  console.log({ author, body });
+  const newQuote = new Quote({ author, body });
+  newQuote.save()
+    .then(() => console.log('Quote Saved!'))
+    .catch(err => console.log('Server Quote Error', err));
+});
+app.get('/quote', (req, res) => {
+  Quote.findAll({})
+    .then(data => res.send(data))
+    .catch(err => console.log('Error Getting Quote', err));
 });
 
+app.listen(port, () => {
+  console.log(`Server is listening on http://127.0.0.1:${ port }`);
+});
