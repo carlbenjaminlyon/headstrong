@@ -61,6 +61,7 @@ class App extends Component {
       }).catch((err) => console.error(err));
   }
   // get random quote for home page
+  //test
   getRandomQuote() {
     axios.get('/api/quotes')
       .then(({ data }) => {
