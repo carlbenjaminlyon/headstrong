@@ -2,6 +2,12 @@
 /* eslint-disable no-undef */
 const path = require('path');
 const express = require('express');
+const PORT = 8080;
+const http = require('http');
+const app = express();
+const server = http.createServer(app);
+const socketio = require('socket.io');
+const io = socketio(server);
 const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
@@ -28,7 +34,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
-const app = express();
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -132,7 +138,7 @@ app.put('/api/journals', (req, res) => {
 
 app.post('/quotes', (req, res) => {
   const { author, body } = req.body;
-  console.log({ author, body });
+
   const newQuote = new Quote({ author, body });
   newQuote.save()
     .then(() => console.log('Quote Saved!'))
@@ -143,7 +149,10 @@ app.get('/quote', (req, res) => {
     .then(data => res.send(data))
     .catch(err => console.log('Error Getting Quote', err));
 });
-
-app.listen(port, () => {
-  console.log(`Server is listening on http://127.0.0.1:${ port }`);
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
+server.listen(port, () => {
+  console.log(`listening on *:${PORT}`);
+});
+
