@@ -199,7 +199,7 @@ class Entry extends Component {
             folder={'demo'} // set cloudinary folder name to send file
             cropping={false} // set ability to crop images -> default = true
             onSuccess={(result) => this.setState({ journalImage: result.info.url})} // add success callback -> returns result
-            onFailure={console.log('failure')} // add failure callback -> returns 'response.error' + 'response.result'
+            onFailure={console.log('failure!!!')} // add failure callback -> returns 'response.error' + 'response.result'
             logging={false} // logs will be provided for success and failure messages,
             // set to false for production -> default = true
             customPublicId={'sample'} // set a specific custom public_id.

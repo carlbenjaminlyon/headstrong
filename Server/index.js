@@ -1,7 +1,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
 const path = require('path');
-const express = require('express');
+const express = require('express')
+const PORT = 8080;
+const http = require('http');
+const app = express();
+const server = http.createServer(app);
+const socketio = require('socket.io');
+const io = socketio(server)
 const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
@@ -28,8 +34,56 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
-const app = express();
 
+io.on('connection', socket => {
+  // socket.on('joinRoom', ({ username, room }) => {
+  //   const user = userJoin(socket.id, username, room);
+
+    // socket.join(user.room);
+
+    // Welcome current user
+    // socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+
+    // Broadcast when a user connects
+    // socket.broadcast
+    //   .to(user.room)
+    //   .emit(
+    //     'message',
+    //     formatMessage(botName, `${user.username} has joined the chat`)
+    //   );
+
+    // // Send users and room info
+    // io.to(user.room).emit('roomUsers', {
+    //   room: user.room,
+    //   users: getRoomUsers(user.room)
+    // });
+  // });
+
+  // Listen for chatMessage
+  // socket.on('chatMessage', msg => {
+  //   const user = getCurrentUser(socket.id);
+
+  //   io.to(user.room).emit('message', formatMessage(user.username, msg));
+  // });
+
+  // // Runs when client disconnects
+  // socket.on('disconnect', () => {
+  //   const user = userLeave(socket.id);
+
+  //   if (user) {
+  //     io.to(user.room).emit(
+  //       'message',
+  //       formatMessage(botName, `${user.username} has left the chat`)
+  //     );
+
+  //     // Send users and room info
+  //     io.to(user.room).emit('roomUsers', {
+  //       room: user.room,
+  //       users: getRoomUsers(user.room)
+  //     });
+  //   }
+  // });
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(dist));
@@ -131,19 +185,22 @@ app.put('/api/journals', (req, res) => {
 });
 
 app.post('/quotes', (req, res) => {
-  const { author, body } = req.body;
-  console.log({ author, body });
-  const newQuote = new Quote({ author, body });
-  newQuote.save()
-    .then(() => console.log('Quote Saved!'))
-    .catch(err => console.log('Server Quote Error', err));
-});
+const { author, body } = req.body;
+
+const newQuote = new Quote({ author, body });
+newQuote.save()
+.then(() => console.log('Quote Saved!'))
+.catch(err => console.log('Server Quote Error', err))
+})
 app.get('/quote', (req, res) => {
   Quote.findAll({})
-    .then(data => res.send(data))
-    .catch(err => console.log('Error Getting Quote', err));
+  .then(data => res.send(data))
+  .catch(err => console.log('Error Getting Quote', err))
+})
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+})
+server.listen(port, () => {
+  console.log(`listening on *:${PORT}`);
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening on http://127.0.0.1:${ port }`);
-});
