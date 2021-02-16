@@ -10,6 +10,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
+import prompts from '../prompts.js'
 
 class Entry extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class Entry extends Component {
       temp: '',
       weatherDescription: '',
       mood: 50,
-      visible: false
+      visible: false,
+      prompt: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +46,12 @@ class Entry extends Component {
   }
 
   generateThought(){
-    console.log('Here is an idea')
+    const number = Math.floor(Math.random() * prompts.length - 1)
+    console.log('Here is an idea', prompts[ number ])
+    this.setState({
+      prompt: prompts[ number ]
+    })
+
   }
 
   // get user's location by ip address
@@ -243,9 +250,9 @@ class Entry extends Component {
 
             <div>
                 <h2>Need Some Ideas?</h2>
-                <button onClick={this.generateThought }>CLICK ME</button>
+                <button onClick={ this.generateThought }>CLICK ME</button>
                 <ul id='prompt'>
-                    <li>Apple</li>
+                    <li>{this.state.prompt}</li>
                 </ul>
 
             </div>

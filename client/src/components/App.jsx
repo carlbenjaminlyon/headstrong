@@ -103,13 +103,11 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
-     } else if (view === 'chat') {
+    } else if (view === 'chat') {
       return <Chat />;
-     }
-     else if (view === 'board') {
+    } else if (view === 'board') {
       return <Board />;
-    }
-      else if (view === 'memory') {
+    } else if (view === 'memory') {
       return (<div>
           {memory ?
               <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
