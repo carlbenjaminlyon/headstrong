@@ -3,6 +3,7 @@ import Entry from './Entry.jsx';
 import Memory from './Memory.jsx';
 import Resources from './Resouces.jsx'
 import Feed from './Feed.jsx';
+import Board from './Board.jsx';
 import axios from 'axios';
 import GoogleButton from 'react-google-button';
 import css from './style.css';
@@ -86,6 +87,8 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     }else if (view === 'resource') {
       return <Resources />;
+    }else if (view === 'board') {
+      return <Board />;
     }
       else if (view === 'memory') {
       return (<div>
@@ -178,6 +181,12 @@ class App extends Component {
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
+                            </div>
+                            <div className={
+                      (view === 'board') ? 'currentButton' : 'button' }>
+                                <Button
+                        className='Button'
+                        onClick={ () => this.changeView('board') }>Draw</Button>
                             </div>
 
                             <div className={
