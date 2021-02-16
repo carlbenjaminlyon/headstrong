@@ -64,7 +64,10 @@ const Entries = sequelize.define('entries', {
 });
 const Quote = sequelize.define('quote', {
   author: Sequelize.STRING,
-  body: Sequelize.STRING
+  body: {
+    type: Sequelize.STRING,
+    unique: true
+  }
 
 });
 

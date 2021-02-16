@@ -1,7 +1,13 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
 const path = require('path');
-const express = require('express');
+const express = require('express')
+const PORT = 8080;
+
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
@@ -28,7 +34,18 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
-const app = express();
+
+io.on('connection', socket => {
+
+  socket.on('chatMessage', msg => {
+    console.log('message: ' + msg);
+
+  })
+  // socket.on('disconnect', () => {
+  //   console.log('user disconnected')
+  // })
+
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -128,19 +145,21 @@ app.put('/api/journals', (req, res) => {
 });
 
 app.post('/quotes', (req, res) => {
-  const { author, body } = req.body;
-  console.log({ author, body });
-  const newQuote = new Quote({ author, body });
-  newQuote.save()
-    .then(() => console.log('Quote Saved!'))
-    .catch(err => console.log('Server Quote Error', err));
-});
+const { author, body } = req.body;
+
+const newQuote = new Quote({ author, body });
+newQuote.save()
+.then(() => console.log('Quote Saved!'))
+.catch(err => console.log('Server Quote Error', err))
+})
 app.get('/quote', (req, res) => {
   Quote.findAll({})
-    .then(data => res.send(data))
-    .catch(err => console.log('Error Getting Quote', err));
-});
-
-app.listen(port, () => {
-  console.log(`Server is listening on http://127.0.0.1:${ port }`);
+  .then(data => res.send(data))
+  .catch(err => console.log('Error Getting Quote', err))
+})
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+})
+http.listen(port, () => {
+  console.log(`listening on *:${ PORT }`);
 });

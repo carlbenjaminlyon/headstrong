@@ -5,14 +5,13 @@ import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
+import Chat from './Chat.jsx'
 import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
-
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       title: '',
       body: '',
@@ -24,7 +23,6 @@ class App extends Component {
       memory: null,
       quote: []
     };
-
     this.getRandomQuote = this.getRandomQuote.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.logout = this.logout.bind(this);
@@ -35,7 +33,6 @@ class App extends Component {
     this.getAllPublicJournals = this.getAllPublicJournals.bind(this);
     this.getQuote = this.getQuote.bind(this);
   }
-
   //change views depending on what you click
   changeView(option) {
     this.setState({
@@ -45,13 +42,12 @@ class App extends Component {
   getAllPublicJournals() {
     axios.get('/api/journals/public')
       .then(({ data }) => {
-        console.log('This is data', data);
+
         this.setState({
           entries: data
         });
       }).catch(err => console.log(err));
   }
-
   // get a feed of all user public entries
   getAllUsersFeed() {
     axios.get('/api/journals')
@@ -61,8 +57,8 @@ class App extends Component {
         });
       }).catch((err) => console.error(err));
   }
-
   // get random quote for home page
+  //test
   getRandomQuote() {
     axios.get('/api/quotes')
       .then(({ data }) => {
@@ -80,24 +76,22 @@ class App extends Component {
   getQuote() {
     axios.get('/quote')
       .then(quote => {
-        console.log('Quote', quote);
+
         this.setState({ quote: quote.data });
       }
       ).catch(err => console.log('Error Getting Quote', err));
   }
-
   // get random memory for memory page
   getRandomMemory() {
     axios.get('/api/journals')
       .then(({ data }) => {
-        console.log(data);
+
         const randomIndex = Math.floor(Math.random() * data.length);
         this.setState({
           memory: data[ randomIndex ]
         });
       }).catch((err) => console.error(err));
   }
-
   // render view based on nav
   renderView() {
     const { view, entries, quoteText, quoteAuthor, memory, quote } = this.state;
@@ -109,7 +103,10 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
-    }else if (view === 'board') {
+     } else if (view === 'chat') {
+      return <Chat />;
+     }
+     else if (view === 'board') {
       return <Board />;
     }
       else if (view === 'memory') {
@@ -121,12 +118,17 @@ class App extends Component {
                   <h1><i>Ruh roh!</i></h1>
                   <h3>It looks like you don't have any memories yet.
                       Write an entry to view a random memory.</h3>
+                  <div className='likedQuotes'>
+                      {quote.map((element, index) => <div>
+                          <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
+                      </div>)}
+
+                  </div>
               </div>
         }
       </div>);
     }
   }
-
   componentDidMount() {
     this.getRandomQuote();
     this.getQuote();
@@ -140,21 +142,16 @@ class App extends Component {
           login: data
         }))
       .catch((err) => console.warn(err));
-
   }
-
   logout(bool) {
     this.setState({
       login: bool
     });
   }
-
   render() {
     const { login, view } = this.state;
-
     return (
         <div>
-
             {
           !login
             ? <div>
@@ -180,20 +177,19 @@ class App extends Component {
             </div>
             :
             <div>
+
                 <AppBar>
                     <div className='logo'>
                         HeadStrong
                     </div>
                     <div>
                         <div className='nav'>
-
                             <div className={
                       (view === 'feed') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('feed') }>Home</Button>
                             </div>
-
                             <div className={
                       (view === 'entry') ? 'currentButton' : 'button' }>
                                 <Button
@@ -207,19 +203,23 @@ class App extends Component {
                         onClick={ () => this.changeView('resource') }>Resources</Button>
                             </div>
                             <div className={
+                      (view === 'chat') ? 'currentButton' : 'button' }>
+                                <Button
+                        className='Button'
+                        onClick={ () => this.changeView('chat') }>Chat Room</Button>
+                            </div>
+                            <div className={
                       (view === 'board') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
                             </div>
-
                             <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('memory') }>Memory</Button>
                             </div>
-
                             <div className={
                       (view === 'logout') ? 'currentButton' : 'button' }>
                                 <Button
@@ -230,7 +230,6 @@ class App extends Component {
                       >Logout</Button>
                             </div>
                         </div>
-
                     </div>
                 </AppBar>
 
@@ -244,11 +243,9 @@ class App extends Component {
                             Since 2021
                         </div>
                     </div>
-
                     <div className='main'>
                         {this.renderView()}
                     </div>
-
                 </div>
             </div>
         }
@@ -256,5 +253,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
