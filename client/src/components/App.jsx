@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Entry from './Entry.jsx';
 import Memory from './Memory.jsx';
-import Resources from './Resouces.jsx';
+import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
