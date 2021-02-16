@@ -36,12 +36,13 @@ const io = require('socket.io')(http);
 io.on('connection', (socket) => {
   console.log('User connected')
   socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
+    console.log('Message:' + msg);
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(dist));
