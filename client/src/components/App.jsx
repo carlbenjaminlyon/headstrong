@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Entry from './Entry.jsx';
 import Memory from './Memory.jsx';
-import Resources from './Resouces.jsx';
+import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
@@ -109,14 +109,9 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
-<<<<<<< HEAD
-    }else if (view === 'board') {
+    } else if (view === 'board') {
       return <Board />;
-    }
-      else if (view === 'memory') {
-=======
     } else if (view === 'memory') {
->>>>>>> 74d956fc9825ce9016da16aaaa1e67387d41a595
       return (<div>
         {memory ?
           <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
@@ -209,17 +204,13 @@ class App extends Component {
                       <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
-<<<<<<< HEAD
-                            </div>
-                            <div className={
+                    </div>
+                    <div className={
                       (view === 'board') ? 'currentButton' : 'button' }>
-                                <Button
+                      <Button
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
-                            </div>
-=======
                     </div>
->>>>>>> 74d956fc9825ce9016da16aaaa1e67387d41a595
 
                     <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>
