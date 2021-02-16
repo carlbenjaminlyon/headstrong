@@ -6,6 +6,8 @@ import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
+import Chat from './Chat.jsx'
+
 
 import GoogleButton from 'react-google-button';
 import css from './style.css';
@@ -103,7 +105,10 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
-     } else if (view === 'board') {
+     } else if (view === 'chat') {
+      return <Chat />;
+     }
+     else if (view === 'board') {
       return <Board />;
     }
       else if (view === 'memory') {
@@ -190,6 +195,12 @@ class App extends Component {
                                 <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
+                            </div>
+                            <div className={
+                      (view === 'chat') ? 'currentButton' : 'button' }>
+                                <Button
+                        className='Button'
+                        onClick={ () => this.changeView('chat') }>Chat Room</Button>
                             </div>
                             <div className={
                       (view === 'board') ? 'currentButton' : 'button'}>
