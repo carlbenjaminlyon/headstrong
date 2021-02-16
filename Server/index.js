@@ -107,9 +107,6 @@ app.post('/api/journals', (req, res) => {
     .catch((err) => console.warn(err));
 });
 
-
-
-
 // app.post('/api/journals', (req, res) => {
 //   //passing saved cookie with users name to add journals
 //   return addJournals(req.body, req.cookies.Headstrong)

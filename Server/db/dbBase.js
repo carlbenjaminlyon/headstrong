@@ -57,7 +57,6 @@ const Entries = sequelize.define('entries', {
     type: Sequelize.STRING
   },
 
-
   visible: {
     type: Sequelize.BOOLEAN
   }

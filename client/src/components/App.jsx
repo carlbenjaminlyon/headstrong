@@ -109,14 +109,10 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
-<<<<<<< HEAD
     }else if (view === 'board') {
       return <Board />;
     }
       else if (view === 'memory') {
-=======
-    } else if (view === 'memory') {
->>>>>>> 74d956fc9825ce9016da16aaaa1e67387d41a595
       return (<div>
         {memory ?
           <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
@@ -209,7 +205,6 @@ class App extends Component {
                       <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
-<<<<<<< HEAD
                             </div>
                             <div className={
                       (view === 'board') ? 'currentButton' : 'button' }>
@@ -217,9 +212,6 @@ class App extends Component {
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
                             </div>
-=======
-                    </div>
->>>>>>> 74d956fc9825ce9016da16aaaa1e67387d41a595
 
                     <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>
