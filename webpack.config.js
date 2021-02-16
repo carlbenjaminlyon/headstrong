@@ -8,6 +8,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   watch: true,
+  devtool: 'eval-source-map',
+  stats: {
+    excludeModules: /node_modules/,
+  },
   module: {
     rules: [
       {
