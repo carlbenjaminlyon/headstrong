@@ -5,6 +5,7 @@ import Resources from './Resouces.jsx'
 import Feed from './Feed.jsx';
 import axios from 'axios';
 import GoogleButton from 'react-google-button';
+import Chat from './Chat.jsx'
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
 
@@ -86,6 +87,8 @@ class App extends Component {
       return <Entry logout={ this.logout }/>;
     }else if (view === 'resource') {
       return <Resources />;
+    }else if (view === 'chat') {
+      return <Chat />;
     }
       else if (view === 'memory') {
       return (<div>
@@ -179,6 +182,17 @@ class App extends Component {
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
                             </div>
+                            <div className={
+                      (view === 'chat') ? 'currentButton' : 'button' }>
+                                <Button
+                        className='Button'
+                        onClick={ () => this.changeView('chat') }>Chat</Button>
+                            </div>
+
+
+
+
+
 
                             <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>
