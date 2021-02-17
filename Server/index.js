@@ -2,7 +2,6 @@
 /* eslint-disable no-undef */
 const path = require('path');
 const express = require('express');
-const PORT = 8080;
 
 const app = express();
 const http = require('http').createServer(app);
@@ -161,5 +160,5 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 })
 app.listen(port, () => {
-  console.log(`listening on *:${ PORT }`);
+  console.log(`listening on *:${ port }`);
 });
