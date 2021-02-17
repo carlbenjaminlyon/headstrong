@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Entry from './Entry.jsx';
 import Memory from './Memory.jsx';
@@ -6,9 +5,7 @@ import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
-import Chat from './Chat.jsx';
-
-
+import Chat from './Chat.jsx'
 import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
@@ -112,14 +109,20 @@ class App extends Component {
       return <Board />;
     } else if (view === 'memory') {
       return (<div>
-        {memory ?
-          <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
+          {memory ?
+              <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
             style={ { display: 'flex', flexDirection: 'column', align: 'center', justify: 'center', alignItems: 'center' } }>
-            <img src='https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg'/>
-            <h1><i>Ruh roh!</i></h1>
-            <h3>It looks like you don’t have any memories yet.
+                  <img src="https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg"/>
+                  <h1><i>Ruh roh!</i></h1>
+                  <h3>It looks like you don't have any memories yet.
                       Write an entry to view a random memory.</h3>
-          </div>
+                  <div className='likedQuotes'>
+                      {quote.map((element, index) => <div>
+                          <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
+                      </div>)}
+
+                  </div>
+              </div>
         }
       </div>);
     }
@@ -146,128 +149,106 @@ class App extends Component {
   render() {
     const { login, view } = this.state;
     return (
-      <div>
-        {
+        <div>
+            {
           !login
             ? <div>
-              <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
-              <div className='loginMain'>
-                <div className='text'>
-                  <h1>Welcome To HeadStrong!</h1>
-                  <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
-                  <h2></h2>
+                <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
+                <div className='loginMain'>
+                    <div className="text">
+                        <h1>Welcome To HeadStrong!</h1>
+                        <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
+                        <h2></h2>
+
+                    </div>
                 </div>
-              </div>
-              <a className='loginButton' href='/auth/google'> <GoogleButton /></a>
-              <div className='footer'>
-                <div className='logo2'>
+
+                <a className='loginButton' href="/auth/google"> <GoogleButton /></a>
+                <div className='footer'>
+                    <div className='logo2'>
                         HeadStrong
-                </div>
-                <div className='footer-text'>
+                    </div>
+                    <div className='footer-text'>
                         Since 2021
+                    </div>
                 </div>
-              </div>
             </div>
             :
             <div>
 
-              <AppBar>
-                <div className='logo'>
+                <AppBar>
+                    <div className='logo'>
                         HeadStrong
-                </div>
-                <div>
-                  <div className='nav'>
-                    <div className={
+                    </div>
+                    <div>
+                        <div className='nav'>
+                            <div className={
                       (view === 'feed') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('feed') }>Home</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'entry') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('entry') }>Write Entry</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'resource') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'chat') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('chat') }>Chat Room</Button>
-                    </div>
-                    <div className={
-                      (view === 'board') ? 'currentButton' : 'button'}>
-                      <Button
+                            </div>
+                            <div className={
+                      (view === 'board') ? 'currentButton' : 'button' }>
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('memory') }>Memory</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'logout') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => axios.delete('/logout')
                           .then(({ data }) => this.logout(data))
                           .catch((err) => console.warn(err)) }
                       >Logout</Button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </AppBar>
+                </AppBar>
 
-
-
-              <div>
-                <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
-                <div className='footer'>
-                  <div className='logo2'>
+                <div>
+                    <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
+                    <div className='footer'>
+                        <div className='logo2'>
                             HeadStrong
-                  </div>
-                  <div className='footer-text'>
+                        </div>
+                        <div className='footer-text'>
                             Since 2021
-                  </div>
+                        </div>
+                    </div>
+                    <div className='main'>
+                        {this.renderView()}
+                    </div>
                 </div>
-                <div className='main'>
-                  {this.renderView()}
-                </div>
-              </div>
             </div>
         }
-      </div>
+        </div>
     );
   }
 }
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

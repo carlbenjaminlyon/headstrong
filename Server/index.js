@@ -3,11 +3,11 @@
 const path = require('path');
 const express = require('express');
 const PORT = 8080;
-const http = require('http');
+
 const app = express();
-const server = http.createServer(app);
-const socketio = require('socket.io');
-const io = socketio(server);
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
@@ -35,6 +35,17 @@ cloudinary.config({
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
 
+io.on('connection', socket => {
+
+  socket.on('chatMessage', msg => {
+    console.log('message: ' + msg);
+
+  })
+  // socket.on('disconnect', () => {
+  //   console.log('user disconnected')
+  // })
+
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -113,9 +124,6 @@ app.post('/api/journals', (req, res) => {
     .catch((err) => console.warn(err));
 });
 
-
-
-
 // app.post('/api/journals', (req, res) => {
 //   //passing saved cookie with users name to add journals
 //   return addJournals(req.body, req.cookies.Headstrong)
@@ -151,8 +159,7 @@ app.get('/quote', (req, res) => {
 });
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
+})
+app.listen(port, () => {
+  console.log(`listening on *:${ PORT }`);
 });
-server.listen(port, () => {
-  console.log(`listening on *:${PORT}`);
-});
-

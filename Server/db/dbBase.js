@@ -57,7 +57,6 @@ const Entries = sequelize.define('entries', {
     type: Sequelize.STRING
   },
 
-
   visible: {
     type: Sequelize.BOOLEAN
   }
@@ -65,7 +64,10 @@ const Entries = sequelize.define('entries', {
 });
 const Quote = sequelize.define('quote', {
   author: Sequelize.STRING,
-  body: Sequelize.STRING
+  body: {
+    type: Sequelize.STRING,
+    unique: true
+  }
 
 });
 
