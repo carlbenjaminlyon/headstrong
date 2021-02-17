@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const addJournals = require('./db/dbBase.js');
-require('dotenv').config();
+const dotenv = require('dotenv').config();
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
