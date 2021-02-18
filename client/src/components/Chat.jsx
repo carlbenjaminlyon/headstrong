@@ -1,19 +1,47 @@
 import React, { Component } from 'react'
-function Chat (){
-  const style = {
+class Chat extends Component{
+constructor(props){
+    super(props)
+    this.state = {
+        message: ''
+    }
+    this.handleMessage = this.handleMessage.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+}
+handleMessage(e){
 
-  }
-  return (
-      <div className="join-container">
 
-          <ul id="messages"><li>
-              test </li></ul>
+    e.preventDefault();
+    if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+    }
+    this.setState({
+        message: ''
+    })
+}
+handleChange(e){
+ this.setState({
+     message: e.target.value
+ })
+}
+render(){
+    return (
+        <div className="join-container">
+            <script src="/socket.io/socket.io.js"></script>
+            <script>
 
-          <form id="form" action="">
-              <input id="input" autoComplete="off" /><button>Send</button>
-          </form>
-      </div>
-  )
+</script>
+            <ul id="messages"><li>
+                test </li></ul>
+
+            <form id="form" action="">
+                <input onChange={this.handleChange} id="input" autoComplete="off" /><button>Send</button>
+            </form>
+        </div>
+    )
+
+}
 }
 
 export default Chat

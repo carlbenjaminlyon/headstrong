@@ -1,11 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
+import Grid from '@material-ui/core/Grid';
+
+
 
 const Feed = ({ quoteText, quoteAuthor, entries }) => {
+    console.log(entries)
     const time = moment().format('MMMM Do YYYY, h:mm:ss a')
   return (
       <div className='text wrap'>
+
+
           <div>
               <h1>{quoteText}</h1>
               <h2 style={ { marginRight: 5 } }><i>- {quoteAuthor}</i></h2>
@@ -18,15 +24,19 @@ const Feed = ({ quoteText, quoteAuthor, entries }) => {
         }
         }>Like</button>
           </div>
-          <div>
+
+          <div className='scroll'>
+              <h1>Public Journal Entries</h1>
+              <hr></hr>
               {entries.map(entry =>
-                  <div key={ entry.id } id='comment'>
+                  <div key={ entry.id } id='comments' >
                       <div>{`User:${entry.username}`}</div>
                       <div>{`Title:${entry.title}`}</div>
-                      <div>{`Message: ${entry.blog}`}<button className='btn btn-block'>Follow</button></div>
-                      <div>{`Created at: ${time}`}</div>
-                      <br></br>
-                  </div>)}
+                      <div>{`Message: ${entry.blog}`}</div>
+                   {entry.journalImage ?  <div ><img height='200px' width='300px' src={entry.journalImage}/></div> : null}
+                      <div>{`Posted: ${entry.createdAt}`}<button  style={{marginLeft: 10}}className='btn btn-default  btn-block'>Follow</button></div>
+                      <hr></hr>
+                  </div>).sort()}
           </div>
       </div>
   );

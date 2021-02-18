@@ -35,17 +35,11 @@ cloudinary.config({
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
 
-io.on('connection', socket => {
-
-  socket.on('chatMessage', msg => {
-    console.log('message: ' + msg);
-
-  })
-  // socket.on('disconnect', () => {
-  //   console.log('user disconnected')
-  // })
-
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
   });
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -160,6 +154,6 @@ app.get('/quote', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 })
-app.listen(port, () => {
+http.listen(port, () => {
   console.log(`listening on *:${ PORT }`);
 });
