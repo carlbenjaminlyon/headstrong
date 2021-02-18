@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-const Feed = ({ quoteText, quoteAuthor, entries }) => {
+const Feed = ({ quoteText, quoteAuthor, entries, imageURL, username }) => {
+  console.log(username);
   return (
     <div className='text wrap'>
       <div>
@@ -16,6 +17,8 @@ const Feed = ({ quoteText, quoteAuthor, entries }) => {
         }
         }>Like</button>
       </div>
+      <h3>{username}</h3>
+      <img default="profile-pic" src={imageURL} height="100" width="100" />
       <div>
         {entries.map(entry =>
           <div key={entry.id}>

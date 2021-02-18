@@ -69,6 +69,11 @@ const Quote = sequelize.define('quote', {
 
 });
 
+const Profile = sequelize.define('profile', {
+  username: Sequelize.STRING,
+  imageURL: Sequelize.STRING
+});
+
 const getAllJournals = (user) => {
   if (user) {
     return Entries.findAll({
@@ -87,6 +92,23 @@ const getAllPublicJournals = () => {
       visible: true
     }
   });
+};
+
+const getProfile = (user) => {
+  return Profile.findAll({
+    where: {
+      username: user
+    }
+  });
+};
+
+const addProfile = async(body, user) => {
+  const { imageURL } = body;
+  const newProfile = await Profile.create({
+    username: user,
+    imageURL: imageURL
+  });
+  return newProfile.save();
 };
 
 const deleteJournal = (body) => {
@@ -144,5 +166,7 @@ module.exports = {
   deleteJournal,
   updateJournal,
   getAllPublicJournals,
+  addProfile,
+  getProfile,
   Entries
 };

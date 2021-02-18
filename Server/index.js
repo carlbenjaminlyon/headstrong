@@ -6,13 +6,11 @@ const PORT = 8080;
 const http = require('http');
 const app = express();
 const server = http.createServer(app);
-const socketio = require('socket.io');
-const io = socketio(server);
 const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
 const { Location } = require('./api/geolocation');
-const { db, getAllJournals, addJournals, deleteJournal, updateJournal, getAllPublicJournals, Entries } = require('./db/dbBase.js');
+const { db, getAllJournals, addJournals, deleteJournal, updateJournal, getAllPublicJournals, addProfile, getProfile, Entries } = require('./db/dbBase.js');
 const { GoogleStrategy } = require('./passport.js');
 const passport = require('passport');
 const session = require('express-session');
@@ -107,15 +105,23 @@ app.get('/api/journals', (req, res) => {
 
 app.post('/api/journals', (req, res) => {
 //passing saved cookie with users name to add journals
-  console.log(req.files);
   return addJournals(req.body, req.cookies.Headstrong)
     .then((data) => res.json(data))
     .catch((err) => console.warn(err));
 });
 
+app.get('/api/profile', (req, res) => {
+  return getProfile(req.cookies.Headstrong)
+    .then((data) => res.json(data))
+    .catch((err) => console.warn(err));
+});
 
-
-
+app.post('/api/profile', (req, res) => {
+  //passing saved cookie with users name to add journals
+  return addProfile(req.body, req.cookies.Headstrong)
+    .then((data) => res.json(data))
+    .catch((err) => console.warn(err));
+});
 // app.post('/api/journals', (req, res) => {
 //   //passing saved cookie with users name to add journals
 //   return addJournals(req.body, req.cookies.Headstrong)

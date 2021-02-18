@@ -7,6 +7,7 @@ import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
 import Chat from './Chat.jsx';
+import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
 
 
 import GoogleButton from 'react-google-button';
@@ -24,7 +25,9 @@ class App extends Component {
       view: 'feed',
       entries: [],
       memory: null,
-      quote: []
+      quote: [],
+      imageURL: null,
+      username: ''
     };
     this.getRandomQuote = this.getRandomQuote.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -35,6 +38,8 @@ class App extends Component {
     this.getAllUsersFeed = this.getAllUsersFeed.bind(this);
     this.getAllPublicJournals = this.getAllPublicJournals.bind(this);
     this.getQuote = this.getQuote.bind(this);
+    this.addProfile = this.addProfile.bind(this);
+    this.getProfile = this.getProfile.bind(this);
   }
   //change views depending on what you click
   changeView(option) {
@@ -50,6 +55,12 @@ class App extends Component {
           entries: data
         });
       }).catch(err => console.log(err));
+  }
+
+  addProfile(result) {
+    axios.post('/api/profile', { imageURL: result.info.url })
+      .then(data => console.log(data))
+      .catch(err => console.warn(err));
   }
   // get a feed of all user public entries
   getAllUsersFeed() {
@@ -84,24 +95,37 @@ class App extends Component {
       }
       ).catch(err => console.log('Error Getting Quote', err));
   }
+
+  getProfile() {
+    axios.get('/api/profile')
+      .then((data) => {
+        console.log('DATA PROFILE PIC', data);
+        this.setState({
+          imageURL: data[0].imageURL
+        });
+      }).catch(err => console.error(err));
+  }
   // get random memory for memory page
   getRandomMemory() {
     axios.get('/api/journals')
       .then(({ data }) => {
-
+        console.log(data);
         const randomIndex = Math.floor(Math.random() * data.length);
         this.setState({
-          memory: data[ randomIndex ]
+          memory: data[ randomIndex ],
+          username: data[0].username
         });
       }).catch((err) => console.error(err));
   }
   // render view based on nav
   renderView() {
-    const { view, entries, quoteText, quoteAuthor, memory, quote } = this.state;
+    const { view, entries, quoteText, quoteAuthor, memory, quote, imageURL, username } = this.state;
     if (view === 'feed') {
       return <Feed entries={ entries }
         quoteText={ quoteText }
-        quoteAuthor={ quoteAuthor }/>;
+        quoteAuthor={ quoteAuthor }
+        imageURL={imageURL}
+        username={ username }/>;
     } else if (view === 'entry') {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
@@ -144,7 +168,7 @@ class App extends Component {
     });
   }
   render() {
-    const { login, view } = this.state;
+    const { login, view, imageURL } = this.state;
     return (
       <div>
         {
@@ -155,7 +179,6 @@ class App extends Component {
                 <div className='text'>
                   <h1>Welcome To HeadStrong!</h1>
                   <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
-                  <h2></h2>
                 </div>
               </div>
               <a className='loginButton' href='/auth/google'> <GoogleButton /></a>
@@ -174,6 +197,38 @@ class App extends Component {
               <AppBar>
                 <div className='logo'>
                         HeadStrong
+                </div>
+                <div>
+                  <WidgetLoader /> Open Widget to Upload Profile Picture.
+                  <Widget
+                    sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
+                    // all sources are available. More information on their use can be found at
+                    // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
+                    resourceType={'image'} // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
+                    cloudName={'geonovember'} // your cloudinary account cloud name.
+                    // Located on https://cloudinary.com/console/
+                    uploadPreset={'smiuh98k'} // check that an upload preset exists and check mode is signed or unisgned
+                    buttonText={'Open'} // default 'Upload Files'
+                    style={{
+                      color: 'white',
+                      border: 'none',
+                      width: '120px',
+                      backgroundColor: 'green',
+                      borderRadius: '4px',
+                      height: '25px'
+                    }} // inline styling only or style id='cloudinary_upload_button'
+                    folder={'demo'} // set cloudinary folder name to send file
+                    cropping={false} // set ability to crop images -> default = true
+                    onSuccess={result => this.setState({imageURL: result.info.url})} // add success callback -> returns result
+                    onFailure={console.log('failure!!!')} // add failure callback -> returns 'response.error' + 'response.result'
+                    logging={false} // logs will be provided for success and failure messages,
+                    // set to false for production -> default = true
+                    customPublicId={'sample'} // set a specific custom public_id.
+                    // To use the file name as the public_id use 'use_filename={true}' parameter
+                    eager={'w_400,h_300,c_pad|w_260,h_200,c_crop'} // add eager transformations -> deafult = null
+                    use_filename={false} // tell Cloudinary to use the original name of the uploaded
+                    // file as its public ID -> default = true,
+                  />
                 </div>
                 <div>
                   <div className='nav'>
