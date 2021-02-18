@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import GOOGLE_API_KEY from '../../../.env';
+
 const Resources = (props) => {
 
   return (
