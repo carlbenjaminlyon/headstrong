@@ -1,5 +1,5 @@
-import React from 'react'
-import { BigWhiteboard } from 'react-component-whiteboard'
+import React from 'react';
+import { BigWhiteboard } from 'react-component-whiteboard';
 
 class Board extends React.Component {
   render() {
@@ -13,8 +13,7 @@ class Board extends React.Component {
 
             </div>
         </div>
-    )
-  }
+      )  }
 }
 
 export default Board;

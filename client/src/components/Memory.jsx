@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
 
 const Memory = ({ memory, changeMemory, quote }) => {
-    console.log('quote', quote)
+  console.log('quote', quote);
 
   const { id, username, title, blog, journalImage, createdAt, temp, weatherDescription, mood } = memory;
   const timeStamp = moment(createdAt).format('MMM Do YY');

@@ -10,7 +10,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
-import prompts from '../prompts.js'
+import prompts from '../prompts.js';
 
 class Entry extends Component {
   constructor(props) {
@@ -42,15 +42,15 @@ class Entry extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handlePublicChange = this.handlePublicChange.bind(this);
-    this.generateThought = this.generateThought.bind(this)
+    this.generateThought = this.generateThought.bind(this);
   }
 
-  generateThought(){
-    const number = Math.floor(Math.random() * prompts.length - 1)
-    console.log('Here is an idea', prompts[ number ])
+  generateThought() {
+    const number = Math.floor(Math.random() * prompts.length - 1);
+    console.log('Here is an idea', prompts[ number ]);
     this.setState({
       prompt: prompts[ number ]
-    })
+    });
 
   }
 
