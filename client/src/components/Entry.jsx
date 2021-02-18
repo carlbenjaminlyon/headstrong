@@ -158,40 +158,40 @@ class Entry extends Component {
     });
 
     return (
-      <div className="text wrap">
+        <div className="text wrap">
 
-        <form>
-          <div className="weather">Currently {temp} and {weatherDescription}</div>
-          <div>
-            <textarea className="form-control"
+            <form>
+                <div className="weather">Currently {temp} and {weatherDescription}</div>
+                <div>
+                    <textarea className="form-control"
               placeholder="Give your post a title"
               value={ title }
               onChange={ this.handleTitleChange }/>
-          </div>
-          <br></br>
-          <div>
-            <textarea className="form-control"
+                </div>
+                <br></br>
+                <div>
+                    <textarea className="form-control"
               placeholder="Enter your journal here..."
               value={ blog }
               onChange={ this.handlePostChange }/>
-          </div>
-          <br></br>
-          <div>
-            <textarea className="form-control"
+                </div>
+                <br></br>
+                <div>
+                    <textarea className="form-control"
               placeholder="Paste image URL here"
               value={ journalImage }
               onChange={ this.handleImageChange }/>
-          </div>
-          <label> <input type="checkbox" value={ visible }onChange={ this.handlePublicChange }/>Make Public</label>
-          <button className="urlButton" onClick={ () => this.handleSubmit() }>Submit</button>
-          {
+                </div>
+                <label> <input type="checkbox" value={ visible }onChange={ this.handlePublicChange }/>Make Public</label>
+                <button className="urlButton" onClick={ () => this.handleSubmit() }>Submit</button>
+                {
             journalImage.length ? <img style={ { height: '200px', width: '300px' } } src={ journalImage } /> : null
           }
 
-        </form>
-        <div>
-          <WidgetLoader /> Open Widget to Upload Image.
-          <Widget
+            </form>
+            <div>
+                <WidgetLoader /> Open Widget to Upload Image.
+                <Widget
             sources={ [ 'local', 'camera', 'dropbox' ] } // set the sources available for uploading -> by default
             // all sources are available. More information on their use can be found at
             // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
@@ -220,43 +220,43 @@ class Entry extends Component {
             use_filename={ false } // tell Cloudinary to use the original name of the uploaded
             // file as its public ID -> default = true,
           />
-        </div>
-        <div>
-          <h3><center>What's your mood like today?</center></h3>
+            </div>
+            <div>
+                <h3><center>What's your mood like today?</center></h3>
 
-          <div className="slider" style={ { width: 300, marginLeft: 70 } }>
-            <ThemeProvider theme={ muiTheme }>
-              <Grid container className="grid" display="flex" align="center" justify="center" alignItems="center">
-                <Grid item>
-                  <SentimentVeryDissatisfiedIcon/>
-                </Grid>
-                <Grid item xs={ 10 }>
-                  <Slider onChange={ this.handleMoodChange } className="slider"
+                <div className="slider" style={ { width: 300, marginLeft: 70 } }>
+                    <ThemeProvider theme={ muiTheme }>
+                        <Grid container className="grid" display="flex" align="center" justify="center" alignItems="center">
+                            <Grid item>
+                                <SentimentVeryDissatisfiedIcon/>
+                            </Grid>
+                            <Grid item xs={ 10 }>
+                                <Slider onChange={ this.handleMoodChange } className="slider"
                     value={ mood }
                     max={ 100 }
                     marks={ mark }
                     step={ 25 }
                     valueLabelDisplay="auto"
                   />
-                </Grid>
-                <Grid item>
-                  <SentimentSatisfiedAltIcon/>
-                </Grid>
+                            </Grid>
+                            <Grid item>
+                                <SentimentSatisfiedAltIcon/>
+                            </Grid>
 
-              </Grid>
-            </ThemeProvider>
-          </div>
+                        </Grid>
+                    </ThemeProvider>
+                </div>
+            </div>
+
+            <div>
+                <h2>Need Some Ideas?</h2>
+                <button onClick={ this.generateThought }>CLICK ME</button>
+                <ul id='prompt'>
+                    <li>{this.state.prompt}</li>
+                </ul>
+
+            </div>
         </div>
-
-        <div>
-          <h2>Need Some Ideas?</h2>
-          <button onClick={ this.generateThought }>CLICK ME</button>
-          <ul id='prompt'>
-            <li>{this.state.prompt}</li>
-          </ul>
-
-        </div>
-      </div>
 
     );
   }

@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, 'client', 'dist'),
     filename: 'bundle.js'
   },
-  watch: true,
+
   devtool: 'eval-source-map',
   stats: {
     excludeModules: /node_modules/,
