@@ -4,7 +4,6 @@
   "description": "senior immersion greenfield app",
   "main": "index.js",
   "scripts": {
-
     "start": "nodemon Server/index.js",
     "dev": "webpack",
     "deploy": "gcloud functions deploy envFunction --env-vars-file .env.yaml",

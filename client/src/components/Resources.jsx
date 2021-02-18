@@ -38,7 +38,7 @@ const Resources = (props) => {
 
           </ul>
           <h3>In Case of Emergency</h3>
-            <h3>Please Call 9-1-1</h3>
+          <h3>Please Call 9-1-1</h3>
       </div>
 
   );

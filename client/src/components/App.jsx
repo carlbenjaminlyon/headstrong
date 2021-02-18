@@ -178,7 +178,6 @@ this.setState({
                         <h1>Welcome To HeadStrong!</h1>
                         <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
 
-
                     </div>
                 </div>
 
@@ -249,14 +248,14 @@ this.setState({
                         </div>
                     </div>
                 </AppBar>
-                                  <div><input
+                <div><input
         type="text"
         placeholder="Room"
-        value={roomName}
-        onChange={this.handleRoomNameChange}
+        value={ roomName }
+        onChange={ this.handleRoomNameChange }
         className="text-input-field"
       />
-      </div>
+                </div>
                 <div>
                     <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
                     <div className='footer'>
