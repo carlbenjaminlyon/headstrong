@@ -5,10 +5,11 @@ import Resources from './Resources.jsx';
 import Feed from './Feed.jsx';
 import Board from './Board.jsx';
 import axios from 'axios';
-import Chat from './Chat.jsx'
+import Friends from './Friends.jsx'
 import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +22,9 @@ class App extends Component {
       view: 'feed',
       entries: [],
       memory: null,
-      quote: []
+      quote: [],
     };
+    this.getFriends = this.getFriends.bind(this)
     this.getRandomQuote = this.getRandomQuote.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.logout = this.logout.bind(this);
@@ -32,6 +34,7 @@ class App extends Component {
     this.getAllUsersFeed = this.getAllUsersFeed.bind(this);
     this.getAllPublicJournals = this.getAllPublicJournals.bind(this);
     this.getQuote = this.getQuote.bind(this);
+    this.changePosts = this.changePosts.bind(this);
   }
   //change views depending on what you click
   changeView(option) {
@@ -92,19 +95,34 @@ class App extends Component {
         });
       }).catch((err) => console.error(err));
   }
+  changePosts(e){
+this.setState({
+ comments: e.target.value
+})
+  }
+  getFriends(){
+    axios.get('/friends')
+    .then(data => console.log('Data getting friends', data))
+    .catch(err => console.log('error getting friends', err))
+  }
   // render view based on nav
   renderView() {
-    const { view, entries, quoteText, quoteAuthor, memory, quote } = this.state;
+    const { view, entries, quoteText, quoteAuthor, memory, quote, comments } = this.state;
     if (view === 'feed') {
       return <Feed entries={ entries }
+
         quoteText={ quoteText }
+        changePosts={ this.changePosts }
         quoteAuthor={ quoteAuthor }/>;
     } else if (view === 'entry') {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
+    }
+    else if (view === 'friends') {
+      return <Friends entries={ entries }/>;
     } else if (view === 'chat') {
-      return <Chat />;
+      return <ChatRoom />;
     } else if (view === 'board') {
       return <Board />;
     } else if (view === 'memory') {
@@ -128,6 +146,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    this.getFriends();
     this.getRandomQuote();
     this.getQuote();
     this.getRandomMemory();
@@ -147,7 +166,7 @@ class App extends Component {
     });
   }
   render() {
-    const { login, view } = this.state;
+    const { login, view, roomName } = this.state;
     return (
         <div>
             {
@@ -158,7 +177,7 @@ class App extends Component {
                     <div className="text">
                         <h1>Welcome To HeadStrong!</h1>
                         <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
-                        <h2></h2>
+
 
                     </div>
                 </div>
@@ -204,7 +223,7 @@ class App extends Component {
                       (view === 'chat') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
-                        onClick={ () => this.changeView('chat') }>Chat Room</Button>
+                        onClick={ () => this.changeView('friends') }>Friends</Button>
                             </div>
                             <div className={
                       (view === 'board') ? 'currentButton' : 'button' }>
@@ -230,7 +249,14 @@ class App extends Component {
                         </div>
                     </div>
                 </AppBar>
-
+                                  <div><input
+        type="text"
+        placeholder="Room"
+        value={roomName}
+        onChange={this.handleRoomNameChange}
+        className="text-input-field"
+      />
+      </div>
                 <div>
                     <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
                     <div className='footer'>
