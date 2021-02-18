@@ -68,7 +68,7 @@ const Friends = sequelize.define('friends', {
     allowNull: false
   },
   friends: Sequelize.STRING(50)
-})
+});
 const Quote = sequelize.define('quote', {
   author: Sequelize.STRING,
   body: {
@@ -76,6 +76,11 @@ const Quote = sequelize.define('quote', {
     unique: true
   }
 
+});
+
+const Profile = sequelize.define('profile', {
+  username: Sequelize.STRING,
+  imageURL: Sequelize.STRING
 });
 
 const getAllJournals = (user) => {
@@ -96,6 +101,23 @@ const getAllPublicJournals = () => {
       visible: true
     }
   });
+};
+
+const getProfile = (user) => {
+  return Profile.findAll({
+    where: {
+      username: user
+    }
+  });
+};
+
+const addProfile = async(body, user) => {
+  const { imageURL } = body;
+  const newProfile = await Profile.create({
+    username: user,
+    imageURL: imageURL
+  });
+  return newProfile.save();
 };
 
 const deleteJournal = (body) => {
@@ -153,6 +175,8 @@ module.exports = {
   deleteJournal,
   updateJournal,
   getAllPublicJournals,
+  addProfile,
+  getProfile,
   Entries,
   Friends
 };
