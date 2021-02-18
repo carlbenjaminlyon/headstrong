@@ -40,7 +40,6 @@ const Memory = ({ memory, changeMemory, quote }) => {
         {quote.map((element, index) => <div>
           <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
 
-
         </div>)}
 
       </div>

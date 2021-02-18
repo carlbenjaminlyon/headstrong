@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import GOOGLE_API_KEY from '../../../.env';
+
 const Resources = (props) => {
 
   return (
-    <div>
+    <div id='resource'>
       <h1>National Suicide Prevention Lifeline</h1>
       <h2>800-273-8255</h2>
       <h2>Nationl Institute of Mental Health</h2>
@@ -37,7 +37,8 @@ const Resources = (props) => {
         </li>
 
       </ul>
-
+      <h3>In Case of Emergency</h3>
+      <h3>Please Call 9-1-1</h3>
     </div>
 
   );

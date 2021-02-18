@@ -57,15 +57,24 @@ const Entries = sequelize.define('entries', {
     type: Sequelize.STRING
   },
 
-
   visible: {
     type: Sequelize.BOOLEAN
   }
 
 });
+const Friends = sequelize.define('friends', {
+  username: {
+    type: Sequelize.STRING(50),
+    allowNull: false
+  },
+  friends: Sequelize.STRING(50)
+});
 const Quote = sequelize.define('quote', {
   author: Sequelize.STRING,
-  body: Sequelize.STRING
+  body: {
+    type: Sequelize.STRING,
+    unique: true
+  }
 
 });
 
@@ -154,10 +163,10 @@ const updateJournal = (body) => {
   });
 
 };
-// sequelize.sync({ force: true })
-//   .then(() => {
-//     console.log('Database & tables created!');
-//   }).catch((err) => { console.log(err); });
+sequelize.sync({ force: true })
+  .then(() => {
+    console.log('Database & tables created!');
+  }).catch((err) => { console.log(err); });
 
 module.exports = {
   Quote,
@@ -168,5 +177,6 @@ module.exports = {
   getAllPublicJournals,
   addProfile,
   getProfile,
-  Entries
+  Entries,
+  Friends
 };

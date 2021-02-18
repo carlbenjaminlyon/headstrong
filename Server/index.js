@@ -2,15 +2,13 @@
 /* eslint-disable no-undef */
 const path = require('path');
 const express = require('express');
-const PORT = 8080;
-const http = require('http');
+
 const app = express();
-const server = http.createServer(app);
 const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
 const { Location } = require('./api/geolocation');
-const { db, getAllJournals, addJournals, deleteJournal, updateJournal, getAllPublicJournals, addProfile, getProfile, Entries } = require('./db/dbBase.js');
+const { db, getAllJournals, addJournals, deleteJournal, updateJournal, getAllPublicJournals, addProfile, getProfile, Entries, Friends } = require('./db/dbBase.js');
 const { GoogleStrategy } = require('./passport.js');
 const passport = require('passport');
 const session = require('express-session');
@@ -32,7 +30,6 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -83,6 +80,19 @@ app.get('/isloggedin', (req, res) => {
     res.json(false);
   }
 });
+app.post('/friends', (req, res) => {
+
+  const { friends } = req.body;
+  const username = req.cookies.Headstrong;
+  if (username !== friends) {
+    const friend = new Friends({ friends, username });
+
+    friend.save()
+      .then(() => console.log('Friend Saved'))
+      .catch(err => console.log('Server Quote Error', err));
+
+  }
+});
 
 // route to logout
 app.delete('/logout', (req, res) => {
@@ -128,7 +138,12 @@ app.post('/api/profile', (req, res) => {
 //     .then((data) => res.json(data))
 //     .catch((err) => console.warn(err));
 // });
+app.get('/friends', (req, res) => {
+  Friends.findAll({})
+    .then(data => Quotes.findAll({}))
 
+    .catch(err => console.log('Error Getting Friends', err));
+});
 app.delete('/api/journals/:id', (req, res) => {
   return deleteJournal(req.params)
     .then((data) => res.json(data))
@@ -158,7 +173,6 @@ app.get('/quote', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
-server.listen(port, () => {
-  console.log(`listening on *:${PORT}`);
+app.listen(port, () => {
+  console.log(`listening on *:${ port }`);
 });
-

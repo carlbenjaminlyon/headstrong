@@ -63,3 +63,4 @@ const prompts = [
   'Write a letter to a person who has positively impacted you'
 
 ];
+export default prompts;

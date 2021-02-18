@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Entry from './Entry.jsx';
 import Memory from './Memory.jsx';
@@ -8,11 +7,11 @@ import Board from './Board.jsx';
 import axios from 'axios';
 import Chat from './Chat.jsx';
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
-
-
+import Friends from './Friends.jsx';
 import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -29,17 +28,18 @@ class App extends Component {
       imageURL: null,
       username: ''
     };
+    this.getFriends = this.getFriends.bind(this);
     this.getRandomQuote = this.getRandomQuote.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.logout = this.logout.bind(this);
     this.getRandomMemory = this.getRandomMemory.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
-    this.getAllUsersFeed = this.getAllUsersFeed.bind(this);
     this.getAllPublicJournals = this.getAllPublicJournals.bind(this);
     this.getQuote = this.getQuote.bind(this);
     this.addProfile = this.addProfile.bind(this);
     this.getProfile = this.getProfile.bind(this);
+    this.changePosts = this.changePosts.bind(this);
   }
   //change views depending on what you click
   changeView(option) {
@@ -61,15 +61,6 @@ class App extends Component {
     axios.post('/api/profile', { imageURL: result.info.url })
       .then(data => console.log(data))
       .catch(err => console.warn(err));
-  }
-  // get a feed of all user public entries
-  getAllUsersFeed() {
-    axios.get('/api/journals')
-      .then(({ data }) => {
-        this.setState({
-          entries: data
-        });
-      }).catch((err) => console.error(err));
   }
   // get random quote for home page
   //test
@@ -117,21 +108,36 @@ class App extends Component {
         });
       }).catch((err) => console.error(err));
   }
+  changePosts(e) {
+    this.setState({
+      comments: e.target.value
+    });
+  }
+  getFriends() {
+    axios.get('/friends')
+      .then(data => console.log('Data getting friends', data))
+      .catch(err => console.log('error getting friends', err));
+  }
   // render view based on nav
   renderView() {
-    const { view, entries, quoteText, quoteAuthor, memory, quote, imageURL, username } = this.state;
+    const { view, entries, quoteText, quoteAuthor, memory, quote, comments, imageURL, username } = this.state;
     if (view === 'feed') {
       return <Feed entries={ entries }
+
         quoteText={ quoteText }
         quoteAuthor={ quoteAuthor }
         imageURL={imageURL}
-        username={ username }/>;
+        username={ username }
+        changePosts={ this.changePosts }
+        quoteAuthor={ quoteAuthor }/>;
     } else if (view === 'entry') {
       return <Entry logout={ this.logout }/>;
     } else if (view === 'resource') {
       return <Resources />;
+    } else if (view === 'friends') {
+      return <Friends entries={ entries }/>;
     } else if (view === 'chat') {
-      return <Chat />;
+      return <ChatRoom />;
     } else if (view === 'board') {
       return <Board />;
     } else if (view === 'memory') {
@@ -139,21 +145,27 @@ class App extends Component {
         {memory ?
           <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
             style={ { display: 'flex', flexDirection: 'column', align: 'center', justify: 'center', alignItems: 'center' } }>
-            <img src='https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg'/>
+            <img src="https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg"/>
             <h1><i>Ruh roh!</i></h1>
-            <h3>It looks like you don’t have any memories yet.
+            <h3>It looks like you don't have any memories yet.
                       Write an entry to view a random memory.</h3>
+            <div className='likedQuotes'>
+              {quote.map((element, index) => <div>
+                <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
+              </div>)}
+
+            </div>
           </div>
         }
       </div>);
     }
   }
   componentDidMount() {
+    this.getFriends();
     this.getRandomQuote();
     this.getQuote();
     this.getRandomMemory();
     this.renderView();
-    this.getAllUsersFeed();
     this.getAllPublicJournals();
     axios.get('/isloggedin')
       .then(({ data }) =>
@@ -168,7 +180,7 @@ class App extends Component {
     });
   }
   render() {
-    const { login, view, imageURL } = this.state;
+    const { login, view, roomName, imageURL } = this.state;
     return (
       <div>
         {
@@ -176,12 +188,15 @@ class App extends Component {
             ? <div>
               <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
               <div className='loginMain'>
-                <div className='text'>
+                <div className="text">
                   <h1>Welcome To HeadStrong!</h1>
                   <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
+
+
                 </div>
               </div>
-              <a className='loginButton' href='/auth/google'> <GoogleButton /></a>
+
+              <a className='loginButton' href="/auth/google"> <GoogleButton /></a>
               <div className='footer'>
                 <div className='logo2'>
                         HeadStrong
@@ -212,10 +227,10 @@ class App extends Component {
                     style={{
                       color: 'white',
                       border: 'none',
-                      width: '120px',
+                      width: '50px',
                       backgroundColor: 'green',
                       borderRadius: '4px',
-                      height: '25px'
+                      height: '10px'
                     }} // inline styling only or style id='cloudinary_upload_button'
                     folder={'demo'} // set cloudinary folder name to send file
                     cropping={false} // set ability to crop images -> default = true
@@ -254,10 +269,10 @@ class App extends Component {
                       (view === 'chat') ? 'currentButton' : 'button' }>
                       <Button
                         className='Button'
-                        onClick={ () => this.changeView('chat') }>Chat Room</Button>
+                        onClick={ () => this.changeView('friends') }>Friends</Button>
                     </div>
                     <div className={
-                      (view === 'board') ? 'currentButton' : 'button'}>
+                      (view === 'board') ? 'currentButton' : 'button' }>
                       <Button
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
@@ -280,9 +295,14 @@ class App extends Component {
                   </div>
                 </div>
               </AppBar>
-
-
-
+              <div><input
+                type="text"
+                placeholder="Room"
+                value={roomName}
+                onChange={this.handleRoomNameChange}
+                className="text-input-field"
+              />
+              </div>
               <div>
                 <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
                 <div className='footer'>
@@ -304,25 +324,3 @@ class App extends Component {
   }
 }
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
