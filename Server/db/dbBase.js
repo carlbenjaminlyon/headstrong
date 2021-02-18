@@ -62,6 +62,13 @@ const Entries = sequelize.define('entries', {
   }
 
 });
+const Friends = sequelize.define('friends', {
+  username: {
+    type: Sequelize.STRING(50),
+    allowNull: false
+  },
+  friends: Sequelize.STRING(50)
+})
 const Quote = sequelize.define('quote', {
   author: Sequelize.STRING,
   body: {
@@ -146,5 +153,6 @@ module.exports = {
   deleteJournal,
   updateJournal,
   getAllPublicJournals,
-  Entries
+  Entries,
+  Friends
 };

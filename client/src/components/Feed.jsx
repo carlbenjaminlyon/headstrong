@@ -5,9 +5,11 @@ import Grid from '@material-ui/core/Grid';
 
 
 
-const Feed = ({ quoteText, quoteAuthor, entries }) => {
-    console.log(entries)
-    const time = moment().format('MMMM Do YYYY, h:mm:ss a')
+
+const Feed = ({ quoteText, quoteAuthor, entries, changePosts }) => {
+
+    const time = moment().format('MMMM Do YYYY, h:mm:ss a');
+
   return (
       <div className='text wrap'>
 
@@ -23,10 +25,17 @@ const Feed = ({ quoteText, quoteAuthor, entries }) => {
             .catch(err => console.log('Axios Quote Error', err));
         }
         }>Like</button>
-          </div>
 
-          <div className='scroll'>
-              <h1>Public Journal Entries</h1>
+
+
+
+              <h1>Public Posts<div>
+
+
+
+
+
+</div></h1>
               <hr></hr>
               {entries.map(entry =>
                   <div key={ entry.id } id='comments' >
@@ -34,7 +43,14 @@ const Feed = ({ quoteText, quoteAuthor, entries }) => {
                       <div>{`Title:${entry.title}`}</div>
                       <div>{`Message: ${entry.blog}`}</div>
                    {entry.journalImage ?  <div ><img height='200px' width='300px' src={entry.journalImage}/></div> : null}
-                      <div>{`Posted: ${entry.createdAt}`}<button  style={{marginLeft: 10}}className='btn btn-default  btn-block'>Follow</button></div>
+                      <div>{`Posted: ${entry.createdAt}`}<button onClick={() => { const data = {
+                            friends: entry.username,
+                                }
+                             axios.post('/friends', data)
+                              .then(data => console.log('Friend added'))
+                              .catch(err => console.log('Error adding friend', err))
+                                            }}  style={{marginLeft: 10}}
+    className='btn btn-default  btn-block'>Follow</button></div>
                       <hr></hr>
                   </div>).sort()}
           </div>
