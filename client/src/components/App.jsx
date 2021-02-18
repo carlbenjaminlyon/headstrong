@@ -23,6 +23,7 @@ class App extends Component {
       entries: [],
       memory: null,
       quote: [],
+      username: '',
     };
     this.getFriends = this.getFriends.bind(this)
     this.getRandomQuote = this.getRandomQuote.bind(this);
