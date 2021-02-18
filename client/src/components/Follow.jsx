@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
 
 const Follow = () => {
 
-return (
+  return (
     <div>
-        <button type='submit'onClick={ () => console.log('This should add user to friends table') }>Follow</button>
+      <button type='submit'onClick={ () => console.log('This should add user to friends table') }>Follow</button>
     </div>
-)
+  );
 
-}
+};
 
- export default Follow
+export default Follow
+;
