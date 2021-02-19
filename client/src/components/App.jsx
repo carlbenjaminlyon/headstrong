@@ -135,7 +135,7 @@ class App extends Component {
     } else if (view === 'resource') {
       return <Resources />;
     } else if (view === 'friends') {
-      return <Friends entries={ entries }/>;
+      return <Friends entries={ entries } username={ username }/>;
     } else if (view === 'chat') {
       return <ChatRoom />;
     } else if (view === 'board') {
@@ -180,7 +180,7 @@ class App extends Component {
     });
   }
   render() {
-    const { login, view, roomName, imageURL } = this.state;
+    const { login, view, roomName, imageURL, username } = this.state;
     return (
         <div>
             {
@@ -208,34 +208,38 @@ class App extends Component {
             :
             <div>
 
-                <AppBar>
-                    <div className='logo'>
-                        HeadStrong
-                    </div>
-                    <div>
-                        <WidgetLoader /> Open Widget to Upload Profile Picture.
-                        <Widget
-                    sources={ [ 'local', 'camera', 'dropbox' ] } // set the sources available for uploading -> by default
+              <AppBar>
+                <div className='logo'>
+                        HeadStrong 2.0
+                        <span id='profile'>{username}</span>
+        <img alt="profile-pic" id='profilePic' src={imageURL} height="50" width="50"  />
+                </div>
+
+                <div id='widget'>
+                  <WidgetLoader />
+                  <Widget
+                    sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
                     // all sources are available. More information on their use can be found at
                     // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
                     resourceType={ 'image' } // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
                     cloudName={ 'geonovember' } // your cloudinary account cloud name.
                     // Located on https://cloudinary.com/console/
-                    uploadPreset={ 'smiuh98k' } // check that an upload preset exists and check mode is signed or unisgned
-                    buttonText={ 'Open' } // default 'Upload Files'
-                    style={ {
+                    uploadPreset={'smiuh98k'} // check that an upload preset exists and check mode is signed or unisgned
+                    buttonText={'Upload'} // default 'Upload Files'
+                    style={{
                       color: 'white',
                       border: 'none',
                       width: '50px',
-                      backgroundColor: 'green',
-                      borderRadius: '4px',
-                      height: '10px'
-                    } } // inline styling only or style id='cloudinary_upload_button'
-                    folder={ 'demo' } // set cloudinary folder name to send file
-                    cropping={ false } // set ability to crop images -> default = true
-                    onSuccess={ result => this.setState({ imageURL: result.info.url }) } // add success callback -> returns result
-                    onFailure={ console.log('failure!!!') } // add failure callback -> returns 'response.error' + 'response.result'
-                    logging={ false } // logs will be provided for success and failure messages,
+                      backgroundColor: 'LightSkyBlue',
+                      borderRadius: '6px',
+                      height: '15px',
+                      margin: '10px'
+                    }} // inline styling only or style id='cloudinary_upload_button'
+                    folder={'demo'} // set cloudinary folder name to send file
+                    cropping={false} // set ability to crop images -> default = true
+                    onSuccess={result => this.setState({imageURL: result.info.url})} // add success callback -> returns result
+                    onFailure={console.log('failure!!!')} // add failure callback -> returns 'response.error' + 'response.result'
+                    logging={false} // logs will be provided for success and failure messages,
                     // set to false for production -> default = true
                     customPublicId={ 'sample' } // set a specific custom public_id.
                     // To use the file name as the public_id use 'use_filename={true}' parameter
@@ -301,14 +305,14 @@ class App extends Component {
                 onChange={ this.handleRoomNameChange }
                 className="text-input-field"
               />
-                </div>
-                <div>
-                    <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
-                    <div className='footer'>
-                        <div className='logo2'>
-                            HeadStrong
-                        </div>
-                        <div className='footer-text'>
+              </div>
+              <div>
+                <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
+                <div className='footer'>
+                  <div className='logo2'>
+                            HeadStrong 2.0
+                  </div>
+                  <div className='footer-text'>
                             Since 2021
                         </div>
                     </div>

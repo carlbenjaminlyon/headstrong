@@ -163,10 +163,10 @@ const updateJournal = (body) => {
   });
 
 };
-sequelize.sync({ force: true })
-  .then(() => {
-    console.log('Database & tables created!');
-  }).catch((err) => { console.log(err); });
+// sequelize.sync({ force: true })
+//   .then(() => {
+//     console.log('Database & tables created!');
+//   }).catch((err) => { console.log(err); });
 
 module.exports = {
   Quote,

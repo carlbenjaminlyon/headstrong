@@ -14,8 +14,7 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
               <h1>{quoteText}</h1>
               <h2 style={ { marginRight: 5 } }><i>- {quoteAuthor}</i></h2>
               <br></br>
-              <h3>{username}</h3>
-              <img default="profile-pic" src={ imageURL } height="100" width="100" />
+
 
               <button className='btn btn-primary btn-block ' type='submit' onClick={ () =>{
           const data = { author: quoteAuthor, body: quoteText };
@@ -24,11 +23,12 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
             .catch(err => console.log('Axios Quote Error', err));
         }
         }>Like</button>
+              <div>
+                <div id='publicPosts'>
 
-              <h1>Public Posts<div>
+              <h1 >Public Posts</h1>
+                </div>
 
-              </div></h1>
-              <hr></hr>
               {entries.map(entry =>
                   <div key={ entry.id } id='comments' >
                       <div>{`User:${ entry.username }`}</div>
@@ -46,6 +46,7 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
             className='btn btn-default  btn-block'>Follow</button></div>
                       <hr></hr>
                   </div>).sort()}
+              </div>
           </div>
       </div>
   );

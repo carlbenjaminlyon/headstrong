@@ -11,17 +11,17 @@ const Memory = ({ memory, changeMemory, quote }) => {
   const timeStamp = moment(createdAt).format('MMM Do YY');
 
   return (
-      <div className='text wrap' key={ id }>
-          <h2>Welcome back {username},</h2>
-          <br></br>
-          <div><i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling {mood}% happy!</i></div>
-          <br></br>
-          <div><h2>{title}</h2></div>
-          <div><p>{blog}</p></div>
-          <br></br>
-          <div><img style={ { height: '200px', width: '300px' } } src={ journalImage } alt="Memory Image" width="400px" height="auto" overflow="hidden"/></div>
-          <div>
-              <Button
+    <div className='text wrap' key={ id }>
+      <h2>Welcome back {username},</h2>
+      <br></br>
+      <div id='memo'><i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling happy!</i>
+      <br></br>
+      <h2>{title}</h2>
+      <p>{blog}</p>
+      <br></br>
+      <img style={ { height: '200px', width: '300px' } } src={ journalImage } alt="Memory Image" width="400px" height="auto" overflow="hidden"/>
+
+        <Button
           className='Button'
           style={ { color: 'white' } }
           onClick={ () => axios.delete(`/api/journals/${ id }`)
