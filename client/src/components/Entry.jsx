@@ -159,11 +159,10 @@ class Entry extends Component {
 
     return (
       <div >
-        <div id='ntree'>
+        <div id='ideas'>
           <h2 style={{color: '#95cff4'}}>Need Some Ideas?</h2>
           <br></br>
           <button className='btn btn-default' onClick={ this.generateThought }>CLICK ME</button>
-          <br></br>
           <ul id='prompt'>
             <li id='prompt'>{this.state.prompt}</li>
           </ul>
@@ -205,7 +204,7 @@ class Entry extends Component {
           }
 
         </form>
-        <div id='widget'>
+        <div id='entryWidget'>
           <WidgetLoader /> Upload Image
 
           <Widget

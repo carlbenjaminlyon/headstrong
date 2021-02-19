@@ -92,7 +92,7 @@ class App extends Component {
       .then((data) => {
         console.log('DATA PROFILE PIC', data);
         this.setState({
-          imageURL: data[0].imageURL
+          imageURL: data[ 0 ].imageURL
         });
       }).catch(err => console.error(err));
   }
@@ -104,7 +104,7 @@ class App extends Component {
         const randomIndex = Math.floor(Math.random() * data.length);
         this.setState({
           memory: data[ randomIndex ],
-          username: data[0].username
+          username: data[ 0 ].username
         });
       }).catch((err) => console.error(err));
   }
@@ -126,7 +126,7 @@ class App extends Component {
 
         quoteText={ quoteText }
         quoteAuthor={ quoteAuthor }
-        imageURL={imageURL}
+        imageURL={ imageURL }
         username={ username }
         changePosts={ this.changePosts }
         quoteAuthor={ quoteAuthor }/>;
@@ -142,20 +142,20 @@ class App extends Component {
       return <Board />;
     } else if (view === 'memory') {
       return (<div>
-        {memory ?
-          <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
+          {memory ?
+              <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
             style={ { display: 'flex', flexDirection: 'column', align: 'center', justify: 'center', alignItems: 'center' } }>
-            <img src="https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg"/>
-            <h1><i>Ruh roh!</i></h1>
-            <h3>It looks like you don't have any memories yet.
+                  <img src="https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg"/>
+                  <h1><i>Ruh roh!</i></h1>
+                  <h3>It looks like you don't have any memories yet.
                       Write an entry to view a random memory.</h3>
-            <div className='likedQuotes'>
-              {quote.map((element, index) => <div>
-                <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
-              </div>)}
+                  <div className='likedQuotes'>
+                      {quote.map((element, index) => <div>
+                          <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
+                      </div>)}
 
-            </div>
-          </div>
+                  </div>
+              </div>
         }
       </div>);
     }
@@ -182,29 +182,28 @@ class App extends Component {
   render() {
     const { login, view, roomName, imageURL, username } = this.state;
     return (
-      <div>
-        {
+        <div>
+            {
           !login
             ? <div>
-              <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
-              <div className='loginMain'>
-                <div className="text">
-                  <h1>Welcome To HeadStrong!</h1>
-                  <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
+                <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
+                <div className='loginMain'>
+                    <div className="text">
+                        <h1>Welcome To HeadStrong!</h1>
+                        <h3>A stress-free, judgment free zone for you to get your thoughts out</h3>
 
-
+                    </div>
                 </div>
-              </div>
 
-              <a className='loginButton' href="/auth/google"> <GoogleButton /></a>
-              <div className='footer'>
-                <div className='logo2'>
+                <a className='loginButton' href="/auth/google"> <GoogleButton /></a>
+                <div className='footer'>
+                    <div className='logo2'>
                         HeadStrong
-                </div>
-                <div className='footer-text'>
+                    </div>
+                    <div className='footer-text'>
                         Since 2021
+                    </div>
                 </div>
-              </div>
             </div>
             :
             <div>
@@ -222,8 +221,8 @@ class App extends Component {
                     sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
                     // all sources are available. More information on their use can be found at
                     // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
-                    resourceType={'image'} // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
-                    cloudName={'geonovember'} // your cloudinary account cloud name.
+                    resourceType={ 'image' } // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
+                    cloudName={ 'geonovember' } // your cloudinary account cloud name.
                     // Located on https://cloudinary.com/console/
                     uploadPreset={'smiuh98k'} // check that an upload preset exists and check mode is signed or unisgned
                     buttonText={'Upload'} // default 'Upload Files'
@@ -242,69 +241,68 @@ class App extends Component {
                     onFailure={console.log('failure!!!')} // add failure callback -> returns 'response.error' + 'response.result'
                     logging={false} // logs will be provided for success and failure messages,
                     // set to false for production -> default = true
-                    customPublicId={'sample'} // set a specific custom public_id.
+                    customPublicId={ 'sample' } // set a specific custom public_id.
                     // To use the file name as the public_id use 'use_filename={true}' parameter
-                    eager={'w_400,h_300,c_pad|w_260,h_200,c_crop'} // add eager transformations -> deafult = null
-                    use_filename={false} // tell Cloudinary to use the original name of the uploaded
+                    eager={ 'w_400,h_300,c_pad|w_260,h_200,c_crop' } // add eager transformations -> deafult = null
+                    use_filename={ false } // tell Cloudinary to use the original name of the uploaded
                     // file as its public ID -> default = true,
                   />
-                </div>
-                <div>
-                  <div className='nav'>
-                    <div className={
+                    </div>
+                    <div>
+                        <div className='nav'>
+                            <div className={
                       (view === 'feed') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('feed') }>Home</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'entry') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('entry') }>Write Entry</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'resource') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('resource') }>Resources</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'chat') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('friends') }>Friends</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'board') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'memory') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => this.changeView('memory') }>Memory</Button>
-                    </div>
-                    <div className={
+                            </div>
+                            <div className={
                       (view === 'logout') ? 'currentButton' : 'button' }>
-                      <Button
+                                <Button
                         className='Button'
                         onClick={ () => axios.delete('/logout')
                           .then(({ data }) => this.logout(data))
                           .catch((err) => console.warn(err)) }
                       >Logout</Button>
+                            </div>
+                        </div>
                     </div>
-
-                  </div>
-                </div>
-              </AppBar>
-              <div><input
+                </AppBar>
+                <div><input
                 type="text"
                 placeholder="Room"
-                value={roomName}
-                onChange={this.handleRoomNameChange}
+                value={ roomName }
+                onChange={ this.handleRoomNameChange }
                 className="text-input-field"
               />
               </div>
@@ -316,15 +314,15 @@ class App extends Component {
                   </div>
                   <div className='footer-text'>
                             Since 2021
-                  </div>
+                        </div>
+                    </div>
+                    <div className='main'>
+                        {this.renderView()}
+                    </div>
                 </div>
-                <div className='main'>
-                  {this.renderView()}
-                </div>
-              </div>
             </div>
         }
-      </div>
+        </div>
     );
   }
 }

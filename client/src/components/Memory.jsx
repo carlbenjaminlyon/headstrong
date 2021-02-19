@@ -27,24 +27,23 @@ const Memory = ({ memory, changeMemory, quote }) => {
           onClick={ () => axios.delete(`/api/journals/${ id }`)
             .then(() => changeMemory())
             .catch((err) => console.warn(err)) }>
-          <DeleteIcon/>
-        </Button>
-        <Button
+                  <DeleteIcon/>
+              </Button>
+              <Button
           className='Button'
           style={ { color: 'white', fontFamily: 'Roboto' } }
           onClick={ () => changeMemory() }>
                   View Another Memory
-        </Button>
-      </div>
-      <div className='likedQuotes'>
-        <h1 id='lq'>Liked Quotes</h1>
-        {quote.map((element, index) => <div>
-          <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
+              </Button>
+          </div>
+          <div className='likedQuotes'>
+              {quote.map((element, index) => <div>
+                  <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
 
-        </div>)}
+              </div>)}
 
+          </div>
       </div>
-    </div>
   );
 };
 

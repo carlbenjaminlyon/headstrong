@@ -329,10 +329,17 @@ margin-left: 200px;
 	margin-left: 800px;
 }
 #profilePic {
-	margin-top: 15px;;
+	margin-top: 10px;
+	height: 50px;
+	width: 50px;
 }
 #ntree {
 margin-left: 680px;
+}
+#publicPosts {
+margin-left: 1000px;
+width: 600px;
+margin-bottom: 15px;
 }
 #journal {
 	margin-left: 200px;
@@ -354,7 +361,7 @@ margin-left: 680px;
 	overflow-y: auto;
 }
 #widget {
-	margin-left: 100px;
+	margin-left: 1475px;
 }
 #memo {
 	outline: 5px solid rgb(247, 250, 252);
@@ -369,4 +376,10 @@ margin-left: 680px;
 #lq {
 	outline: 5px solid rgb(247, 250, 252);
 	margin-bottom: 19px;
+}
+#ideas {
+	margin-left: 1000px;
+}
+#entryWidget {
+	margin-left: 50px;
 }
