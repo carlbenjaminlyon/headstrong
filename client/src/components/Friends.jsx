@@ -1,14 +1,14 @@
 import React from 'react';
 
 const Friends = ({entries, username}) => {
-  console.log('ggggg', entries);
-const entrys = entries.filter((entry) => {
-  if(entry.username !== username){
-    return true
-  }
-  return false;
-})
-console.log('ENTRYS', entrys)
+
+  const entrys = entries.filter((entry) => {
+    if(entry.username !== username){
+      return true;
+    }
+    return false;
+  })
+
   return (
     <div>
       <h1 id='friendsPost'>Friend Activity</h1>
@@ -24,12 +24,8 @@ console.log('ENTRYS', entrys)
           <hr></hr>
         </div>)
     }
-
-
-
     </div>
   );
 };
 
-export default Friends
-;
+export default Friends;

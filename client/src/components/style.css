@@ -83,7 +83,7 @@
 }
 
 .form-control {
-	width: 100%;
+	width: 500px;
 	height: 56px;
 	border-radius: 4px;
 	position: relative;
@@ -102,7 +102,7 @@
 
 .urlButton {
 	display: block;
-	margin: 15px auto 30px auto;
+	/* margin: 15px auto 30px auto; */
 	background-color: #95cff4;
 	border-radius: 20px;
 	border: 1px solid #95cff4;
@@ -121,7 +121,8 @@
 
 .weather {
 	margin: 0 0 10px 0;
-	text-align: center;
+	color: #ffff
+
 }
 
 .slider {
@@ -236,7 +237,7 @@ width: 2200px;
 margin-top: 250px;
 margin-left: 300px;
 }
-#title {
+#title{
 	margin-left: 620px;
 	color: rgb(179, 179, 179)
 }
@@ -292,7 +293,7 @@ margin-left: 300px;
 	margin-left: 1100px;
 	margin-bottom: 2100px;
 	outline: 5px solid rgb(17, 71, 107);
-	color: black
+	color:#ffff
 }
 
 #friendsPost {
@@ -312,4 +313,60 @@ margin-left: 200px;
 }
 #widget {
 	margin-left: 1500px;
+}
+#resources {
+	color: #ffff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#danger {
+	color: red
+}
+.link {
+	color: rgb(70, 189, 173)
+}
+#profile {
+	margin-left: 800px;
+}
+#profilePic {
+	margin-top: 15px;;
+}
+#ntree {
+margin-left: 680px;
+}
+#journal {
+	margin-left: 200px;
+}
+#mood {
+	margin-left: 95px;
+}
+#cb {
+	color: #ffff;
+	margin-bottom: 60px;
+	margin-top: 10px;
+	margin-left: 160px;
+}
+#sub {
+	margin-left: 160px;
+}
+#prompt{
+	color:#ffffff;
+	overflow-y: auto;
+}
+#widget {
+	margin-left: 100px;
+}
+#memo {
+	outline: 5px solid rgb(247, 250, 252);
+}
+.likedQuotes {
+	outline: 5px solid rgb(247, 250, 252);
+	margin-top: 100px;
+	overflow-y: scroll;
+	height: 200px;
+	width: 450px;
+}
+#lq {
+	outline: 5px solid rgb(247, 250, 252);
+	margin-bottom: 19px;
 }

@@ -158,15 +158,19 @@ class Entry extends Component {
     });
 
     return (
-      <div className="text wrap">
-        <div>
-          <h2>Need Some Ideas?</h2>
-          <button onClick={ this.generateThought }>CLICK ME</button>
+      <div >
+        <div id='ntree'>
+          <h2 style={{color: '#95cff4'}}>Need Some Ideas?</h2>
+          <br></br>
+          <button className='btn btn-default' onClick={ this.generateThought }>CLICK ME</button>
+          <br></br>
           <ul id='prompt'>
-            <li>{this.state.prompt}</li>
+            <li id='prompt'>{this.state.prompt}</li>
           </ul>
 
         </div>
+        <div id='journal' >
+
         <form>
           <div className="weather">Currently {temp} and {weatherDescription}</div>
           <div>
@@ -189,15 +193,21 @@ class Entry extends Component {
               value={ journalImage }
               onChange={ this.handleImageChange }/>
           </div>
-          <label> <input type="checkbox" value={ visible }onChange={ this.handlePublicChange }/>Make Public</label>
-          <button className="urlButton" onClick={ () => this.handleSubmit() }>Submit</button>
+          <label id='cb'> <input type="checkbox" value={ visible }onChange={ this.handlePublicChange }/>Make Public</label>
+          <br></br>
+          <br></br>
+          <br></br>
+
+          <button className="urlButton" id='sub' onClick={ () => this.handleSubmit() }>Submit</button>
+          <br></br>
           {
             journalImage.length ? <img style={ { height: '200px', width: '300px' } } src={ journalImage } /> : null
           }
 
         </form>
-        <div>
-          <WidgetLoader /> Open Widget to Upload Image.
+        <div id='widget'>
+          <WidgetLoader /> Upload Image
+
           <Widget
             sources={ [ 'local', 'camera', 'dropbox' ] } // set the sources available for uploading -> by default
             // all sources are available. More information on their use can be found at
@@ -228,8 +238,9 @@ class Entry extends Component {
             // file as its public ID -> default = true,
           />
         </div>
+        <br></br>
         <div>
-          <h3><center>What's your mood like today?</center></h3>
+          <h3 id='mood'>What's your mood like today?</h3>
 
           <div className="slider" style={ { width: 300, marginLeft: 70 } }>
             <ThemeProvider theme={ muiTheme }>
@@ -253,6 +264,7 @@ class Entry extends Component {
               </Grid>
             </ThemeProvider>
           </div>
+        </div>
         </div>
 
 

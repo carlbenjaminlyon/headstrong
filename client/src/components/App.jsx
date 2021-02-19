@@ -211,8 +211,11 @@ class App extends Component {
 
               <AppBar>
                 <div className='logo'>
-                        HeadStrong
+                        HeadStrong 2.0
+                        <span id='profile'>{username}</span>
+        <img alt="profile-pic" id='profilePic' src={imageURL} height="50" width="50"  />
                 </div>
+
                 <div id='widget'>
                   <WidgetLoader />
                   <Widget
@@ -293,11 +296,7 @@ class App extends Component {
                           .catch((err) => console.warn(err)) }
                       >Logout</Button>
                     </div>
-                    <div className='button'>
 
-                    <h3>{username}</h3>
-        <img alt="profile-pic" src={imageURL} height="50" width="50"  />
-                    </div>
                   </div>
                 </div>
               </AppBar>
@@ -313,7 +312,7 @@ class App extends Component {
                 <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
                 <div className='footer'>
                   <div className='logo2'>
-                            HeadStrong
+                            HeadStrong 2.0
                   </div>
                   <div className='footer-text'>
                             Since 2021

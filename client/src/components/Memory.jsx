@@ -14,13 +14,13 @@ const Memory = ({ memory, changeMemory, quote }) => {
     <div className='text wrap' key={ id }>
       <h2>Welcome back {username},</h2>
       <br></br>
-      <div><i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling {mood}% happy!</i></div>
+      <div id='memo'><i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling happy!</i>
       <br></br>
-      <div><h2>{title}</h2></div>
-      <div><p>{blog}</p></div>
+      <h2>{title}</h2>
+      <p>{blog}</p>
       <br></br>
-      <div><img style={ { height: '200px', width: '300px' } } src={ journalImage } alt="Memory Image" width="400px" height="auto" overflow="hidden"/></div>
-      <div>
+      <img style={ { height: '200px', width: '300px' } } src={ journalImage } alt="Memory Image" width="400px" height="auto" overflow="hidden"/>
+
         <Button
           className='Button'
           style={ { color: 'white' } }
@@ -37,6 +37,7 @@ const Memory = ({ memory, changeMemory, quote }) => {
         </Button>
       </div>
       <div className='likedQuotes'>
+        <h1 id='lq'>Liked Quotes</h1>
         {quote.map((element, index) => <div>
           <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
 
