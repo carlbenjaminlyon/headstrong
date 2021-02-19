@@ -180,7 +180,7 @@ class App extends Component {
     });
   }
   render() {
-    const { login, view, roomName, imageURL } = this.state;
+    const { login, view, roomName, imageURL, username } = this.state;
     return (
       <div>
         {
@@ -213,8 +213,8 @@ class App extends Component {
                 <div className='logo'>
                         HeadStrong
                 </div>
-                <div>
-                  <WidgetLoader /> Open Widget to Upload Profile Picture.
+                <div id='widget'>
+                  <WidgetLoader />
                   <Widget
                     sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
                     // all sources are available. More information on their use can be found at
@@ -223,14 +223,15 @@ class App extends Component {
                     cloudName={'geonovember'} // your cloudinary account cloud name.
                     // Located on https://cloudinary.com/console/
                     uploadPreset={'smiuh98k'} // check that an upload preset exists and check mode is signed or unisgned
-                    buttonText={'Open'} // default 'Upload Files'
+                    buttonText={'Upload'} // default 'Upload Files'
                     style={{
                       color: 'white',
                       border: 'none',
                       width: '50px',
-                      backgroundColor: 'green',
-                      borderRadius: '4px',
-                      height: '10px'
+                      backgroundColor: 'LightSkyBlue',
+                      borderRadius: '6px',
+                      height: '15px',
+                      margin: '10px'
                     }} // inline styling only or style id='cloudinary_upload_button'
                     folder={'demo'} // set cloudinary folder name to send file
                     cropping={false} // set ability to crop images -> default = true
@@ -291,6 +292,11 @@ class App extends Component {
                           .then(({ data }) => this.logout(data))
                           .catch((err) => console.warn(err)) }
                       >Logout</Button>
+                    </div>
+                    <div className='button'>
+
+                    <h3>{username}</h3>
+        <img alt="profile-pic" src={imageURL} height="50" width="50"  />
                     </div>
                   </div>
                 </div>

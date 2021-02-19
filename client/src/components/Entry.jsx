@@ -159,7 +159,14 @@ class Entry extends Component {
 
     return (
       <div className="text wrap">
+        <div>
+          <h2>Need Some Ideas?</h2>
+          <button onClick={ this.generateThought }>CLICK ME</button>
+          <ul id='prompt'>
+            <li>{this.state.prompt}</li>
+          </ul>
 
+        </div>
         <form>
           <div className="weather">Currently {temp} and {weatherDescription}</div>
           <div>
@@ -248,14 +255,7 @@ class Entry extends Component {
           </div>
         </div>
 
-        <div>
-          <h2>Need Some Ideas?</h2>
-          <button onClick={ this.generateThought }>CLICK ME</button>
-          <ul id='prompt'>
-            <li>{this.state.prompt}</li>
-          </ul>
 
-        </div>
       </div>
 
     );

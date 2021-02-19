@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 
 
-const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL }) => {
+const Feed = ({ quoteText, quoteAuthor, entries, changePosts,  }) => {
 
   const time = moment().format('MMMM Do YYYY, h:mm:ss a');
 
@@ -18,8 +18,7 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
         <h1>{quoteText}</h1>
         <h2 style={ { marginRight: 5 } }><i>- {quoteAuthor}</i></h2>
         <br></br>
-        <h3>{username}</h3>
-        <img default="profile-pic" src={imageURL} height="100" width="100" />
+
 
         <button className='btn btn-primary btn-block ' type='submit' onClick={ () =>{
           const data = { author: quoteAuthor, body: quoteText };
@@ -29,23 +28,23 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
         }
         }>Like</button>
 
+          </div>
+
+
+        <div id='comments'> <h1>Public Posts<div>
 
 
 
-        <h1>Public Posts<div>
 
 
-
-
-
-        </div></h1>
-        <hr></hr>
+</div></h1>
+<hr></hr>
         {entries.map(entry =>
-          <div key={ entry.id } id='comments' >
+          <div key={ entry.id }  >
             <div>{`User:${entry.username}`}</div>
             <div>{`Title:${entry.title}`}</div>
             <div>{`Message: ${entry.blog}`}</div>
-            {entry.journalImage ? <div ><img height='200px' width='300px' src={entry.journalImage}/></div> : null}
+            {entry.journalImage ? <div ><img height='400px' width='300px' src={entry.journalImage}/></div> : null}
             <div>{`Posted: ${entry.createdAt}`}<button onClick={() => {
               const data = {
                 friends: entry.username,
@@ -57,6 +56,7 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
             className='btn btn-default  btn-block'>Follow</button></div>
             <hr></hr>
           </div>).sort()}
+        <hr></hr>
       </div>
     </div>
   );

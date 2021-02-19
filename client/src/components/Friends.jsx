@@ -11,10 +11,11 @@ const entrys = entries.filter((entry) => {
 console.log('ENTRYS', entrys)
   return (
     <div>
+      <h1 id='friendsPost'>Friend Activity</h1>
       <hr></hr>
 
       {entrys.map(entry =>
-        <div key={ entry.id } id='comments' >
+        <div key={ entry.id } id='comment' >
           <div>{`User:${entry.username}`}</div>
           <div>{`Title:${entry.title}`}</div>
           <div>{`Message: ${entry.blog}`}</div>
