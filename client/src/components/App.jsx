@@ -150,12 +150,7 @@ class App extends Component {
             <h1><i>Ruh roh!</i></h1>
             <h3>It looks like you don't have any memories yet.
                       Write an entry to view a random memory.</h3>
-            <div className='likedQuotes'>
-              {quote.map((element, index) => <div>
-                <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
-              </div>)}
 
-            </div>
           </div>
         }
       </div>);
@@ -227,7 +222,7 @@ class App extends Component {
                       style={{
                         color: 'black',
                         border: 'none',
-                        width: '90px',
+                        width: '80px',
                         backgroundColor: 'LightSkyBlue',
                         borderRadius: '16px',
                         height: '35px'

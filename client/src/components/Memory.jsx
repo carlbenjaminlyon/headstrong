@@ -11,10 +11,10 @@ const Memory = ({ memory, changeMemory, quote }) => {
   const timeStamp = moment(createdAt).format('MMM Do YY');
 
   return (
-    <div className='text wrap' key={ id }>
+    <div className='text ' key={ id }>
       <h2>Welcome back {username},</h2>
       <br></br>
-      <div id='memo'><i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling happy!</i>
+      <i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling happy!</i>
         <br></br>
         <h2>{title}</h2>
         <p>{blog}</p>
@@ -35,12 +35,15 @@ const Memory = ({ memory, changeMemory, quote }) => {
           onClick={ () => changeMemory() }>
                   View Another Memory
         </Button>
-      </div>
-      <div className='likedQuotes'>
-        {quote.map((element, index) => <div>
-          <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span></div>
 
-        </div>)}
+
+      <div className='likedQuotes'>
+      <h1>Liked Quotes</h1>
+        {quote.map((element, index) =>
+          <div key={ index } className='likedQuote'><span>{ element.author}</span>:<br></br><span>{ element.body} </span>
+          <hr></hr></div>
+
+        )}
 
       </div>
     </div>
