@@ -140,7 +140,7 @@ app.post('/api/profile', (req, res) => {
 // });
 app.get('/friends', (req, res) => {
   Friends.findAll({})
-    .then(data => Quotes.findAll({}))
+    .then(data => res.send(data))
 
     .catch(err => console.log('Error Getting Friends', err));
 });
