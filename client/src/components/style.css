@@ -1,5 +1,5 @@
 .logo {
-	font-size: 3rem;
+	font-size: 2rem;
 	font-family: 'Monofett', cursive;
 	margin: 10px 0 0 20px;
 }
@@ -38,7 +38,8 @@
 }
 
 .nav {
-	margin-left: 20%;
+margin-right: 900px;
+text-align: center;
 	display: flex;
 	height: 50px;
 }
@@ -326,10 +327,15 @@ margin-left: 200px;
 	color: rgb(70, 189, 173)
 }
 #profile {
-	margin-left: 800px;
+	margin-left: 970px;
+	margin-bottom: 50px;
+
 }
 #profilePic {
-	margin-top: 10px;
+
+margin-top: 20px;
+margin-right: 25px;
+
 	height: 50px;
 	width: 50px;
 }

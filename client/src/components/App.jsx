@@ -11,6 +11,7 @@ import Friends from './Friends.jsx';
 import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
+import avatar from '../images/avatar.png'
 
 class App extends Component {
   constructor(props) {
@@ -211,8 +212,7 @@ class App extends Component {
               <AppBar>
                 <div className='logo'>
                         HeadStrong 2.0
-                        <span id='profile'>{username}</span>
-        <img alt="profile-pic" id='profilePic' src={imageURL} height="50" width="50"  />
+
                 </div>
 
                 <div id='widget'>
@@ -247,9 +247,12 @@ class App extends Component {
                     use_filename={ false } // tell Cloudinary to use the original name of the uploaded
                     // file as its public ID -> default = true,
                   />
+                                       <span >{username}</span>
+        <img alt="profile-pic" id='profilePic' src={imageURL || avatar} />
                     </div>
                     <div>
                         <div className='nav'>
+
                             <div className={
                       (view === 'feed') ? 'currentButton' : 'button' }>
                                 <Button
@@ -263,10 +266,10 @@ class App extends Component {
                         onClick={ () => this.changeView('entry') }>Write Entry</Button>
                             </div>
                             <div className={
-                      (view === 'resource') ? 'currentButton' : 'button' }>
+                      (view === 'memory') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
-                        onClick={ () => this.changeView('resource') }>Resources</Button>
+                        onClick={ () => this.changeView('memory') }>Memory</Button>
                             </div>
                             <div className={
                       (view === 'chat') ? 'currentButton' : 'button' }>
@@ -280,11 +283,12 @@ class App extends Component {
                         className='Button'
                         onClick={ () => this.changeView('board') }>Draw</Button>
                             </div>
+
                             <div className={
-                      (view === 'memory') ? 'currentButton' : 'button' }>
+                      (view === 'resource') ? 'currentButton' : 'button' }>
                                 <Button
                         className='Button'
-                        onClick={ () => this.changeView('memory') }>Memory</Button>
+                        onClick={ () => this.changeView('resource') }>Resources</Button>
                             </div>
                             <div className={
                       (view === 'logout') ? 'currentButton' : 'button' }>
@@ -295,17 +299,14 @@ class App extends Component {
                           .catch((err) => console.warn(err)) }
                       >Logout</Button>
                             </div>
+                            <div id='profile'>
+
+
+                            </div>
                         </div>
                     </div>
                 </AppBar>
-                <div><input
-                type="text"
-                placeholder="Room"
-                value={ roomName }
-                onChange={ this.handleRoomNameChange }
-                className="text-input-field"
-              />
-              </div>
+
               <div>
                 <img className='background' src='https://i.ibb.co/WWs7MZd/headstrong-girl-blue.jpg'/>
                 <div className='footer'>
