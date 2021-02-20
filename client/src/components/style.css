@@ -198,13 +198,7 @@ a {
 	justify-content: space-between;
 	align-items: center;
 }
-#bigWhiteboard {
-	margin-top: auto;
-	position: absolute;
-right: 100px;
-	text-align: right;
-	padding-top: 200px;
-}
+
 #comments {
 	overflow: auto
 }
@@ -245,6 +239,7 @@ margin-left: 300px;
 #resource {
 	margin-left: 100px;
 	padding-top: 10px;
+	overflow-y: scroll;
 }
 /* Dropdown Button */
 .dropbtn {
@@ -300,16 +295,17 @@ margin-left: 300px;
 #friendsPost {
 	text-align: center;
 margin-left: 200px;
+color: white;
 }
 #comment {
 	height: 400px;
 	width: 600px;
 	overflow-y: scroll;
 	margin-top: 30px;
-	margin-left: 500px;
+	margin-left: 300px;
 	margin-bottom: 500px;
 	outline: 5px solid rgb(17, 71, 107);
-	color: rgb(10, 10, 10);
+	color: rgba(255, 252, 62, 0.966);
 	background-color:rgba(0, 0, 0, 0.05)	;
 }
 #widget {
@@ -318,6 +314,7 @@ margin-left: 200px;
 #resources {
 	color: #ffff;
 	margin-top: 10px;
+
 	margin-bottom: 10px;
 }
 #danger {
@@ -373,7 +370,7 @@ margin-bottom: 15px;
 	outline: 5px solid rgb(247, 250, 252);
 	margin-top: 100px;
 	overflow-y: scroll;
-	height: 200px;
+	height: 500px;
 	width: 450px;
 }
 #lq {
