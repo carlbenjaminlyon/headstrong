@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import Grid from '@material-ui/core/Grid';
-
+import Follow from './Follow.jsx'
 const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL }) => {
 
   const time = moment().calendar()
@@ -38,16 +38,7 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
               <p>{`Message: ${ entry.blog }`}</p>
               <p>{entry.journalImage ? <img height='200px' width='300px' src={ entry.journalImage }/> : null}</p>
               <p>{`Posted: ${time}`}</p>
-
-              <button onClick={ () => {
-                const data = {
-                  friends: entry.username,
-                };
-                axios.post('/friends', data)
-                  .then(data => console.log('Friend added'))
-                  .catch(err => console.log('Error adding friend', err));
-              } } style={ { marginLeft: 10 } }
-              className='btn btn-default  btn-block'>Follow</button>
+              < Follow />
               <hr></hr>
             </div>).sort()}
         </div>

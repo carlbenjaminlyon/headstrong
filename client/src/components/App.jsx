@@ -12,6 +12,7 @@ import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
+import Follow from './Follow.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class App extends Component {
       memory: null,
       quote: [],
       imageURL: null,
-      username: ''
+      username: '',
+      friends: [],
     };
     this.getFriends = this.getFriends.bind(this);
     this.getRandomQuote = this.getRandomQuote.bind(this);
@@ -116,7 +118,9 @@ class App extends Component {
   }
   getFriends() {
     axios.get('/friends')
-      .then(data => console.log('Data getting friends', data))
+      .then(data => this.setState({
+        friends: data
+      }))
       .catch(err => console.log('error getting friends', err));
   }
   // render view based on nav
@@ -144,7 +148,7 @@ class App extends Component {
     } else if (view === 'memory') {
       return (<div>
         {memory ?
-          <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text wrap'
+          <Memory logout={ this.logout } memory={ memory } changeMemory={ this.getRandomMemory } quote={ quote }/> : <div className='text'
             style={ { display: 'flex', flexDirection: 'column', align: 'center', justify: 'center', alignItems: 'center' } }>
             <img src="https://content.invisioncic.com/r143258/monthly_2016_01/b5b2b1603073cc426b410d1ba620685d.jpg.28d5f653fbeaef692ba8a5f70aaf1f44.jpg"/>
             <h1><i>Ruh roh!</i></h1>
