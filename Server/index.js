@@ -81,20 +81,20 @@ app.get('/isloggedin', (req, res) => {
   }
 });
 app.post('/friends', (req, res) => {
+  console.log('req.b', req.body)
 
-  const { friends } = req.body;
+
   const username = req.cookies.Headstrong;
-  if (username !== friends) {
-    const friend = new Friends({ friends, username });
+  // if (username !== friends) {
+  //   const friend = new Friends({ friends, username });
 
-    friend.save()
-      .then(() => console.log('Friend Saved'))
-      .catch(err => console.log('Server Quote Error', err));
+  //   friend.save()
+  //     .then(() => console.log('Friend Saved'))
+  //     .catch(err => console.log('Server Quote Error', err));
 
-  }
+  // }
 });
 
-// route to logout
 app.delete('/logout', (req, res) => {
   // delete the cookie key headstrong when logging out
   res.clearCookie('Headstrong');
@@ -144,6 +144,21 @@ app.get('/friends', (req, res) => {
 
     .catch(err => console.log('Error Getting Friends', err));
 });
+
+app.put('/friends/:id', (req, res) => {
+const { user } = req.cookies.Headstrong;
+console.log('req >', req)
+Friends.destroy({where})
+
+
+
+})
+
+
+
+
+
+
 app.delete('/api/journals/:id', (req, res) => {
   return deleteJournal(req.params)
     .then((data) => res.json(data))
