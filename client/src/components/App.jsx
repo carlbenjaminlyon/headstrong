@@ -12,7 +12,7 @@ import GoogleButton from 'react-google-button';
 import css from './style.css';
 import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
-import Follow from './Follow.jsx'
+import Follow from './Follow.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -214,37 +214,37 @@ class App extends Component {
 
                 </div>
                 <div className='nav'>
-                <Widget
-                      sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
-                      // all sources are available. More information on their use can be found at
-                      // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
-                      resourceType={ 'image' } // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
-                      cloudName={ 'geonovember' } // your cloudinary account cloud name.
-                      // Located on https://cloudinary.com/console/
-                      uploadPreset={'smiuh98k'} // check that an upload preset exists and check mode is signed or unisgned
-                      buttonText={'Choose Avatar'} // default 'Upload Files'
-                      style={{
-                        color: 'black',
-                        border: 'none',
-                        width: '80px',
-                        backgroundColor: 'LightSkyBlue',
-                        borderRadius: '16px',
-                        height: '35px'
-                      }} // inline styling only or style id='cloudinary_upload_button'
-                      folder={'demo'} // set cloudinary folder name to send file
-                      cropping={false} // set ability to crop images -> default = true
-                      onSuccess={result => this.setState({imageURL: result.info.url})} // add success callback -> returns result
-                      onFailure={console.log('failure!!!')} // add failure callback -> returns 'response.error' + 'response.result'
-                      logging={false} // logs will be provided for success and failure messages,
-                      // set to false for production -> default = true
-                      customPublicId={ 'sample' } // set a specific custom public_id.
-                      // To use the file name as the public_id use 'use_filename={true}' parameter
-                      eager={ 'w_400,h_300,c_pad|w_260,h_200,c_crop' } // add eager transformations -> deafult = null
-                      use_filename={ false } // tell Cloudinary to use the original name of the uploaded
+                  <Widget
+                    sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
+                    // all sources are available. More information on their use can be found at
+                    // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
+                    resourceType={ 'image' } // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
+                    cloudName={ 'geonovember' } // your cloudinary account cloud name.
+                    // Located on https://cloudinary.com/console/
+                    uploadPreset={'smiuh98k'} // check that an upload preset exists and check mode is signed or unisgned
+                    buttonText={'Choose Avatar'} // default 'Upload Files'
+                    style={{
+                      color: 'black',
+                      border: 'none',
+                      width: '80px',
+                      backgroundColor: 'LightSkyBlue',
+                      borderRadius: '16px',
+                      height: '35px'
+                    }} // inline styling only or style id='cloudinary_upload_button'
+                    folder={'demo'} // set cloudinary folder name to send file
+                    cropping={false} // set ability to crop images -> default = true
+                    onSuccess={result => this.setState({imageURL: result.info.url})} // add success callback -> returns result
+                    onFailure={console.log('failure!!!')} // add failure callback -> returns 'response.error' + 'response.result'
+                    logging={false} // logs will be provided for success and failure messages,
+                    // set to false for production -> default = true
+                    customPublicId={ 'sample' } // set a specific custom public_id.
+                    // To use the file name as the public_id use 'use_filename={true}' parameter
+                    eager={ 'w_400,h_300,c_pad|w_260,h_200,c_crop' } // add eager transformations -> deafult = null
+                    use_filename={ false } // tell Cloudinary to use the original name of the uploaded
                     // file as its public ID -> default = true,
-                    />
-                        <span>{username}</span>
-                    <img alt="profile-pic" id='profilePic' src={imageURL || avatar} />
+                  />
+                  <span>{username}</span>
+                  <img alt="profile-pic" id='profilePic' src={imageURL || avatar} />
 
                   <div className={
                     (view === 'feed') ? 'currentButton' : 'button' }>
@@ -295,7 +295,7 @@ class App extends Component {
 
 
 
-                    <WidgetLoader />
+                  <WidgetLoader />
 
 
                 </div>

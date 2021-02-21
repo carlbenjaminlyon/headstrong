@@ -81,7 +81,7 @@ app.get('/isloggedin', (req, res) => {
   }
 });
 app.post('/friends', (req, res) => {
-  console.log('req.b', req.body)
+  console.log('req.b', req.body);
 
 
   const username = req.cookies.Headstrong;
@@ -144,19 +144,6 @@ app.get('/friends', (req, res) => {
 
     .catch(err => console.log('Error Getting Friends', err));
 });
-
-app.put('/friends/:id', (req, res) => {
-const { user } = req.cookies.Headstrong;
-console.log('req >', req)
-Friends.destroy({where})
-
-
-
-})
-
-
-
-
 
 
 app.delete('/api/journals/:id', (req, res) => {

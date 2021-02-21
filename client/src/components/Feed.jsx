@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import Grid from '@material-ui/core/Grid';
-import Follow from './Follow.jsx'
+import Follow from './Follow.jsx';
 const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL }) => {
 
-  const time = moment().calendar()
+  const time = moment().calendar();
 
   return (
     <div className='text wrap'>
@@ -23,25 +23,25 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
             .catch(err => console.log('Axios Quote Error', err));
         }
         }>Like</button>
-        </div>
-        <div id='comments'>
+      </div>
+      <div id='comments'>
 
 
-            <h1 >Public Posts</h1>
+        <h1 >Public Posts</h1>
 
 
-          {entries.map(entry =>
-            <div key={ entry.id } >
-              <p>{`${ entry.username }`}</p>
+        {entries.map(entry =>
+          <div key={ entry.id } >
+            <p>{`${ entry.username }`}</p>
 
-              <p>{`${ entry.title }`}</p>
-              <p>{`Message: ${ entry.blog }`}</p>
-              <p>{entry.journalImage ? <img height='200px' width='300px' src={ entry.journalImage }/> : null}</p>
-              <p>{`Posted: ${time}`}</p>
-              < Follow />
-              <hr></hr>
-            </div>).sort()}
-        </div>
+            <p>{`${ entry.title }`}</p>
+            <p>{`Message: ${ entry.blog }`}</p>
+            <p>{entry.journalImage ? <img height='200px' width='300px' src={ entry.journalImage }/> : null}</p>
+            <p>{`Posted: ${entry.createdAt}`}</p>
+            < Follow />
+            <hr></hr>
+          </div>).sort()}
+      </div>
 
     </div>
   );
