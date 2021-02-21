@@ -227,19 +227,21 @@ body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSyst
 #messages > li { padding: 0.5rem 1rem; }
 #messages > li:nth-child(odd) { background: #efefef; }
 #bigWhiteboardBg {
-height: 600px;
-width: 2200px;
+height: 550px;
 margin-top: 250px;
-margin-left: 300px;
+margin-left: 210px;
+
 }
 #title{
 	margin-left: 620px;
-	color: rgb(179, 179, 179)
+	color: rgb(157, 82, 219)
 }
 #resource {
 	margin-left: 100px;
 	padding-top: 10px;
-	overflow-y: scroll;
+	overflow-y: auto;
+	height:800px;
+	width: 550px;
 }
 /* Dropdown Button */
 .dropbtn {
@@ -314,6 +316,7 @@ color: white;
 #resources {
 	color: #ffff;
 	margin-top: 10px;
+	height: 30px;
 
 	margin-bottom: 10px;
 }

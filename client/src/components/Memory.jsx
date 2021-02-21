@@ -11,7 +11,7 @@ const Memory = ({ memory, changeMemory, quote }) => {
   const timeStamp = moment(createdAt).format('MMM Do YY');
 
   return (
-    <div className='text ' key={ id }>
+    <div className='text' key={ id }>
       <h2>Welcome back {username},</h2>
       <br></br>
       <i>Your memory from {timeStamp} | It was {temp} and {weatherDescription} and you were feeling happy!</i>
