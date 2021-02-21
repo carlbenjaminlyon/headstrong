@@ -203,6 +203,23 @@ a {
 	overflow: auto
 }
 
+#chocolate {
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	color:rgba(255, 252, 62, 0.966);
+
+
+}
+
+#container {
+	outline: 5px solid rgb(23, 21, 150);
+	direction: row;
+	justify-content: space-between;
+	align-items: center;
+	overflow: auto;
+	height: 500px;
+	width: 500px;
+}
 div.scroll {
  background-color: rgba(0, 0, 0, 0.05);
   width: 600px;
