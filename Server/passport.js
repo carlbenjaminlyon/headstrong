@@ -9,8 +9,8 @@ require('dotenv').config();
 //   invoke a callback with a user object.
 
 passport.use(new GoogleStrategy({
-  clientID: process.env.clientID,
-  clientSecret: process.env.clientSecret,
+  clientID: process.env.google_clientID,
+  clientSecret: process.env.google_clientSecret,
   callbackURL: '/auth/google/callback'
 },
 function(token, tokenSecret, profile, done) {
