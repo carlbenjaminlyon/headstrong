@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 const { QueryTypes } = require('sequelize');
 const dotenv = require('dotenv').config();
 
-const host = process.env.host;
-const database = process.env.database;
-const password = process.env.password;
-const username = process.env.username;
+const host = process.env.host || 'localhost';
+const database = process.env.database || 'headstrong';
+const password = process.env.password || '';
+const username = process.env.username || 'root';
 
 const sequelize = new Sequelize(database, username, password, {
   host: host,
@@ -37,16 +37,16 @@ const Entries = sequelize.define('entries', {
   },
 
   blog: {
-    type: Sequelize.STRING(1000),
+    type: Sequelize.STRING(10000),
     allowNull: false
   },
 
   journalImage: {
-    type: Sequelize.STRING(10000)
+    type: Sequelize.STRING(500)
   },
 
   imageURL: {
-    type: Sequelize.STRING(10000)
+    type: Sequelize.STRING(500)
   },
 
   temp: {
@@ -163,10 +163,10 @@ const updateJournal = (body) => {
   });
 
 };
-// sequelize.sync({ force: true })
-//   .then(() => {
-//     console.log('Database & tables created!');
-//   }).catch((err) => { console.log(err); });
+sequelize.sync({ force: true })
+  .then(() => {
+    console.log('Database & tables created!');
+  }).catch((err) => { console.log(err); });
 
 module.exports = {
   Quote,
