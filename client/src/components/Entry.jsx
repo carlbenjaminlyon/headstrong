@@ -29,7 +29,8 @@ class Entry extends Component {
       weatherDescription: '',
       mood: 50,
       visible: false,
-      prompt: ''
+      prompt: '',
+      moonPhase: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,6 +44,8 @@ class Entry extends Component {
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handlePublicChange = this.handlePublicChange.bind(this);
     this.generateThought = this.generateThought.bind(this);
+    this.getMoonPhase = this.getMoonPhase.bind(this);
+    this.displayMoon = this.displayMoon.bind(this);
   }
 
   generateThought() {
@@ -89,8 +92,52 @@ class Entry extends Component {
       .catch((err) => console.warn(err));
   }
 
+  getMoonPhase() {
+    axios.get('/api/moon/')
+      .then(({data}) => this.setState({
+        moonPhase: data
+      }))
+      .catch(err => console.log('error getting moon', err))
+  }
+
+  displayMoon(moon = this.state.moonPhase) {
+    console.log('MOON', moon);
+    let charCode = 0;
+    switch(moon) {
+      case 'New Moon':
+        charCode = 0x1F311;
+        break;
+      case 'Waxing Crescent':
+        charCode = 0x1F312;
+        break;
+      case '1st Quarter':
+        charCode = 0x1F313;
+        break;
+      case 'Waxing Gibbous':
+        charCode = 0x1F314;
+        break;
+      case 'Full Moon':
+        charCode = 0x1F315;
+        break;
+      case 'Waning Gibbous':
+        charCode = 0x1F316;
+        break;
+      case '3rd Quarter':
+        charCode = 0x1F317;
+        break;
+      case 'Waning Crescent':
+        charCode = 0x1F318;
+        break;
+      default:
+        charCode = 0x1F31D;
+    }
+
+    return String.fromCodePoint(charCode);
+  }
+
   componentDidMount() {
     this.getUserLocation();
+    this.getMoonPhase();
   }
 
   handleTitleChange(e) {
@@ -118,7 +165,7 @@ class Entry extends Component {
     this.setState({ visible: !this.state.visible });
   }
   handleSubmit() {
-    const { username, title, blog, journalImage, temp, weatherDescription, mood, visible } = this.state;
+    const { username, title, blog, journalImage, temp, weatherDescription, mood, visible, moonPhase } = this.state;
     axios.post('/api/journals', {
       username: username,
       title: title,
@@ -127,13 +174,14 @@ class Entry extends Component {
       temp: temp,
       visible: visible,
       weatherDescription: weatherDescription,
-      mood: mood
+      mood: mood,
+      moonPhase: moonPhase
     })
       .then((data) => console.info(data))
       .catch((err) => console.warn(err));
   }
   render() {
-    const { title, blog, journalImage, temp, weatherDescription, mood, visible } = this.state;
+    const { title, blog, journalImage, temp, weatherDescription, mood, visible, moonPhase } = this.state;
     //slider values
     const mark = [
       { value: 50 },
@@ -171,7 +219,7 @@ class Entry extends Component {
         <div id='journal' >
 
           <form>
-            <div className="weather">Currently {temp} and {weatherDescription}</div>
+            <div className="weather">Currently {temp} and {weatherDescription} {this.displayMoon()} </div>
             <div>
               <textarea className="form-control"
                 placeholder="Give your post a title"
