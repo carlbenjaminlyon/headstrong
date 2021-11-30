@@ -25,9 +25,9 @@ dotenv.config({
 
 const port = process.env.PORT || 8080;
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.cloud_api_key,
+  api_secret: process.env.cloud_api_secret
 });
 const dist = path.resolve(__dirname, '..', 'client', 'dist');
 
@@ -45,7 +45,7 @@ app.use(formData.parse());
 // line 34 - 61 all used for google login
 app.use(
   session({
-    secret: process.env.clientSecret,
+    secret: process.env.google_clientSecret,
     saveUninitialized: false,
     resave: true,
   }),

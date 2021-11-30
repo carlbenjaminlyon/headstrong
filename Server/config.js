@@ -1,5 +1,5 @@
-const { WEATHERBIT_TOKEN } = process.env;
+const { weatherbit_token } = process.env;
 
 module.exports = {
-  WEATHERBIT_TOKEN
+  weatherbit_token
 };
