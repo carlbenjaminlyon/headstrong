@@ -37,16 +37,16 @@ const Entries = sequelize.define('entries', {
   },
 
   blog: {
-    type: Sequelize.STRING(1000),
+    type: Sequelize.STRING(10000),
     allowNull: false
   },
 
   journalImage: {
-    type: Sequelize.STRING(10000)
+    type: Sequelize.STRING(255)
   },
 
   imageURL: {
-    type: Sequelize.STRING(10000)
+    type: Sequelize.STRING(255)
   },
 
   temp: {
@@ -163,10 +163,10 @@ const updateJournal = (body) => {
   });
 
 };
-// sequelize.sync({ force: true })
-//   .then(() => {
-//     console.log('Database & tables created!');
-//   }).catch((err) => { console.log(err); });
+sequelize.sync({ force: true })
+  .then(() => {
+    console.log('Database & tables created!');
+  }).catch((err) => { console.log(err); });
 
 module.exports = {
   Quote,
