@@ -206,7 +206,10 @@ class Entry extends Component {
     });
 
     return (
-      <div >
+      <>
+        <box id='moon-phase'>
+          <span id='moon-emoji'>{this.displayMoon()}</span>
+        </box>
         <div id='ideas'>
           <h2 style={{color: '#95cff4'}}>Need Some Ideas?</h2>
           <br></br>
@@ -219,7 +222,7 @@ class Entry extends Component {
         <div id='journal' >
 
           <form>
-            <div className="weather">Currently {temp} and {weatherDescription} {this.displayMoon()} </div>
+            <div className="weather">Currently {temp} and {weatherDescription}  </div>
             <div>
               <textarea className="form-control"
                 placeholder="Give your post a title"
@@ -315,7 +318,7 @@ class Entry extends Component {
         </div>
 
 
-      </div>
+      </>
 
     );
   }
