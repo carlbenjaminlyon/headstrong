@@ -218,7 +218,7 @@ class App extends Component {
                         HeadStrong 2.0
 
                 </div>
-                {/* <GraphWindow /> */}
+                <GraphWindow />
                 <div className='nav'>
                   <Widget
                     sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
