@@ -36,9 +36,12 @@ const MoonPhase = ({moonPhase}) => {
   };
 
   return (
-    <span>
-      {displayMoon()}
-    </span>
+    <box id='moon-phase'>
+      <span>
+        {displayMoon()}
+      </span>
+
+    </box>
     );
 }
 
