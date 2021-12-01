@@ -14,6 +14,8 @@ import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
 import Follow from './Follow.jsx';
 
+import Astrology from './Astrology.jsx';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -143,6 +145,8 @@ class App extends Component {
       return <Friends entries={ entries } username={ username }/>;
     } else if (view === 'chat') {
       return <ChatRoom />;
+    }else if(view === 'astrology') {
+      return <Astrology />
     } else if (view === 'board') {
       return <Board />;
     } else if (view === 'memory') {
@@ -263,6 +267,12 @@ class App extends Component {
                     <Button
                       className='Button'
                       onClick={ () => this.changeView('memory') }>Memory</Button>
+                  </div>
+                  <div className={
+                    (view === 'astrology') ? 'currentButton' : 'button' }>
+                    <Button
+                      className='Button'
+                      onClick={ () => this.changeView('astrology') }>Daily Horoscope</Button>
                   </div>
                   <div className={
                     (view === 'chat') ? 'currentButton' : 'button' }>
