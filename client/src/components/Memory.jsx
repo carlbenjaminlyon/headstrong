@@ -8,7 +8,7 @@ import MoonPhase from './MoonPhase.jsx';
 const Memory = ({ memory, changeMemory, quote }) => {
   console.log('quote', quote);
 
-  const { id, username, title, blog, journalImage, createdAt, temp, weatherDescription, mood } = memory;
+  const { id, username, title, blog, journalImage, createdAt, temp, weatherDescription, mood, moonPhase } = memory;
   const timeStamp = moment(createdAt).format('MMM Do YY');
 
   return (
