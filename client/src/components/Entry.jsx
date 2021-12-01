@@ -174,9 +174,7 @@ class Entry extends Component {
 
     return (
       <>
-        <box id='moon-phase'>
-          <MoonPhase moonPhase={moonPhase} />
-        </box>
+        <MoonPhase moonPhase={moonPhase} />
         <div id='ideas'>
           <h2 style={{color: '#95cff4'}}>Need Some Ideas?</h2>
           <br></br>
