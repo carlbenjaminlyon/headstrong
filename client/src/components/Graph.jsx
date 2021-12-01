@@ -37,15 +37,15 @@ const Graph = () => {
     {day: 6, mood: 30}
   ];
 
-  const handleGraph = () => {
-    //for each post, plot a new point on the graph from a scale of 1-100
-    //axios.get mood data from each post made for the current user (right now just chart with the dummyData)
-    moodData.forEach(day => {});
-  };
+  // const handleGraph = () => {
+  //   //for each post, plot a new point on the graph from a scale of 1-100
+  //   //axios.get mood data from each post made for the current user (right now just chart with the dummyData)
+  //   moodData.forEach(day => {});
+  // };
 
-  useEffect(() => {
-    handleGraph();
-  }, []);
+  // useEffect(() => {
+  //   handleGraph();
+  // }, []);
 
   return (
     <Paper>
