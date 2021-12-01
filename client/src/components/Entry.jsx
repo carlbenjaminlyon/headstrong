@@ -11,6 +11,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget';
 import prompts from '../prompts.js';
+import MoonPhase from './MoonPhase.jsx';
 
 class Entry extends Component {
   constructor(props) {
@@ -29,7 +30,8 @@ class Entry extends Component {
       weatherDescription: '',
       mood: 50,
       visible: false,
-      prompt: ''
+      prompt: '',
+      moonPhase: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,6 +45,7 @@ class Entry extends Component {
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handlePublicChange = this.handlePublicChange.bind(this);
     this.generateThought = this.generateThought.bind(this);
+    this.getMoonPhase = this.getMoonPhase.bind(this);
   }
 
   generateThought() {
@@ -89,8 +92,19 @@ class Entry extends Component {
       .catch((err) => console.warn(err));
   }
 
+  getMoonPhase() {
+    axios.get('/api/moon/')
+      .then(({data}) => this.setState({
+        moonPhase: data
+      }))
+      .catch(err => console.log('error getting moon', err))
+  }
+
+  
+
   componentDidMount() {
     this.getUserLocation();
+    this.getMoonPhase();
   }
 
   handleTitleChange(e) {
@@ -118,7 +132,7 @@ class Entry extends Component {
     this.setState({ visible: !this.state.visible });
   }
   handleSubmit() {
-    const { username, title, blog, journalImage, temp, weatherDescription, mood, visible } = this.state;
+    const { username, title, blog, journalImage, temp, weatherDescription, mood, visible, moonPhase } = this.state;
     axios.post('/api/journals', {
       username: username,
       title: title,
@@ -127,13 +141,14 @@ class Entry extends Component {
       temp: temp,
       visible: visible,
       weatherDescription: weatherDescription,
-      mood: mood
+      mood: mood,
+      moonPhase: moonPhase
     })
       .then((data) => console.info(data))
       .catch((err) => console.warn(err));
   }
   render() {
-    const { title, blog, journalImage, temp, weatherDescription, mood, visible } = this.state;
+    const { title, blog, journalImage, temp, weatherDescription, mood, visible, moonPhase } = this.state;
     //slider values
     const mark = [
       { value: 50 },
@@ -158,7 +173,8 @@ class Entry extends Component {
     });
 
     return (
-      <div >
+      <>
+        <MoonPhase moonPhase={moonPhase} />
         <div id='ideas'>
           <h2 style={{color: '#95cff4'}}>Need Some Ideas?</h2>
           <br></br>
@@ -171,7 +187,7 @@ class Entry extends Component {
         <div id='journal' >
 
           <form>
-            <div className="weather">Currently {temp} and {weatherDescription}</div>
+            <div className="weather">Currently {temp} and {weatherDescription}  </div>
             <div>
               <textarea className="form-control"
                 placeholder="Give your post a title"
@@ -267,7 +283,7 @@ class Entry extends Component {
         </div>
 
 
-      </div>
+      </>
 
     );
   }

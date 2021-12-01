@@ -3,15 +3,17 @@ import moment from 'moment';
 import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
+import MoonPhase from './MoonPhase.jsx';
 
 const Memory = ({ memory, changeMemory, quote }) => {
   console.log('quote', quote);
 
-  const { id, username, title, blog, journalImage, createdAt, temp, weatherDescription, mood } = memory;
+  const { id, username, title, blog, journalImage, createdAt, temp, weatherDescription, mood, moonPhase } = memory;
   const timeStamp = moment(createdAt).format('MMM Do YY');
 
   return (
     <div>
+      <MoonPhase moonPhase={moonPhase} />
       <div className='memoryEntry' key={ id } >
         <h2>Welcome back {username},</h2>
         <br></br>

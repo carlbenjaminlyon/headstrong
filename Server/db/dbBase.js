@@ -59,6 +59,10 @@ const Entries = sequelize.define('entries', {
 
   visible: {
     type: Sequelize.BOOLEAN
+  },
+
+  moonPhase: {
+    type: Sequelize.STRING(50)
   }
 
 });
@@ -131,7 +135,7 @@ const deleteJournal = (body) => {
 
 const addJournals = async(body, user) => {
 
-  const { mood, title, blog, journalImage, temp, weatherDescription, visible } = body;
+  const { mood, title, blog, journalImage, temp, weatherDescription, visible, moonPhase } = body;
 
   const newEntry = await Entries.create({
     username: user,
@@ -141,7 +145,8 @@ const addJournals = async(body, user) => {
     temp: temp,
     weatherDescription: weatherDescription,
     mood: mood,
-    visible: visible
+    visible: visible,
+    moonPhase: moonPhase
   });
 
   return newEntry.save();

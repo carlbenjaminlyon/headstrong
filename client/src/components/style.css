@@ -425,3 +425,20 @@ margin-right: 640px;
 #memoryPost {
 	margin-left: 350px;
 }
+
+#moon-phase {
+  font-size: 80pt;
+  position: relative;
+  white-space: nowrap;
+  animation: floatMoon 120s infinite alternate ease-in-out;
+}
+
+@-webkit-keyframes floatMoon {
+  from {
+    left: 00%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
