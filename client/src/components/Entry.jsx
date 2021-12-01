@@ -101,7 +101,6 @@ class Entry extends Component {
   }
 
   displayMoon(moon = this.state.moonPhase) {
-    console.log('MOON', moon);
     let charCode = 0;
     switch(moon) {
       case 'New Moon':
