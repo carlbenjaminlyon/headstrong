@@ -1,16 +1,26 @@
 import React from "react";
-import {Paper, Button} from '@mui/material';
+import {Card, CardHeader, CardMedia, CardContent, Typography} from '@mui/material';
 
-const TarotCard = (props) => {
-  const {name, symbols, imageURL, description} = props.card;
+const TarotCard = ({card}) => {
+  console.log(card);
+  const {name, symbols, description} = card;
+  let {imageURL} = card;
+
+  if (name === 'The Wheel of Fortune') {
+    imageURL = 'https://indiealchemy.com/apis/plateautarot/images/Wheel%20of%20Fortune.jpg'
+  }
 
   return (
-    <Paper>
-      <h2>{name}</h2>
-      <img src={imageURL}/>
-      <big>{symbols}</big>
-      <p>{description}</p>
-    </Paper>
+    <Card sx={{ maxWidth: 300}}>
+      <CardMedia component="img" height="527" image={imageURL} alt={name}/>
+      <CardContent>
+        <CardHeader title={name}/>
+        <Typography variant="body1" color="text.secondary">
+          {symbols}
+        </Typography>
+        <Typography variant="body3">{description}</Typography>
+      </CardContent>
+    </Card>
   )
 };
 

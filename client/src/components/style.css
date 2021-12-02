@@ -442,3 +442,7 @@ margin-right: 640px;
     left: 100%;
   }
 }
+
+.tarot-card-buttons {
+  align-content: center;
+}
