@@ -14,7 +14,7 @@ import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
 import Follow from './Follow.jsx';
 import GraphWindow from './GraphWindow.jsx';
-
+import TarotCarousel from './TarotCarousel.jsx'
 import Astrology from './Astrology.jsx';
 
 class App extends Component {
@@ -148,6 +148,8 @@ class App extends Component {
       return <ChatRoom />;
     }else if(view === 'astrology') {
       return <Astrology />
+    } else if (view === 'tarot') {
+      return <TarotCarousel />
     } else if (view === 'board') {
       return <Board />;
     } else if (view === 'memory') {
@@ -275,6 +277,12 @@ class App extends Component {
                     <Button
                       className='Button'
                       onClick={ () => this.changeView('astrology') }>Daily Horoscope</Button>
+                  </div>
+                  <div className={
+                    (view === 'tarot') ? 'currentButton' : 'button' }>
+                    <Button
+                      className='Button'
+                      onClick={ () => this.changeView('tarot') }>Tarot Cards</Button>
                   </div>
                   <div className={
                     (view === 'chat') ? 'currentButton' : 'button' }>
