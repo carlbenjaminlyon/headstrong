@@ -2,7 +2,7 @@ const {Router} = require('express');
 const TarotCards = Router();
 const {getTarotCards} = require('../helpers/tarot');
 
-TarotCards.get('/', (req, res) => {
+TarotCards.post('/', (req, res) => {
   const { num } = req.body;
 
   return getTarotCards(num)
