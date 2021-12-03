@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Line} from 'react-chartjs-2';
+import moment from 'moment';
 
 
 //MUI
@@ -52,25 +53,19 @@ const Graph = ({ data, onLoad }) => {
 
 
 
+  const test = [
+    { argument: 1, value: 10 },
+    { argument: 2, value: 20 },
+    { argument: 3, value: 30 },
+  ];
 
-  // const chart = () => {
-  //   setMoodData({
-  //     labels: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-  //     datasets: [
-  //       {
-  //         label: 'Mood',
-  //         data: [22, 45, 66, 72, 80, 55, 60],
-  //         backgroundColor: ['rgba(192, 178, 205, 0.6)'],
-  //         borderWidth: 4
-  //       }
-  //     ]
-  //   })
-  // };
 
 
   useEffect(() => {
     setUserMoodData(data);
     setAllMoodData(onLoad);
+    console.log('user mood data',userMoodData);
+    console.log('data', data);
   },[])
 
 
@@ -78,19 +73,15 @@ const Graph = ({ data, onLoad }) => {
 
   };
 
-  // const handleGraph = () => {
-  //   //for each post, plot a new point on the graph from a scale of 1-100
-  //   //axios.get mood data from each post made for the current user (right now just chart with the dummyData)
-  //   moodData.forEach(day => {});
-  // };
 
-  // useEffect(() => {
-  //   handleGraph();
-  // }, []);
 
   return (
     <>
-    <Chart data={userMoodData}/>
+    <Chart data={data}>
+      <ArgumentAxis />
+      <ArgumentScale />
+      <LineSeries valueField="mood" argumentField="createdAt" />
+    </Chart>
     </>
   );
 };
@@ -106,74 +97,3 @@ export default Graph;
 
 
 
-
-// class App extends Component {
-//   constructor(props) {
-//   this.state = {
-//     modal: false,
-//   };
-//   this.handleModal = this.handleModal.bind(this);
-// }
-
-//   handleModal() {
-//   this.setState(prevState => {
-//     return {modal: !prevState.modal}
-//     });
-//   };
-
-//   render() {
-//     const { handleModal } = this;
-//     const { modal } = this.state;
-//     return (
-//       <div>
-//         <Modal isOpen={modal} onClick={handleModal}/>
-//       </div>
-//     );
-//   }
-// }
-
-// // //---------------------------------------------
-// const Modal = ({ isOpen, onClick }) => {
-//   const [modelOpen, setModalOpen] = useState(false);
-
-//   return(
-//     <div>
-//       <Modal>
-//         <MoreStuffHere />
-//       </Modal>
-//     </div>
-//   );
-// };
-
-
-
-// //----------------------------------
-// import { useState } from "react";
-
-// function Btn({ isOpen, onClick, children }) {
-//   return (
-//     <div>
-//       <button onClick={onClick}>Clicky</button>
-//       <div className={isOpen ? "open" : "closed"}>{children}</div>
-//     </div>
-//   );
-// }
-
-// export default function App() {
-//   const [modalOpen, setModalOpen] = useState(false);
-//   const [name, setName] = useState("Billy");
-//   function handleModal() {
-//     setModalOpen(!modalOpen);
-//   }
-//   return (
-//     <div className="App">
-//       <Btn isOpen={modalOpen} onClick={handleModal}>
-//         <input
-//           type="text"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//         />
-//       </Btn>
-//     </div>
-//   );
-// }
