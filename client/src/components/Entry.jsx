@@ -100,7 +100,7 @@ class Entry extends Component {
       .catch(err => console.log('error getting moon', err))
   }
 
-  
+
 
   componentDidMount() {
     this.getUserLocation();
@@ -268,7 +268,7 @@ class Entry extends Component {
                       value={ mood }
                       max={ 100 }
                       marks={ mark }
-                      step={ 25 }
+                      step={ 1 }
                       valueLabelDisplay="auto"
                     />
                   </Grid>
