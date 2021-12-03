@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Line} from 'react-chartjs-2';
+// import {Line} from 'react-chartjs-2';
 import moment from 'moment';
 
 
@@ -36,51 +36,52 @@ const dummyData = [
   {day: 6, mood: 30}
 ];
 
-// const Line = props => (
-//   <LineSeries.Path
-//     {...props}
-//     path={line()
-//     .x(({ arg }) => arg)
-//     .y(({ val }) => val)
-//     .curve(curveCatmullRom)}/>
-// );
+const Line = props => (
+  <LineSeries.Path
+    {...props}
+    path={line()
+    .x(({ arg }) => arg)
+    .y(({ val }) => val)
+    .curve(curveCatmullRom)}/>
+);
 
 const Graph = ({ data, onLoad }) => {
 
-  const [userMoodData, setUserMoodData] = useState();
-  const [allMoodData, setAllMoodData] = useState();
-  const [currentUser, setCurrentUser] = useState();
+  const [userMoodData, setUserMoodData] = useState(data);
+  const [allMoodData, setAllMoodData] = useState(onLoad);
+  const [rendered, setRendered] = useState(true);
 
 
 
-  const test = [
-    { argument: 1, value: 10 },
-    { argument: 2, value: 20 },
-    { argument: 3, value: 30 },
-  ];
 
 
 
-  useEffect(() => {
-    setUserMoodData(data);
-    setAllMoodData(onLoad);
-    console.log('user mood data',userMoodData);
-    console.log('data', data);
-  },[])
 
-
-  const toggleView = () => {
-
+  const moodTimeModifiy = (allMoodData) => {
+    const modified = allMoodData.reduce((array, post) => {
+      array.push({day: moment(post.createdAt).format("MMM Do YY"), createdAt: post.createdAt, mood: post.mood});
+      return array;
+      }, []);
+    setAllMoodData(modified);
   };
 
+  useEffect(() => {
+    if (rendered) {
+      setRendered(false);
+      moodTimeModifiy(onLoad);
+    }
+    console.log('allMoodData', allMoodData);
 
+  },[rendered, moodTimeModifiy])
 
   return (
     <>
-    <Chart data={data}>
+    <Chart data={allMoodData}>
       <ArgumentAxis />
       <ArgumentScale />
-      <LineSeries valueField="mood" argumentField="createdAt" />
+      <LineSeries valueField="mood" argumentField="createdAt" seriesComponent={Line} />
+      <Title text="Moody!" />
+      <Animation />
     </Chart>
     </>
   );
