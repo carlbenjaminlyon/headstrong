@@ -1,23 +1,26 @@
 import React from "react";
 import {Card, CardHeader, CardMedia, CardContent, Typography} from '@mui/material';
 
-const TarotCard = ({card}) => {
-  console.log(card);
+const TarotCard = ({card, index}) => {
   const {name, symbols, description} = card;
   let {imageURL} = card;
 
+  // the API provides a broken link for the image of this card
   if (name === 'The Wheel of Fortune') {
     imageURL = 'https://indiealchemy.com/apis/plateautarot/images/Wheel%20of%20Fortune.jpg'
   }
+  const timeFrame = ['Past', 'Present', 'Future']
 
   return (
-    <Card sx={{ maxWidth: 300}}>
-      <CardMedia component="img" height="527" image={imageURL} alt={name}/>
+    <Card sx={{ width: 300}}>
+      <CardHeader title={timeFrame[index]} justify="center"/>
+      <CardMedia component="img" maxHeight="527" image={imageURL} alt={name}/>
       <CardContent>
         <CardHeader title={name}/>
         <Typography variant="body1" color="text.secondary">
           {symbols}
         </Typography>
+        <br />
         <Typography variant="body3">{description}</Typography>
       </CardContent>
     </Card>
