@@ -11,7 +11,7 @@ const Astrology = () => {
       <form className='horoscope'>
         <label htmlFor='bday and time'>
           <h1>
-          Select Birthday and Birth Time To Get Your Birth Chart and Daily Horoscope: 
+          Here's Your Daily Horoscope
           </h1>
           </label>
           <div></div>
