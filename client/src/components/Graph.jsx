@@ -52,11 +52,6 @@ const Graph = ({ data, onLoad }) => {
   const [rendered, setRendered] = useState(true);
 
 
-
-
-
-
-
   const moodTimeModifiy = (allMoodData) => {
     const modified = allMoodData.reduce((array, post) => {
       array.push({day: moment(post.createdAt).format("MMM Do YY"), createdAt: post.createdAt, mood: post.mood});
@@ -72,12 +67,12 @@ const Graph = ({ data, onLoad }) => {
     }
     console.log('allMoodData', allMoodData);
 
-  },[rendered, moodTimeModifiy])
+  }, [rendered, moodTimeModifiy])
 
   return (
     <>
     <Chart data={allMoodData}>
-      <ArgumentAxis />
+      <ArgumentAxis showGrid={true} showLine={true} showTicks={true} showLabels={true}/>
       <ArgumentScale />
       <LineSeries valueField="mood" argumentField="createdAt" seriesComponent={Line} />
       <Title text="Moody!" />
