@@ -82,7 +82,6 @@ class Entry extends Component {
     this._isMounted = true;
     axios.post('/api/weather', { latitude, longitude })
       .then(({ data: { data  }}) => {
-        console.log(data[0]);
         this._isMounted = false;
         const { temp, weather } = data[ 0 ];
         const { description } = weather;
