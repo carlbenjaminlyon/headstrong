@@ -62,13 +62,17 @@ class Entry extends Component {
     //get user's ip address
     return axios.get('https://api.ipify.org')
     // get location data by ip address
-      .then(({ data }) => axios.post('/api/location', { ip: data }))
-      .then(({ data: { latitude, longitude } }) => {
-        this.setState({
-          latitude: latitude,
-          longitude: longitude
-        });
-        this.getWeatherByUserLocation(latitude, longitude);
+      .then(({data}) => {
+        axios.post('/api/location', { ip: data })
+          .then(({ data }) => {
+            const { latitude, longitude } = data;
+            this.setState({
+              latitude: latitude,
+              longitude: longitude
+            });
+            this.getWeatherByUserLocation(latitude, longitude);
+          })
+          .catch(err => console.error(err));
       })
       .catch((err) => console.warn(err));
   }
@@ -77,7 +81,8 @@ class Entry extends Component {
   getWeatherByUserLocation(latitude, longitude) {
     this._isMounted = true;
     axios.post('/api/weather', { latitude, longitude })
-      .then(({ data: { data } }) => {
+      .then(({ data: { data  }}) => {
+        console.log(data[0]);
         this._isMounted = false;
         const { temp, weather } = data[ 0 ];
         const { description } = weather;
