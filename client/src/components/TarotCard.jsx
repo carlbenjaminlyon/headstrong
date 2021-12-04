@@ -13,13 +13,11 @@ const TarotCard = ({card, index}) => {
 
   return (
     <Card sx={{ width: 300}}>
-      <CardHeader title={timeFrame[index]} justify="center"/>
+      <CardHeader title={timeFrame[index]} className='time-frame'/>
       <CardMedia component="img" maxHeight="527" image={imageURL} alt={name}/>
       <CardContent>
-        <CardHeader title={name}/>
-        <Typography variant="body1" color="text.secondary">
-          {symbols}
-        </Typography>
+        <CardHeader title={name} className='tarot-name'/>
+        <Typography variant="body1" color="text.secondary" className='tarot-symbols'>{symbols}</Typography>
         <br />
         <Typography variant="body3">{description}</Typography>
       </CardContent>

@@ -444,5 +444,18 @@ margin-right: 640px;
 }
 
 .tarot-card-buttons {
-  align-content: center;
+  margin-left: 24px;
+  margin-bottom: 1%;
+}
+
+.time-frame {
+  text-align: center;
+  font-variant: small-caps;
+}
+
+.tarot-symbols {
+  text-align: center;
+}
+.tarot-name {
+  text-align: center;
 }

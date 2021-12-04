@@ -34,7 +34,7 @@ const TarotCarousel = () => {
                 !!deck && deck.map((card, index) => {
                   return (
                     <Grid item xs={12} sm={6} md={4}>
-                      <TarotCard card={card} key={card.id} index={index}/>
+                      <TarotCard card={card} key={card.id+''+index} index={index}/>
                     </Grid>
                   );
                 })
