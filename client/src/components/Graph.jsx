@@ -15,7 +15,7 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation, ValueScale } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -26,16 +26,6 @@ import { ClassNames } from '@emotion/react';
 import axios from 'axios';
 
 
-const dummyData = [
-  {day: 0, mood: 10},
-  {day: 1, mood: 15},
-  {day: 2, mood: 25},
-  {day: 3, mood: 55},
-  {day: 4, mood: 60},
-  {day: 5, mood: 40},
-  {day: 6, mood: 30}
-];
-
 const Line = props => (
   <LineSeries.Path
     {...props}
@@ -45,16 +35,39 @@ const Line = props => (
     .curve(curveCatmullRom)}/>
 );
 
-const Graph = ({ data, onLoad }) => {
+const titleStyles = {
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px'
+  },
+};
 
-  const [userMoodData, setUserMoodData] = useState(data);
-  const [allMoodData, setAllMoodData] = useState(onLoad);
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row'
+  },
+});
+
+const legendRootBase = ({classes, ...restProps}) => (
+  <Legend.Root {...restProps} className={classes.root} />
+);
+
+const Root = withStyles(legendStyles, {name: 'LegendRoot'})(legendRootBase);
+
+const Graph = ({ entries, allEntries }) => {
+
+  const [userMoodData, setUserMoodData] = useState(entries);
+  const [allMoodData, setAllMoodData] = useState(allEntries);
+  const [weather, setWeather] = useState();
   const [rendered, setRendered] = useState(true);
 
 
   const moodTimeModifiy = (allMoodData) => {
     const modified = allMoodData.reduce((array, post) => {
-      array.push({day: moment(post.createdAt).format("MMM Do YY"), createdAt: post.createdAt, mood: post.mood});
+      array.push({day: moment(post.createdAt).calendar(), createdAt: post.createdAt, mood: post.mood});
       return array;
       }, []);
     setAllMoodData(modified);
@@ -63,18 +76,22 @@ const Graph = ({ data, onLoad }) => {
   useEffect(() => {
     if (rendered) {
       setRendered(false);
-      moodTimeModifiy(onLoad);
+      moodTimeModifiy(allEntries);
     }
     console.log('allMoodData', allMoodData);
 
   }, [rendered, moodTimeModifiy])
 
+
   return (
     <>
     <Chart data={allMoodData}>
+      <ValueScale name="mood" />
       <ArgumentAxis showGrid={true} showLine={true} showTicks={true} showLabels={true}/>
-      <ArgumentScale />
-      <LineSeries valueField="mood" argumentField="createdAt" seriesComponent={Line} />
+      <ValueAxis valueType="mood" />
+      <ArgumentScale factory={scalePoint}/>
+      <LineSeries valueField="mood" argumentField="day" name="Your mood" seriesComponent={Line} />
+      <Legend position='bottom' rootComponent={Root}/>
       <Title text="Moody!" />
       <Animation />
     </Chart>

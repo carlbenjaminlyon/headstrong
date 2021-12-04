@@ -268,7 +268,7 @@ class Entry extends Component {
                       value={ mood }
                       max={ 100 }
                       marks={ mark }
-                      step={ 1 }
+                      step={ 10 }
                       valueLabelDisplay="auto"
                     />
                   </Grid>
