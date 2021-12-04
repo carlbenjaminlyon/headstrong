@@ -44,7 +44,7 @@ app.use('/api/astrology', Horoscope);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({origin: true, credentials: true})); //added cors options
 app.use(formData.parse());
 // line 34 - 61 all used for google login
 app.use(

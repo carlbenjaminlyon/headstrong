@@ -2,13 +2,11 @@ const { Router } = require('express');
 const Horoscope = Router();
 const { getHoroscope } = require('../helpers/astrology');
 
-Horoscope.post('/', (req, res) => {
-  const { horoscopes } = req.body;
-
-  return getHoroscope(horoscopes)
+Horoscope.get('/', (req, res) => {
+  getHoroscope(horoscopes)
   .then(horoscope => {
     console.log('horoscopeeee: ', horoscope);
-    res.status(200).send(horoscope)})
+    res.send(horoscope)})
   .catch(() => res.sendStatus(404));
 })
 

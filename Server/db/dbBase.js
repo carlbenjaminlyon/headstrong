@@ -63,7 +63,7 @@ const Entries = sequelize.define('entries', {
 
   moonPhase: {
     type: Sequelize.STRING(50)
-  }
+  },
 
 });
 const Friends = sequelize.define('friends', {
