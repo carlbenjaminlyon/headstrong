@@ -14,7 +14,18 @@ import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
 import Follow from './Follow.jsx';
 import GraphWindow from './GraphWindow.jsx';
+
 import Astrology from './astrology/Astrology.jsx';
+
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import { alpha } from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+import Astrology from './Astrology.jsx';
+import TarotCarousel from './TarotCarousel.jsx';
+
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +43,8 @@ class App extends Component {
       imageURL: null,
       username: '',
       friends: [],
+      modal: false,
+      allEntries: []
     };
     this.getFriends = this.getFriends.bind(this);
     this.getRandomQuote = this.getRandomQuote.bind(this);
@@ -45,6 +58,11 @@ class App extends Component {
     this.addProfile = this.addProfile.bind(this);
     this.getProfile = this.getProfile.bind(this);
     this.changePosts = this.changePosts.bind(this);
+    //for the modal component
+    this.handleModal = this.handleModal.bind(this);
+    //get all users journals, public or private
+    this.getAllJournals = this.getAllJournals.bind(this);
+
   }
   //change views depending on what you click
   changeView(option) {
@@ -52,6 +70,11 @@ class App extends Component {
       view: option,
     });
   }
+  //Modal click handler
+  handleModal() {
+      this.setState({modal: !this.state.modal});
+  }
+
   getAllPublicJournals() {
     axios.get('/api/journals/public')
       .then(({ data }) => {
@@ -60,6 +83,14 @@ class App extends Component {
           entries: data
         });
       }).catch(err => console.log(err));
+  }
+  //Intended to get all users mood data for graph
+  getAllJournals() {
+    axios.get('/api/journals')
+    .then(({data}) => {
+      this.setState({ allEntries: data })
+    })
+    .catch(err => console.log(err));
   }
 
   addProfile(result) {
@@ -105,7 +136,6 @@ class App extends Component {
   getRandomMemory() {
     axios.get('/api/journals')
       .then(({ data }) => {
-        console.log(data);
         const randomIndex = Math.floor(Math.random() * data.length);
         this.setState({
           memory: data[ randomIndex ],
@@ -147,6 +177,8 @@ class App extends Component {
       return <ChatRoom />;
     }else if(view === 'astrology') {
       return <Astrology />
+    } else if (view === 'tarot') {
+      return <TarotCarousel />
     } else if (view === 'board') {
       return <Board />;
     } else if (view === 'memory') {
@@ -165,6 +197,8 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    this.handleModal;
+    this.getAllJournals();
     this.getFriends();
     this.getRandomQuote();
     this.getQuote();
@@ -178,13 +212,29 @@ class App extends Component {
         }))
       .catch((err) => console.warn(err));
   }
+
+
+
   logout(bool) {
     this.setState({
       login: bool
     });
   }
   render() {
-    const { login, view, roomName, imageURL, username } = this.state;
+    const { login, view, roomName, imageURL, username, modal, entries, allEntries } = this.state;
+    const { handleModal, getAllJournals } = this;
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 600,
+      bgcolor: '#D19FE8',
+      border: '2px solid #8A2BE2',
+      boxShadow: 24,
+      borderRadius: 3,
+      p: 4,
+    };
     return (
       <div>
         {
@@ -217,7 +267,6 @@ class App extends Component {
                         HeadStrong 2.0
 
                 </div>
-                {/* <GraphWindow /> */}
                 <div className='nav'>
                   <Widget
                     sources={['local', 'camera', 'dropbox']} // set the sources available for uploading -> by default
@@ -276,6 +325,12 @@ class App extends Component {
                       onClick={ () => this.changeView('astrology') }>Daily Horoscope</Button>
                   </div>
                   <div className={
+                    (view === 'tarot') ? 'currentButton' : 'button' }>
+                    <Button
+                      className='Button'
+                      onClick={ () => this.changeView('tarot') }>Tarot Cards</Button>
+                  </div>
+                  <div className={
                     (view === 'chat') ? 'currentButton' : 'button' }>
                     <Button
                       className='Button'
@@ -294,6 +349,30 @@ class App extends Component {
                       className='Button'
                       onClick={ () => this.changeView('resource') }>Resources</Button>
                   </div>
+
+                  <div className='button'>
+                    <Button onClick={handleModal}>How're you?</Button>
+                    {modal && (
+                    <Modal
+                      aria-labelledby="transition-modal-title"
+                      aria-describedby="transition-modal-description"
+                      open={modal}
+                      onBackdropClick={handleModal}
+                      closeAfterTransition
+                      BackdropComponent={Backdrop}
+                      BackdropProps={{
+                        timeout: 500,
+                      }}
+                    >
+                      <Fade in={open}>
+                        <Box sx={style}>
+                          <GraphWindow data={entries} onLoad={allEntries}/>
+                        </Box>
+                      </Fade>
+                    </Modal>
+                    )}
+                  </div>
+
                   <div className={
                     (view === 'logout') ? 'currentButton' : 'button' }>
                     <Button
