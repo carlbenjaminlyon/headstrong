@@ -15,15 +15,13 @@ import avatar from '../images/avatar.png';
 import Follow from './Follow.jsx';
 import GraphWindow from './GraphWindow.jsx';
 
-import Astrology from './astrology/Astrology.jsx';
-
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { alpha } from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
-import Astrology from './Astrology.jsx';
+import Astrology from './astrology/Astrology.jsx'
 import TarotCarousel from './TarotCarousel.jsx';
 
 

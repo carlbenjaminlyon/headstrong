@@ -1,17 +1,15 @@
 const axios = require('axios');
 
 const getSigns = () => {
-  return fetch(
-    'http://sandipbgt.com/theastrologer/api/sunsigns'
-  ).then((response) => response.json());
+  return axios.get('http://sandipbgt.com/theastrologer/api/sunsigns')
+  .then((response) => response)
+  .catch(err => console.error(err))
 }
 
 const getHoroscope = (sign, timeframe) => {
-  return fetch(
-    `http://sandipbgt.com/theastrologer/api/horoscope/${sign}/${timeframe}/`
-  )
-    .then((response) => response.json())
-    .then(({ horoscope }) => horoscope);
+  return axios.get(`http://sandipbgt.com/theastrologer/api/horoscope/${sign}/${timeframe}/`)
+    .then((response) => response.data.horoscope)
+    .catch(err => console.error(err));
 
 }
 

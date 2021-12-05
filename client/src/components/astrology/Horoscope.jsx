@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
+import axios from 'axios';
 import { getHoroscope } from "../../../../Server/helpers/astrology.js";
 
-const Horoscope = ({sign, timeframe}) => {
+const Horoscope = ({ sign, timeframe }) => {
   const [ horoscope, setHoroscope ] = useState([]);
-
+  // sign, timeframe
+  
   useEffect(() => {
-    getHoroscope(sign, timeframe)
-    .then(setHoroscope)
+    axios.get(`/api/astrology/${sign}&${timeframe}`)
+    .then(({ data }) => setHoroscope(data))
     .catch(err => console.error(err));
   }, [sign, timeframe])
 

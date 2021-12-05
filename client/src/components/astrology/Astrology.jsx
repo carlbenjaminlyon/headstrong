@@ -26,7 +26,7 @@ const Astrology = () => {
       <div className='horoscope'>
         <label className='sign'>
           <h1>
-          Your Horoscope For Today! 
+          Your Horoscope: 
           </h1>
           </label>
           {!selectedSign && (
