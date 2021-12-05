@@ -8,7 +8,12 @@ const cloudinary = require('cloudinary');
 const { Quotes } = require('./api/quotes');
 const { Weather } = require('./api/weather');
 const { Location } = require('./api/geolocation');
-const { MoonPhase } = require('./api/lunarPhase')
+const { MoonPhase } = require('./api/lunarPhase');
+
+const { Horoscope } = require('./api/astrology');
+
+const { TarotCards } = require('./api/tarot')
+
 const { db, getAllJournals, addJournals, deleteJournal, updateJournal, getAllPublicJournals, addProfile, getProfile, Entries, Friends } = require('./db/dbBase.js');
 const { GoogleStrategy } = require('./passport.js');
 const passport = require('passport');
@@ -39,10 +44,15 @@ app.use('/api/quotes', Quotes);
 app.use('/api/weather', Weather);
 app.use('/api/location', Location);
 app.use('/api/moon', MoonPhase);
+
+app.use('/api/astrology', Horoscope);
+
+app.use('/api/tarot', TarotCards);
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({origin: true, credentials: true})); //added cors options
 app.use(formData.parse());
 // line 34 - 61 all used for google login
 app.use(
