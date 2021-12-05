@@ -8,7 +8,6 @@ import  Horoscope   from "./Horoscope.jsx";
 
 
 const Astrology = () => {
-
   
   const [ selectedSign, setSelectedSign ] = useState(null);
   const [ selectedTimeframe, setSelectedTimeframe] = useState(null);
