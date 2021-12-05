@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from "react";
+import axios from "axios";
 import { getSigns } from "../../../../Server/helpers/astrology.js";
 
 const SelectSign = ({ onSignSelected }) => {
@@ -6,7 +7,12 @@ const SelectSign = ({ onSignSelected }) => {
   const [signs, setSigns] = useState([]);
 
   useEffect(() => {
-    getSigns().then(setSigns)
+    // getSigns().then(setSigns)
+    axios.get('/api/astrology')
+    .then(({ data }) => {
+      console.log('this is the data: ', data)
+      setSigns(data)
+    })
   }, []);
 
   return (

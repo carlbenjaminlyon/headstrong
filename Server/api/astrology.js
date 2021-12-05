@@ -1,12 +1,25 @@
 const { Router } = require('express');
 const Horoscope = Router();
-const { getHoroscope } = require('../helpers/astrology');
+const { getHoroscope, getSigns } = require('../helpers/astrology');
 
 Horoscope.get('/', (req, res) => {
-  getHoroscope(horoscopes)
+  getSigns()
+  .then(sign => {
+    res.send(sign.data)
+  })
+  .catch(err => console.error(err))
+})
+
+
+
+Horoscope.get('/:sign&:timeframe', (req, res) => {
+
+  const { sign, timeframe } = req.params;
+
+  getHoroscope(sign, timeframe)
   .then(horoscope => {
-    console.log('horoscopeeee: ', horoscope);
-    res.send(horoscope)})
+    res.send(horoscope)
+  })
   .catch(() => res.sendStatus(404));
 })
 
