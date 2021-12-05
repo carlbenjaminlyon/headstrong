@@ -14,8 +14,7 @@ import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
 import Follow from './Follow.jsx';
 import GraphWindow from './GraphWindow.jsx';
-
-import Astrology from './Astrology.jsx';
+import Astrology from './astrology/Astrology.jsx';
 
 class App extends Component {
   constructor(props) {

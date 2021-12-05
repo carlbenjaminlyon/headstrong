@@ -1,12 +1,21 @@
 const axios = require('axios');
 
-const getHoroscope = (sign) => {
-  return axios.get(`https://cors-anywhere.herokuapp.com/http://ohmanda.com/api/horoscope/${sign}`)
-  .then(({ data }) => data)
-  .catch((err) => console.error('there was an error:', err));
+const getSigns = () => {
+  return fetch(
+    'http://sandipbgt.com/theastrologer/api/sunsigns'
+  ).then((response) => response.json());
+}
+
+const getHoroscope = (sign, timeframe) => {
+  return fetch(
+    `http://sandipbgt.com/theastrologer/api/horoscope/${sign}/${timeframe}/`
+  )
+    .then((response) => response.json())
+    .then(({ horoscope }) => horoscope);
 
 }
 
 module.exports = {
-  getHoroscope
+  getHoroscope,
+  getSigns
 }
