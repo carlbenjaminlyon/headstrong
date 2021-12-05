@@ -51,7 +51,6 @@ const Graph = ({ data, onLoad }) => {
   const [allMoodData, setAllMoodData] = useState(onLoad);
   const [rendered, setRendered] = useState(true);
 
-
   const moodTimeModifiy = (allMoodData) => {
     const modified = allMoodData.reduce((array, post) => {
       array.push({day: moment(post.createdAt).format("MMM Do YY"), createdAt: post.createdAt, mood: post.mood});
@@ -68,6 +67,7 @@ const Graph = ({ data, onLoad }) => {
     console.log('allMoodData', allMoodData);
 
   }, [rendered, moodTimeModifiy])
+
 
   return (
     <>
