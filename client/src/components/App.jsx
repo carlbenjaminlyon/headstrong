@@ -14,6 +14,7 @@ import { AppBar, Button } from '@material-ui/core';
 import avatar from '../images/avatar.png';
 import Follow from './Follow.jsx';
 import GraphWindow from './GraphWindow.jsx';
+import Sounds from './Sounds.jsx';
 
 import Astrology from './Astrology.jsx';
 
@@ -150,6 +151,8 @@ class App extends Component {
       return <Astrology />
     } else if (view === 'board') {
       return <Board />;
+    } else if(view === 'sounds') {
+      return <Sounds />;
     } else if (view === 'memory') {
       return (<div>
         {memory ?
@@ -287,6 +290,12 @@ class App extends Component {
                     <Button
                       className='Button'
                       onClick={ () => this.changeView('board') }>Draw</Button>
+                  </div>
+                  <div className={
+                    (view === 'sounds') ? 'currentButton' : 'button' }>
+                    <Button
+                      className='Button'
+                      onClick={ () => this.changeView('sounds') }>Sounds</Button>
                   </div>
 
                   <div className={
