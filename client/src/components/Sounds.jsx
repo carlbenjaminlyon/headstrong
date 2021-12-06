@@ -35,8 +35,8 @@ const Sounds = ({ data, onLoad }) => {
     }
   }).toDestination();
 
-  const feedbackDelay = new Tone.FeedbackDelay("8d", 0.45).toDestination();
-  const autoPanner = new Tone.AutoPanner("4n").toDestination().start();
+  const feedbackDelay = new Tone.FeedbackDelay("8d", 0.5).toDestination();
+  const autoPanner = new Tone.AutoPanner("8n").toDestination().start();
   const reverb = new Tone.Reverb(10).toDestination();
   synth.connect(feedbackDelay);
   synth.connect(autoPanner);
@@ -73,7 +73,7 @@ const Sounds = ({ data, onLoad }) => {
 const seq = new Tone.Sequence((time, note) => {
 	bass.triggerAttackRelease(note, "1n", time);
 	// subdivisions are given as subarrays
-}, ["D1", "B1", "E1", "A1"], "1n").start(0);
+}, ["B1", "A1", "G1", "F#1", "D1", "B1", "E1", "A1"], "1n").start(0);
 
 // const seq2 = new Tone.Sequence((time, note) => {
 // 	synth.triggerAttackRelease(note, "16n", time);

@@ -34,7 +34,24 @@ const chordAMajor = {
   'ninth': 'B4'
 };
 
-const chordArray = [chordDMajor, chordBMinor, chordEMinor, chordAMajor];
+const chordGMajor = {
+  'root': 'G4',
+  'third': 'B4',
+  'fifth': 'D5',
+  'sixth': 'E5',
+  'seventh': 'F#5',
+  'ninth': 'A5'
+};
+
+const chordFSharpMinor = {
+  'root': 'F#4',
+  'third': 'A4',
+  'fifth': 'C#5',
+  'sixth': 'D5',
+  'seventh': 'E5',
+  'ninth': 'G5'
+};
+const chordArray = [chordBMinor, chordAMajor, chordGMajor, chordFSharpMinor, chordDMajor, chordBMinor, chordEMinor, chordAMajor];
 
 function findDegrees(digit) {
   if (digit === '0') return 'root';
@@ -58,7 +75,7 @@ function findDegrees(digit) {
 const generateSequenceFrom = (hash, chordNum, resultArray) => {
 
   //base if hash is 0 characters in length
-  if (hash.length === 0 || chordNum > 3) {
+  if (hash.length === 0 || chordNum > 7) {
     return resultArray;
   }
 
