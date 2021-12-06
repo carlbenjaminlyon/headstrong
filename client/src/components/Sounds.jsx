@@ -3,11 +3,14 @@ import * as Tone from 'tone';
 import md5 from 'md5';
 import axios from 'axios';
 import generateSequenceFrom from './utils/soundUtils';
+import { Button } from '@material-ui/core';
 
 const Sounds = ({ data, onLoad }) => {
   Tone.Transport.set({
     bpm: 86
   });
+
+  const status = false;
 
   let hash = '';
 
@@ -26,7 +29,7 @@ const Sounds = ({ data, onLoad }) => {
     'envelope' : {
       'attack' : 1,
       'decay' : 0.3,
-      'release' : 2,
+      'release' : 0,
     },
   }).toDestination();
   const amSynth = new Tone.AMSynth({
@@ -35,15 +38,16 @@ const Sounds = ({ data, onLoad }) => {
     }
   }).toDestination();
 
-  const feedbackDelay = new Tone.FeedbackDelay("8d", 0.5).toDestination();
+  // const feedbackDelay = new Tone.FeedbackDelay("8d", 0.5).toDestination();
+  const pingPong = new Tone.PingPongDelay("8d", 0.3).toDestination();
   const autoPanner = new Tone.AutoPanner("8n").toDestination().start();
   const reverb = new Tone.Reverb(10).toDestination();
-  synth.connect(feedbackDelay);
+  synth.connect(pingPong);
   synth.connect(autoPanner);
   synth.connect(reverb);
 
   const bass = new Tone.MonoSynth({
-    'volume' : -10,
+    'volume' : -15,
     'envelope' : {
       'attack' : 0.1,
       'decay' : 0.3,
@@ -80,12 +84,53 @@ const seq = new Tone.Sequence((time, note) => {
 // 	// subdivisions are given as subarrays
 // }, [["F#4", "A4"], ["B4", "A4"], ["G4", "B4"], ["E4", "G4"]], "1n").start(0);
 
+const snare = new Tone.NoiseSynth({
+	'volume' : -20,
+	'envelope' : {
+		'attack' : 0.001,
+		'decay' : 0.2,
+		'sustain' : 0
+	},
+	'filterEnvelope' : {
+		'attack' : 0.001,
+		'decay' : 0.1,
+		'sustain' : 0
+	}
+}).toDestination();
 
+// const snarePart = new Tone.Loop(function(time){
+// 	snare.triggerAttack(time);
+// }, '4n').start('8n');
+
+const kick = new Tone.MembraneSynth({
+	'envelope' : {
+		'sustain' : 0,
+		'attack' : 0.02,
+		'decay' : 0.8
+	},
+	'octaves' : 10
+}).toDestination();
+
+// const kickPart = new Tone.Loop(function(time){
+// 	kick.triggerAttackRelease('D1', '8n', time);
+//   kick.triggerAttackRelease('D1', '16n', time + 0.174);
+//   kick.triggerAttackRelease('D1', '16n', time + 0.870);
+// }, '2n').start(0);
+
+const kickPart = new Tone.Loop(function(time){
+  kick.triggerAttackRelease('D1', '8n', time);
+  kick.triggerAttackRelease('D1', '16n', time + 0.174);
+  kick.triggerAttackRelease('D1', '16n', time + 0.870);
+}, '2n');
+
+const snarePart = new Tone.Loop(function(time){
+  snare.triggerAttack(time);
+}, '4n');
 
 return (
   <div>
-      This plays a sound
-      <button onClick={() => {
+      This plays a binaural beat generated from your most recent public journal posts!
+      <Button variant="contained" onClick={() => {
 
         const generatedSequence = generateSequenceFrom(hash, 0, []);
 
@@ -110,13 +155,23 @@ return (
         // osc432.stop();
         // console.log(osc432.get());
       }
-    }>Play</button>
-    <button onClick={() => {
+    }>Play</Button>
+    <Button variant='contained' onClick={() => {
         Tone.Transport.stop();
 
       }
-    }>Stop</button>
-    </div>
+    }>Stop</Button>
+    <Button variant='contained' onClick={() => {
+      kickPart.start(0);
+      snarePart.start('8n');
+    }
+  }>Sick</Button>
+  <Button variant='contained' onClick={() => {
+      kickPart.stop();
+      snarePart.stop();
+    }
+  }>Chill</Button>
+  </div>
   );
 }
 
