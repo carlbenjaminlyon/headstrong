@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { SelectionState } from '@devexpress/dx-react-chart';
+import Tooltip from '@mui/material/Tooltip';
 
 
 //need to get react-sprint/web package here
@@ -25,13 +26,6 @@ const boxStyle = {
   p: 4,
   m: 4,
 };
-  // const moodTimeModifiy = (posts) => {
-  //   const modified = posts.reduce((array, post) => {
-  //     array.push({day: moment(post.createdAt).calendar(), createdAt: post.createdAt, mood: post.mood, name:post.username});
-  //     return array;
-  //     }, []);
-  //   setData(modified);
-  // };
 
 const GraphWindow = ({ entries, allEntries }) => {
   const [data, setData] = useState(entries);
@@ -42,24 +36,13 @@ const GraphWindow = ({ entries, allEntries }) => {
 
   const handleView = () => {
     if (view) {
-      // setData(allEntries)
       setView(false)
-      // console.log('allEntries from graphwindow', data)
-      console.log('view from graphwindow', view)
-
     } else {
-      // setData(entries);
       setView(true);
-      // console.log('entries from graphwindow', data)
-      console.log('view from graphwindow', view)
-
     }
   };
 
-
-
   useEffect(() => {
-      // moodTimeModifiy(entries)
       setShowView(false);
       setData(view ? entries : allEntries);
       setTimeout(() => {
@@ -72,17 +55,15 @@ const GraphWindow = ({ entries, allEntries }) => {
     <>
     <Container>
       <Box style={boxStyle}>
+        <Tooltip title='Toggle views' placement='right' arrow>
       <Switch defaultChecked color="secondary" onChange={handleView} />
+        </Tooltip>
         <Typography>
-          Hello, {data.username}. We hope you are well today!
+          Hello friend, we hope you are well today!
         </Typography>
       </Box>
       <Box style={boxStyle}>
-
-      {/* {view === true ? <Graph allEntries={entries}/> : <Graph allEntries={allEntries}/>} */}
        {!showView ? null : <Graph allEntries={view ? entries : allEntries} />}
-       {/* <Graph allEntries={data} /> */}
-
       </Box>
     </Container>
   </>

@@ -13,10 +13,11 @@ import {
   LineSeries,
   Title,
   Legend,
+  Tooltip
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { ArgumentScale, Animation, ValueScale } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation, ValueScale, EventTracker } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -26,6 +27,7 @@ import { render } from 'react-dom';
 import { ClassNames } from '@emotion/react';
 import axios from 'axios';
 import { SwitchVideoTwoTone } from '@material-ui/icons';
+
 
 
 const Line = props => (
@@ -60,18 +62,20 @@ const legendRootBase = ({classes, ...restProps}) => (
 const Root = withStyles(legendStyles, {name: 'LegendRoot'})(legendRootBase);
 
 
+
 const Graph = ({ allEntries }) => {
+
 
   return (
     <>
     <Chart data={allEntries}>
+      <Tooltip enabled={true} />
       <ValueScale name="mood" />
       <ArgumentAxis showGrid={true} showLine={true} showTicks={true} showLabels={true}/>
       <ValueAxis valueType="mood" />
       <ArgumentScale factory={scalePoint}/>
-        <LineSeries valueField="mood" argumentField="createdAt" name="Your mood" seriesComponent={Line} />
+        <LineSeries valueField="mood" argumentField="id" name="Moods over time" seriesComponent={Line} />
         <Legend position='bottom' rootComponent={Root}/>
-        {/* <otherSet /> */}
       <Title text="Moody!" />
       <Animation />
     </Chart>
