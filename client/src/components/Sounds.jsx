@@ -80,16 +80,20 @@ const seq = new Tone.Sequence((time, note) => {
 // 	// subdivisions are given as subarrays
 // }, [["F#4", "A4"], ["B4", "A4"], ["G4", "B4"], ["E4", "G4"]], "1n").start(0);
 
-const seq2 = new Tone.Sequence((time, note) => {
-	synth.triggerAttackRelease(note, "16n", time);
-	// subdivisions are given as subarrays
-}, [["F#4", "A4"], ["B4", "A4"], ["G4", "B4"], ["E4", "G4"]], "1n").start(0);
 
 
-  return (
-    <div>
+return (
+  <div>
       This plays a sound
       <button onClick={() => {
+
+        const generatedSequence = generateSequenceFrom(hash, 0, []);
+
+        const seq2 = new Tone.Sequence((time, note) => {
+          synth.triggerAttackRelease(note, "16n", time);
+          // subdivisions are given as subarrays
+        }, generatedSequence, "1n").start(0);
+
         // synth.triggerAttackRelease("C4", "8n");
         // synth.triggerAttackRelease("E4", "8n");
         // synth.triggerAttackRelease("G4", "8n");
