@@ -2,45 +2,61 @@ import React from 'react';
 import * as Tone from 'tone';
 import md5 from 'md5';
 import axios from 'axios';
+import generateSequenceFrom from './utils/soundUtils';
 
 const Sounds = ({ data, onLoad }) => {
-  const synth = new Tone.PolySynth().toDestination();
   Tone.Transport.set({
     bpm: 86
   });
 
-  console.log('md5 test1: ', md5('test'));
-  console.log('md5 test2: ', md5('test'));
-  console.log('md5 test3: ', md5('test2'));
-  console.log('test3 should be different');
-
   let hash = '';
 
   axios.get('/api/journals/public')
-    .then(({ data }) => {
-      console.log('hashing: ', data[data.length - 1].blog);
-      return md5(data[data.length - 1].blog);
-    })
-    .then(data => {
-      hash = data;
-    })
-    .then(() => console.log('mega sucksess'))
-    .catch(err => { console.log('ERROR retrieving journal entry', err) } )
+  .then(({ data }) => {
+    return md5(data[data.length - 1].blog); //retrieving most recent blog entry text
+  })
+  .then(data => {
+    hash = data;
+  })
+  .then(() => console.log('hash data received successfully'))
+  .catch(err => { console.log('ERROR retrieving journal entry', err) } )
 
-  // synth.triggerAttackRelease("C4", "8n");
-	const lPanner = new Tone.Panner(-1).toDestination();
-	const rPanner = new Tone.Panner(1).toDestination();
-  const osc432 = new Tone.Oscillator(45.41, "sine").toDestination().connect(lPanner);
-  const amSynth = new Tone.AMSynth().toDestination();
+  const synth = new Tone.PolySynth({
+    'volume': -10,
+    'envelope' : {
+      'attack' : 1,
+      'decay' : 0.3,
+      'release' : 2,
+    },
+  }).toDestination();
+  const amSynth = new Tone.AMSynth({
+    options: {
+      harmonicity: 0.5
+    }
+  }).toDestination();
+
+  const feedbackDelay = new Tone.FeedbackDelay("8d", 0.45).toDestination();
   const autoPanner = new Tone.AutoPanner("4n").toDestination().start();
-  const osc528 = new  Tone.Oscillator(528, "sine").toDestination();
-
-  // const feedbackDelay = new Tone.FeedbackDelay(0.125, 0.5).toDestination();
-  // const reverb = new Tone.Reverb(15).toDestination();
-  const reverb = new Tone.JCReverb(0.4).toDestination();
-  amSynth.connect(reverb);
+  const reverb = new Tone.Reverb(10).toDestination();
+  synth.connect(feedbackDelay);
   synth.connect(autoPanner);
-  // synth.connect(autoPanner);
+  synth.connect(reverb);
+
+  const bass = new Tone.MonoSynth({
+    'volume' : -10,
+    'envelope' : {
+      'attack' : 0.1,
+      'decay' : 0.3,
+      'release' : 2,
+    },
+    'filterEnvelope' : {
+      'attack' : 0.001,
+      'decay' : 0.01,
+      'sustain' : 0.5,
+      'baseFrequency' : 200,
+      'octaves' : 2.6
+    }
+  }).toDestination();
 
 
 //   // repeated event every 8th note
@@ -55,12 +71,17 @@ const Sounds = ({ data, onLoad }) => {
 // }, "4n");
 
 const seq = new Tone.Sequence((time, note) => {
-	amSynth.triggerAttackRelease(note, "1n", time);
+	bass.triggerAttackRelease(note, "1n", time);
 	// subdivisions are given as subarrays
-}, ["D3", "B3", "E3", "A3"], "1n").start(0);
+}, ["D1", "B1", "E1", "A1"], "1n").start(0);
+
+// const seq2 = new Tone.Sequence((time, note) => {
+// 	synth.triggerAttackRelease(note, "16n", time);
+// 	// subdivisions are given as subarrays
+// }, [["F#4", "A4"], ["B4", "A4"], ["G4", "B4"], ["E4", "G4"]], "1n").start(0);
 
 const seq2 = new Tone.Sequence((time, note) => {
-	synth.triggerAttackRelease(note, "2n", time);
+	synth.triggerAttackRelease(note, "16n", time);
 	// subdivisions are given as subarrays
 }, [["F#4", "A4"], ["B4", "A4"], ["G4", "B4"], ["E4", "G4"]], "1n").start(0);
 
@@ -76,8 +97,8 @@ const seq2 = new Tone.Sequence((time, note) => {
         // synth.start;
         // amSynth.triggerAttackRelease(528, "8n").connect(autoPanner);
         console.log('this is hash now: ', hash);
+        console.log(generateSequenceFrom(hash, 0, []));
         Tone.Transport.start();
-        
 
         // osc432.start();
         // osc528.start();
