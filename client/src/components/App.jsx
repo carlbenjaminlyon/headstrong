@@ -360,7 +360,7 @@ class App extends Component {
                     >
                       <Fade in={open}>
                         <Box sx={style}>
-                          <GraphWindow userEntries={entries} allEntries={allEntries}/>
+                          <GraphWindow entries={entries} allEntries={allEntries}/>
                         </Box>
                       </Fade>
                     </Modal>

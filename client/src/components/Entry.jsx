@@ -216,7 +216,7 @@ class Entry extends Component {
             <button className="urlButton" id='sub' onClick={ () => this.handleSubmit() }>Submit</button>
             <br></br>
             {
-              journalImage.length ? <img style={ { height: '200px', width: '300px' } } src={ journalImage } /> : null
+              journalImage.length ? <img style={ { height: '200px', width: 'auto' } } src={ journalImage } /> : null
             }
 
           </form>

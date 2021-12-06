@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import {Line} from 'react-chartjs-2';
 import moment from 'moment';
 
+import { Plugin } from "@devexpress/dx-react-core";
 
 //MUI
 import Paper from '@material-ui/core/Paper';
@@ -24,6 +25,7 @@ import { scalePoint } from 'd3-scale';
 import { render } from 'react-dom';
 import { ClassNames } from '@emotion/react';
 import axios from 'axios';
+import { SwitchVideoTwoTone } from '@material-ui/icons';
 
 
 const Line = props => (
@@ -57,41 +59,19 @@ const legendRootBase = ({classes, ...restProps}) => (
 
 const Root = withStyles(legendStyles, {name: 'LegendRoot'})(legendRootBase);
 
-const Graph = ({ entries, allEntries }) => {
 
-  const [userMoodData, setUserMoodData] = useState(entries);
-  const [allMoodData, setAllMoodData] = useState(allEntries);
-  const [weather, setWeather] = useState();
-  const [rendered, setRendered] = useState(true);
-
-
-  const moodTimeModifiy = (allMoodData) => {
-    const modified = allMoodData.reduce((array, post) => {
-      array.push({day: moment(post.createdAt).calendar(), createdAt: post.createdAt, mood: post.mood});
-      return array;
-      }, []);
-    setAllMoodData(modified);
-  };
-
-  useEffect(() => {
-    if (rendered) {
-      setRendered(false);
-      moodTimeModifiy(allEntries);
-    }
-    console.log('allMoodData', allMoodData);
-
-  }, [rendered, moodTimeModifiy])
-
+const Graph = ({ allEntries }) => {
 
   return (
     <>
-    <Chart data={allMoodData}>
+    <Chart data={allEntries}>
       <ValueScale name="mood" />
       <ArgumentAxis showGrid={true} showLine={true} showTicks={true} showLabels={true}/>
       <ValueAxis valueType="mood" />
       <ArgumentScale factory={scalePoint}/>
-      <LineSeries valueField="mood" argumentField="day" name="Your mood" seriesComponent={Line} />
-      <Legend position='bottom' rootComponent={Root}/>
+        <LineSeries valueField="mood" argumentField="createdAt" name="Your mood" seriesComponent={Line} />
+        <Legend position='bottom' rootComponent={Root}/>
+        {/* <otherSet /> */}
       <Title text="Moody!" />
       <Animation />
     </Chart>
@@ -99,14 +79,11 @@ const Graph = ({ entries, allEntries }) => {
   );
 };
 
+export default Graph;
 
 //Resources
 //https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/spline/
 //https://www.npmjs.com/package/@devexpress/dx-react-chart-material-ui
-
-
-
-export default Graph;
 
 
 
