@@ -59,11 +59,12 @@ const legendRootBase = ({classes, ...restProps}) => (
   <Legend.Root {...restProps} className={classes.root} />
 );
 
+
 const Root = withStyles(legendStyles, {name: 'LegendRoot'})(legendRootBase);
 
 
-
 const Graph = ({ allEntries }) => {
+
 
 
   return (

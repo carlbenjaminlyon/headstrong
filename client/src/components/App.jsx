@@ -21,8 +21,9 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { alpha } from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
+import Astrology from './astrology/Astrology.jsx'
+import TarotCarousel from './TarotCarousel.jsx';
 
-import Astrology from './Astrology.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -174,6 +175,8 @@ class App extends Component {
       return <ChatRoom />;
     }else if(view === 'astrology') {
       return <Astrology />
+    } else if (view === 'tarot') {
+      return <TarotCarousel />
     } else if (view === 'board') {
       return <Board />;
     } else if (view === 'memory') {
@@ -323,6 +326,12 @@ class App extends Component {
                     <Button
                       className='Button'
                       onClick={ () => this.changeView('astrology') }>Daily Horoscope</Button>
+                  </div>
+                  <div className={
+                    (view === 'tarot') ? 'currentButton' : 'button' }>
+                    <Button
+                      className='Button'
+                      onClick={ () => this.changeView('tarot') }>Tarot Cards</Button>
                   </div>
                   <div className={
                     (view === 'chat') ? 'currentButton' : 'button' }>

@@ -19,9 +19,8 @@
 }
 
 .main {
-	margin-top: 5%;
+	margin-top: 140px;
 	position: fixed;
-	top: 10%;
 }
 
 .button {
@@ -441,4 +440,21 @@ margin-right: 640px;
   to {
     left: 100%;
   }
+}
+
+.tarot-card-buttons {
+  margin-left: 24px;
+  margin-bottom: 1%;
+}
+
+.time-frame {
+  text-align: center;
+  font-variant: small-caps;
+}
+
+.tarot-symbols {
+  text-align: center;
+}
+.tarot-name {
+  text-align: center;
 }
