@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import {Line} from 'react-chartjs-2';
 import moment from 'moment';
 
+import { Plugin } from "@devexpress/dx-react-core";
 
 //MUI
 import Paper from '@material-ui/core/Paper';
@@ -12,10 +13,11 @@ import {
   LineSeries,
   Title,
   Legend,
+  Tooltip
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
+import { ArgumentScale, Animation, ValueScale, EventTracker } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -24,17 +26,9 @@ import { scalePoint } from 'd3-scale';
 import { render } from 'react-dom';
 import { ClassNames } from '@emotion/react';
 import axios from 'axios';
+import { SwitchVideoTwoTone } from '@material-ui/icons';
 
 
-const dummyData = [
-  {day: 0, mood: 10},
-  {day: 1, mood: 15},
-  {day: 2, mood: 25},
-  {day: 3, mood: 55},
-  {day: 4, mood: 60},
-  {day: 5, mood: 40},
-  {day: 6, mood: 30}
-];
 
 const Line = props => (
   <LineSeries.Path
@@ -45,36 +39,44 @@ const Line = props => (
     .curve(curveCatmullRom)}/>
 );
 
-const Graph = ({ data, onLoad }) => {
+const titleStyles = {
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px'
+  },
+};
 
-  const [userMoodData, setUserMoodData] = useState(data);
-  const [allMoodData, setAllMoodData] = useState(onLoad);
-  const [rendered, setRendered] = useState(true);
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row'
+  },
+});
 
-  const moodTimeModifiy = (allMoodData) => {
-    const modified = allMoodData.reduce((array, post) => {
-      array.push({day: moment(post.createdAt).format("MMM Do YY"), createdAt: post.createdAt, mood: post.mood});
-      return array;
-      }, []);
-    setAllMoodData(modified);
-  };
+const legendRootBase = ({classes, ...restProps}) => (
+  <Legend.Root {...restProps} className={classes.root} />
+);
 
-  useEffect(() => {
-    if (rendered) {
-      setRendered(false);
-      moodTimeModifiy(onLoad);
-    }
-    console.log('allMoodData', allMoodData);
 
-  }, [rendered, moodTimeModifiy])
+const Root = withStyles(legendStyles, {name: 'LegendRoot'})(legendRootBase);
+
+
+const Graph = ({ allEntries }) => {
+
 
 
   return (
     <>
-    <Chart data={allMoodData}>
+    <Chart data={allEntries}>
+      <Tooltip enabled={true} />
+      <ValueScale name="mood" />
       <ArgumentAxis showGrid={true} showLine={true} showTicks={true} showLabels={true}/>
-      <ArgumentScale />
-      <LineSeries valueField="mood" argumentField="createdAt" seriesComponent={Line} />
+      <ValueAxis valueType="mood" />
+      <ArgumentScale factory={scalePoint}/>
+        <LineSeries valueField="mood" argumentField="id" name="Moods over time" seriesComponent={Line} />
+        <Legend position='bottom' rootComponent={Root}/>
       <Title text="Moody!" />
       <Animation />
     </Chart>
@@ -82,14 +84,11 @@ const Graph = ({ data, onLoad }) => {
   );
 };
 
+export default Graph;
 
 //Resources
 //https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/spline/
 //https://www.npmjs.com/package/@devexpress/dx-react-chart-material-ui
-
-
-
-export default Graph;
 
 
 

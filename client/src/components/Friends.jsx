@@ -20,7 +20,7 @@ const Friends = ({entries, username}) => {
             <div>{`${entry.username}`}</div>
             <div>{`${entry.title}`}</div>
             <div>{`${entry.blog}`}</div>
-            {entry.journalImage ? <div ><img height='100px' width='150px' src={entry.journalImage}/></div> : null}
+            {entry.journalImage ? <div ><img height='auto' width='150px' src={entry.journalImage}/></div> : null}
             <div>{` ${entry.createdAt}`}</div>
             <hr></hr>
           </div>)

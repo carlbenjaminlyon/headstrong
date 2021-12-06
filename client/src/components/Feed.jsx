@@ -36,7 +36,7 @@ const Feed = ({ quoteText, quoteAuthor, entries, changePosts, username, imageURL
 
             <p>{`${ entry.title }`}</p>
             <p>{`Message: ${ entry.blog }`}</p>
-            <p>{entry.journalImage ? <img height='200px' width='300px' src={ entry.journalImage }/> : null}</p>
+            <p>{entry.journalImage ? <img height='200px' width='auto' src={ entry.journalImage }/> : null}</p>
             <p>{`Posted: ${entry.createdAt}`}</p>
             < Follow />
             <hr></hr>

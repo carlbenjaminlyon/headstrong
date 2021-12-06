@@ -22,7 +22,7 @@ const Memory = ({ memory, changeMemory, quote }) => {
         <h2>{title}</h2>
         <p>{blog}</p>
         <br></br>
-        <img id="memoryPost" style={ { height: '150px', width: '200px' } } src={ journalImage } alt="Memory Image" width="400px" height="auto" overflow="hidden"/>
+        <img id="memoryPost" style={ { height: '150px', width: 'auto' } } src={ journalImage } alt="Memory Image" width="400px" height="auto" overflow="hidden"/>
 
         <Button
           className='Button'

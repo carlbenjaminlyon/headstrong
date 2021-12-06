@@ -216,6 +216,7 @@ class App extends Component {
 
 
 
+
   logout(bool) {
     this.setState({
       login: bool
@@ -229,12 +230,16 @@ class App extends Component {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: 600,
+      width: 1000,
       bgcolor: '#D19FE8',
       border: '2px solid #8A2BE2',
       boxShadow: 24,
       borderRadius: 3,
+      mt: 2,
       p: 4,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
     };
     return (
       <div>
@@ -373,7 +378,7 @@ class App extends Component {
                     >
                       <Fade in={open}>
                         <Box sx={style}>
-                          <GraphWindow data={entries} onLoad={allEntries}/>
+                          <GraphWindow entries={entries} allEntries={allEntries}/>
                         </Box>
                       </Fade>
                     </Modal>
